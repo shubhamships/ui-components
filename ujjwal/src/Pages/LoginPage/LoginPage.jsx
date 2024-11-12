@@ -4,29 +4,27 @@ import { Link } from 'react-router-dom'
 function LoginPage() {
 
     return (
-        <div className="bg-[url('./images/background.jpg')] bg-cover bg-center h-screen">
-
-            <div className='flex items-start justify-center mb-0 lg:mx-11 p-8 w-64  md:flex md:justify-start md:items-center'>
-                <Link to={"/"}>
+        <div className="bg-[url('./images/background.jpg')] bg-cover h-screen">
+            <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 p-4 md:justify-start md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
+                <div >
                     <img src="./images/logo.png" alt="Shipglobal" />
-                </Link>
-            </div>
+                </div>
+            </a>
 
-            <div className='flex items-center justify-center m-4'>
+            <div className='flex items-center justify-center m-12'>
                 <div className='rounded-lg bg-white shadow-lg p-[12px] max-w-md w-full m-10'>
                     <div className='p-6'>
                         <h1 className='text-xl font-semibold text-center'>Login</h1>
                     </div>
-                    <div className='p-6 pb-36'>``
+                    <div className='pl-6 pr-6 mb-36'>
                         <div className='space-y-1'>
-                            <label className='text-sm font-normal' htmlFor="">Email<span className='ml-1 text-red-600'>*</span></label>
-                            <input type="email" placeholder='Enter Email ID...' className='h-10 w-full p-4 text-sm border border-gray-300 rounded-md' />
+                            <label className='text-sm font-normal' htmlFor="">Email<span className='ml-2 text-red-600'>*</span></label>
+                            <input type="email" placeholder='Enter Email ID . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' />
                         </div>
                         <div className='space-y-1 mt-4'>
-                            <label className='text-sm font-normal' htmlFor="">Password<span className='ml-1 text-red-600'>*</span></label>
+                            <label className='text-sm font-normal' htmlFor="">Password<span className='ml-2 text-red-600'>*</span></label>
                             <div className='flex'>
-
-                                <input type="password" placeholder='Enter Email ID...' className='h-10 w-full p-4 text-sm border border-gray-300 rounded-md' />
+                                <input type="password" placeholder='Type here . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' />
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -45,10 +43,10 @@ function LoginPage() {
                             </div>
                         </div>
                         <div className='mt-1'>
-                            <a href="" className='text-[#1f499E] text-sm hover:underline font-semibold'>Forgot Password?</a>
+                            <a href="" className='text-[#1f499E] text-sm hover:underline font-medium'>Forgot Password?</a>
                         </div>
-                        <div className='mt-10'>
-                            <div className='flex items-center justify-center border bg-[#1f499E] text-sm font-semibold text-white rounded-md h-11'>
+                        <div className='mt-11'>
+                            <div className='flex items-center justify-center border bg-[#1f499E] text-sm font-medium text-white rounded-md h-[46px]'>
                                 <button >Submit</button>
                             </div>
                         </div>
