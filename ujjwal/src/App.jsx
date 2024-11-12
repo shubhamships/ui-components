@@ -1,5 +1,19 @@
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello Ujjwal!</h1>;
+
+  const router = createBrowserRouter([
+    {
+      path:'/',
+      element:<LoginPage/>,
+    }
+  ])
+
+  return <>
+    <RouterProvider router={router} />
+  </>
 }
 
 export default App;
