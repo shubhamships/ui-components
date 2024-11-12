@@ -13,7 +13,7 @@ function Card({
   };
 
   const cardSize = {
-    default: "p-6",
+    default: "mt-1",
     sm: "p-4",
     lg: "p-8",
   };

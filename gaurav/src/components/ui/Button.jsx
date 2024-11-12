@@ -2,7 +2,7 @@
 function Button(props) {
     const { title, type, variant = "default", size = "default", className, onClick } = props;
     const buttonColors = {
-      default: "bg-btn-primary hover:bg-blue-600 text-white border text-white font-bold shadow",
+      default: "bg-btn-primary text-white border text-white font-bold shadow",
       destructive: "bg-red-primary text-white font-bold hover:bg-red-background",
       outline: "border bg-white text-black hover:text-black-100 font-bold",
       ghost: 'bg-grey-400',
