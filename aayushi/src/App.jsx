@@ -1,5 +1,23 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './Root';
+import { Blank } from './pages/Blank';
+
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+  },
+  {
+    path:'/blank',
+    element:<Blank/>
+  }
+])
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello Aayushi! test</h1>;
+  return (
+    <RouterProvider router={router} />
+  );
 }
 
 export default App;
