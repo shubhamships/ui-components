@@ -1,18 +1,44 @@
-import background from "../assets/background.jpg";
-import shipGlobal from "../assets/shipGlobal.png";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { GoEye } from "react-icons/go";
+import { GoEyeClosed } from "react-icons/go";
+import { z } from "zod";
+// import { FaRegEye } from "react-icons/fa";
+const schema = z.object({
+  email: z.string().email("Must be a valid email address"),
+  password: z.string().min(6, "Password must be 6 or more characters long"),
+});
 
 const Login = ({ handleClick }) => {
+  const [showPsswrd, setshowPsswrd] = useState(false);
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState({});
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const result = schema.safeParse({
+      ...formData,
+    });
+    if (!result.success) {
+      const formattedErrors = result.error.format();
+      setError(formattedErrors);
+    } else {
+      setError({});
+      alert("Form submitted successfully");
+    }
+  };
+
+  const handleShow = () => {
+    if (showPsswrd === false) {
+      setshowPsswrd(true);
+    } else if (showPsswrd === true) {
+      setshowPsswrd(false);
+    }
+  };
+
   return (
-    // <div
-    //   className=" bg-cover h-screen "
-    //   style={{ backgroundImage: `url(${background})` }}
-    // >
-    //   <Link to="/" className=" grid">
-    //     <div className="flex  items-start m-4 mb-40 justify-center lg:my-5 lg:mx-20 md:justify-start">
-    //       <img src={shipGlobal} className="h-12 " alt="logo" />
-    //     </div>
-    //   </Link>
     <div className="flex flex-col items-center justify-center m-4 mt-10">
       <div className="rounded-lg shadow-lg  w-full max-w-md h-[510px] m-8 p-3  bg-white mb-18">
         <div className="flex flex-col p-6 ">
@@ -21,42 +47,57 @@ const Login = ({ handleClick }) => {
           </h3>
         </div>
         <div className="p-6 pt-0">
-          <form action="">
+          <form action="" onSubmit={handleSubmit}>
             <div className="flex flex-col space-y-1 ">
               <label className="text-sm font-normal">
                 Email <span className="text-red-600 ml-1">*</span>
               </label>
               <input
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 py-2 text-sm "
                 placeholder="Enter Email ID ..."
               />
+              {error.email && (
+                <p className="text-xs font-semibold text-red-600">
+                  {error.email._errors[0]}
+                </p>
+              )}
             </div>
             <div className="space-y-1 mt-4">
               <label htmlFor="" className="text-sm font-normal">
                 Password <span className="text-red-600 ml-1 ">*</span>
               </label>
-              <div className="flex items-end ">
+              <div className="flex items-end  relative">
                 <input
-                  type="password"
-                  className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 py-2 text-sm "
+                  type={showPsswrd ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 py-2 text-sm appearance-none "
                   placeholder="Type here ..."
                 />
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="w-5 h-5 text-current self-center -ml-10 cursor-pointer"
-                >
-                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
-                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
-                  <line x1="2" x2="22" y1="2" y2="22"></line>
-                </svg>
+
+                {showPsswrd ? (
+                  <GoEye
+                    className="absolute right-4 bottom-3 cursor-pointer"
+                    onClick={handleShow}
+                  />
+                ) : (
+                  <GoEyeClosed
+                    className="absolute right-4 bottom-3 cursor-pointer"
+                    onClick={handleShow}
+                  />
+                )}
+              </div>
+              <div className=" w-64">
+                {error.password && (
+                  <p className="text-xs font-semibold text-red-600">
+                    {error.password._errors[0]}
+                  </p>
+                )}
               </div>
             </div>
             <div className="my-1">
@@ -70,7 +111,10 @@ const Login = ({ handleClick }) => {
               </a>
             </div>
             <div className="flex items-center justify-center ">
-              <button className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm">
+              <button
+                className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
+                type="submit"
+              >
                 Submit
               </button>
             </div>
@@ -78,7 +122,6 @@ const Login = ({ handleClick }) => {
         </div>
       </div>
     </div>
-    // </div>
   );
 };
 export default Login;
