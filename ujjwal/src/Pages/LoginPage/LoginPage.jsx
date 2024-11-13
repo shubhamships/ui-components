@@ -3,6 +3,7 @@ import ForgotPassword from './ForgotPassword';
 import zod from 'zod'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { LuLoader } from "react-icons/lu";
 
 function LoginPage() {
 
@@ -16,6 +17,7 @@ function LoginPage() {
     const [showPassword, setShowPassword] = useState(false)
     const [error, setError] = useState({})
     const [apiError, setApiError] = useState(false)
+    const [loader, setLoader] = useState(false)
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -47,7 +49,9 @@ function LoginPage() {
     }
     // console.log(data);
 
+    // again
     const handleSubmit = (e) => {
+
         e.preventDefault();
         const res = schema.safeParse({
             ...data
@@ -59,10 +63,12 @@ function LoginPage() {
         else {
             setError({});
         }
+
     }
 
+
     const handleAPI = async () => {
-        
+        setLoader(true);
         try {
             const res = await axios.post("https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
                 {
@@ -81,18 +87,18 @@ function LoginPage() {
             console.log(APIData);
             const token = APIData.data.token_details.token;
             if (token) {
-                localStorage.setItem("jwtToken", token);
+                localStorage.setItem("JWTToken", token);
                 // Navigate("/home")
-                console.log("Success");
+                // console.log("Success");
                 navigate('/home')
             }
-        }catch(error) {
+        } catch (error) {
             setApiError(true)
         }
+        setLoader(false);
 
         // console.log(apiError)
     }
-
     return (
         <div className="bg-[url('./images/background.jpg')] bg-cover h-screen">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 p-4 md:justify-start md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
@@ -149,7 +155,7 @@ function LoginPage() {
                                 </div>
                                 <div className='mt-11'>
                                     <div className='flex items-center justify-center border bg-blue-900 text-sm font-medium text-white rounded-md h-[46px]'>
-                                        <button onClick={handleAPI} className='w-full' type='submit' >Submit</button>
+                                        <button onClick={handleAPI} className="w-full flex items-center justify-center" type='submit' >Submit {setLoader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}</button>
                                     </div>
                                 </div>
                             </form>
