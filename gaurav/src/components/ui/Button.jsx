@@ -1,3 +1,4 @@
+
 /* eslint-disable react/prop-types */
 function Button(props) {
     const { title, type, variant = "default", size = "default", className, onClick } = props;

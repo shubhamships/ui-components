@@ -3,16 +3,19 @@ import logo from "../assets/logo.png";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { useState } from "react";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-// import { loginSchema } from "../zod/loginSchema";
+import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
+import { loginSchema } from "../zod/loginSchema";
 // import { set } from "zod";
-import { z } from "zod";
+// import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const LoginPage = () => {
   const [forgot, setForgot] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
+  const [apiError, setApiError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleForgot = () => {
     if (!forgot) {
@@ -21,13 +24,6 @@ export const LoginPage = () => {
       setForgot(false);
     }
   };
-  const loginSchema = z.object({
-    email: z.string().email("Invalid Email Address"),
-    password: z
-      .string()
-      .min(6, "Password must be at least 6 or more characters long")
-      .max(20, "Password must be at most 20 characters long"),
-  });
   const validateForm = () => {
     const result = loginSchema.safeParse(formData);
     if (!result.success) {
@@ -63,25 +59,48 @@ export const LoginPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const errors = validateForm(formData);
-    // setError(errors);
-    // if (Object.keys(errors).length > 0) return;
     if (validateForm()) {
       console.log("Form Submitted", formData);
     }
     handleLogin();
   };
 
-  const handleLogin = () => {
-    const email = "admin@gmail.com";
-    const password = "admin123";
-    if (formData.email === email && formData.password === password) {
-      console.log("Login Successful");
-      navigate("/")
-    }else {
-      console.log("Login Failed");
-      alert("Invalid Credentials")
-      
+  const handleLogin = async () => {
+    setLoading(true);
+
+    const loginPayload = {
+      email: formData.email,
+      password: formData.password,
+    };
+    try {
+      const res = await axios.post(
+        "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
+        loginPayload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        }
+      );
+      const token = res.data.token;
+      // Storing the token
+      localStorage.setItem("token", token);
+      // Set token in axios headers
+      setAuthToken(token);
+      navigate("/");
+      console.log("Successful");
+    } catch (error) {
+      console.log(error);
+      setApiError(true);
+    }
+    setLoading(false);
+  };
+  const setAuthToken = (token) => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
     }
   };
   return (
@@ -98,7 +117,7 @@ export const LoginPage = () => {
               <div className="flex justify-center items-center font-semibold text-xl tracking-tighter p-6">
                 <h3 className="">Login</h3>
               </div>
-              <div className="px-6 pb-6">
+              <div className="px-6 pb-6 space-y-1">
                 <form onSubmit={handleSubmit} className="">
                   <div className="">
                     <Input
@@ -135,12 +154,27 @@ export const LoginPage = () => {
                       Forgot Password?
                     </p>
                   </div>
-                  <Button
-                    title="Submit"
-                    className="text-sm font-medium w-full mt-12"
-                  />
+                  {apiError && (
+                    <div className="text-red-600 text-xs font-medium pt-2">
+                      Wrong email or password. Try again
+                    </div>
+                  )}
+                  <div className="relative">
+                    <FiLoader
+                      className={`animate-spin text-blue-800 absolute right-[136px] top-[62px] z-10 ${
+                        loading ? "block" : "hidden"
+                      } `}
+                    />
+
+                    <Button
+                      title="Submit"
+                      loading={loading}
+                      className={`text-sm font-medium hover:opacity-90 w-full mt-12 ${
+                        loading ? "bg-opacity-75" : ""
+                      }`}
+                    />
+                  </div>
                 </form>
-                
               </div>
             </Card>
           ) : (
@@ -149,7 +183,6 @@ export const LoginPage = () => {
                 <h3 className=" font-semibold text-xl tracking-tighter text-center w-40 md:w-auto">
                   Forgot Your Password
                 </h3>
-
                 <div className="text-sm font-normal mt-[6px] pt-6 text-center">
                   Enter email address associated with your account and you will
                   receive an email to reset your password.
@@ -174,10 +207,12 @@ export const LoginPage = () => {
                       // onChange={change}
                     />
                   </div>
-                  <Button
-                    title="Submit"
-                    className="text-sm font-medium w-full mt-12"
-                  />
+                  <div>
+                    <Button
+                      title="Submit"
+                      className="text-sm font-medium w-full mt-12"
+                    />
+                  </div>
                 </form>
                 <div
                   className="text-sm font-medium text-blue-800 hover:underline text-center block mt-4 cursor-pointer"
