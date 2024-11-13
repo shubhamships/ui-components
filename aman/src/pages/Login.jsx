@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 import { z } from "zod";
+import {  useNavigate } from "react-router-dom";
 // import { FaRegEye } from "react-icons/fa";
 const schema = z.object({
   email: z.string().email("Must be a valid email address"),
@@ -12,6 +13,7 @@ const Login = ({ handleClick }) => {
   const [showPsswrd, setshowPsswrd] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -26,7 +28,6 @@ const Login = ({ handleClick }) => {
       setError(formattedErrors);
     } else {
       setError({});
-      alert("Form submitted successfully");
     }
   };
 
@@ -35,6 +36,31 @@ const Login = ({ handleClick }) => {
       setshowPsswrd(true);
     } else if (showPsswrd === true) {
       setshowPsswrd(false);
+    }
+  };
+
+  const handleLogin = async () => {
+    const response = await fetch(
+      "https://api.fr.stg.shipglobal.in/api/v1/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    if (data.data.token_details.token) {
+      localStorage.setItem("jwtToken", data.token);
+      navigate("/dashboard")
+    } else {
+      alert("failed");
     }
   };
 
@@ -114,6 +140,7 @@ const Login = ({ handleClick }) => {
               <button
                 className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
                 type="submit"
+                onClick={handleLogin}
               >
                 Submit
               </button>
