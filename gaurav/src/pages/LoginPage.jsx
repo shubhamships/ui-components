@@ -2,39 +2,35 @@ import Card from "../components/ui/Card";
 import logo from "../assets/logo.png";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
-// import eye from "../assets/eye.svg";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 // import { loginSchema } from "../zod/loginSchema";
 // import { set } from "zod";
+import { z } from "zod";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState({});
-  const validateForm = (data) => {
-    const errors = {};
-    if (!data.email) {
-      errors.email = "Must be a valid email address";
-    } else if (!/^\b[\w\\.-]+@[\w\\.-]+\.\w{2,4}\b$/i.test(data.email)) {
-      errors.email = "Must be a valid email address";
+  const loginSchema = z.object({
+    email: z.string().email("Invalid Email Address"),
+    password: z
+      .string()
+      .min(6, "Password must be at least 6 or more characters long")
+      .max(20, "Password must be at most 20 characters long"),
+  });
+  const validateForm = () => {
+    const result = loginSchema.safeParse(formData);
+    if (!result.success) {
+      const errors = result.error.errors.reduce((acc, error) => {
+        acc[error.path[0]] = error.message;
+        return acc;
+      }, {});
+      setError(errors);
+      return false;
     }
-    if (!data.password) {
-      errors.password = "Password must bt 6 or more characters long";
-    }
-    return errors;
+    setError({});
+    return false;
   };
-  // const validateForm = () => {
-  //   const result = loginSchema.safeParse(formData);
-  //   if (!result.success) {
-  //     const errors = result.error.errors.reduce((acc, error) => {
-  //       acc[error.path[0]] = error.message;
-  //       return acc;
-  //       setErrors(errors);
-  //       return false;
-  //     }, {});
-  //     setError(errors);
-  //   }
-  // };
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -57,9 +53,12 @@ export const LoginPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const errors = validateForm(formData);
-    setError(errors);
-    if (Object.keys(errors).length > 0) return;
+    // const errors = validateForm(formData);
+    // setError(errors);
+    // if (Object.keys(errors).length > 0) return;
+    if (validateForm()) {
+      console.log("Form Submitted", formData);
+    }
   };
   return (
     <div className="h-screen w-full">
@@ -87,6 +86,7 @@ export const LoginPage = () => {
                     placeholder="Enter Email ID..."
                     className="w-full"
                     name="email"
+                    type="email"
                     errorName={error.email}
                     value={formData.email}
                     onChange={handleInputChange}
@@ -117,7 +117,7 @@ export const LoginPage = () => {
                     )}
                   </div>
                 </div>
-                <div className="">
+                <div className="cursor-pointer">
                   <p className="text-sm font-medium text-blue-800">
                     Forgot Password?
                   </p>
