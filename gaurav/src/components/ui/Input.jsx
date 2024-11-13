@@ -38,7 +38,7 @@ function Input(props) {
         <label htmlFor={id} className="text-sm font-normal leading-none ">
           <span className="py-1">{labelData}</span>{" "}
           {/* required && <span ...class>*</span>*/}{" "}
-          <span className="text-red-500">{required}*</span>{" "}
+          <span className="text-red-500 px-1">{required}*</span>{" "}
         </label>
         <input
           type={type}

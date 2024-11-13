@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root } from "./routes/Root";
 import { LoginPage } from "./pages/LoginPage";
+import { ForgotPage } from "./pages/ForgotPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -12,6 +13,10 @@ function App() {
       path: "/login",
       element: <LoginPage />,
     },
+    {
+      path: "/forgot",
+      element: <ForgotPage />,
+    }
   ]);
   return <RouterProvider router={router} />;
 }

@@ -11,7 +11,7 @@ function Button(props) {
       dark: 'bg-black text-white font-bold hover:bg-black-500'
     };
     const buttonSize =  {
-      default: "h-9 p-5",
+      default: "h-11 p-5",
       xs: "h-6 px-3 py-3",
       sm: "h-8 rounded-md px-4 py-2 text-sm",
       lg: "h-10 rounded-md px-6 py-6",
