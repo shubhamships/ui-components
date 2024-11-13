@@ -2,7 +2,8 @@ import { useState } from "react";
 import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 import { z } from "zod";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { FaRegEye } from "react-icons/fa";
 const schema = z.object({
   email: z.string().email("Must be a valid email address"),
@@ -40,25 +41,26 @@ const Login = ({ handleClick }) => {
   };
 
   const handleLogin = async () => {
-    const response = await fetch(
+    const response = await axios.post(
       "https://api.fr.stg.shipglobal.in/api/v1/auth/login",
+
       {
-        method: "POST",
+        email: formData.email,
+        password: formData.password,
+      },
+      {
         headers: {
           "content-type": "application/json",
           accept: "application/json",
         },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
       }
     );
-    const data = await response.json();
+    const data = await response.data;
     console.log(data);
+    
     if (data.data.token_details.token) {
       localStorage.setItem("jwtToken", data.token);
-      navigate("/dashboard")
+      navigate("/dashboard");
     } else {
       alert("failed");
     }
