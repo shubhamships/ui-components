@@ -6,6 +6,7 @@ import { useState } from "react";
 import Forgotpsswrd from "./ForgotPsswrd";
 const Home = () => {
   const [currCard, setCurrCard] = useState("A");
+  const [isLoading,setIsLoading]= useState(false);
 
   const handleForgotClick = () => {
     if(currCard==='A'){
@@ -27,7 +28,9 @@ const Home = () => {
         </div>
       </Link>
       {currCard === "A" ? (
-        <Login handleClick={handleForgotClick} />
+        <Login handleClick={handleForgotClick}
+        isLoading={isLoading} 
+        setIsLoading={setIsLoading}/>
       ) : (
         <Forgotpsswrd handleClick={handleForgotClick} />
       )}

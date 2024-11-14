@@ -4,13 +4,25 @@ import { GoEyeClosed } from "react-icons/go";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { FaRegEye } from "react-icons/fa";
+import withLoading from "../components/withLoading";
+
+// const Button = ({ children, ...props }) => (
+//   <button
+//     // className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
+//     {...props}
+//   >
+//     {children}
+//   </button>
+// );
+
+const LoadingButton = withLoading();
+
 const schema = z.object({
   email: z.string().email("Must be a valid email address"),
   password: z.string().min(6, "Password must be 6 or more characters long"),
 });
 
-const Login = ({ handleClick }) => {
+const Login = ({ handleClick, isLoading, setIsLoading }) => {
   const [showPsswrd, setshowPsswrd] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
@@ -19,7 +31,7 @@ const Login = ({ handleClick }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const result = schema.safeParse({
       ...formData,
@@ -29,15 +41,17 @@ const Login = ({ handleClick }) => {
       setError(formattedErrors);
     } else {
       setError({});
+      setIsLoading(true);
+      try {
+        await handleLogin();
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
   const handleShow = () => {
-    if (showPsswrd === false) {
-      setshowPsswrd(true);
-    } else if (showPsswrd === true) {
-      setshowPsswrd(false);
-    }
+    setshowPsswrd(!showPsswrd);
   };
 
   const handleLogin = async () => {
@@ -57,7 +71,7 @@ const Login = ({ handleClick }) => {
     );
     const data = await response.data;
     console.log(data);
-    
+
     if (data.data.token_details.token) {
       localStorage.setItem("jwtToken", data.token);
       navigate("/dashboard");
@@ -139,13 +153,7 @@ const Login = ({ handleClick }) => {
               </a>
             </div>
             <div className="flex items-center justify-center ">
-              <button
-                className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
-                type="submit"
-                onClick={handleLogin}
-              >
-                Submit
-              </button>
+              <LoadingButton loading={isLoading}>Submit</LoadingButton>
             </div>
           </form>
         </div>
