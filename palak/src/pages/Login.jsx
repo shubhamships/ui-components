@@ -3,18 +3,25 @@ import { GoEye } from "react-icons/go";
 import { GoEyeClosed } from "react-icons/go";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Input } from "../components/Input";
+import withLoading from "../components/withLoading";
+import Button from "../components/Button";
+import { Label } from "../components/Label";
+import { loginUser } from "../api/FetchApi";
 
 const schema = z.object({
   email: z.string().email("Must be a valid email address"),
   password: z.string().min(6, "Password must be 6 or more characters long"),
 });
 
+const ButtonLoader = withLoading(Button);
+
 const Login = ({ handleClick }) => {
   const [showPsswrd, setshowPsswrd] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({});
+  const [wrongError, setWrongError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,34 +45,28 @@ const Login = ({ handleClick }) => {
   };
 
   const handleLogin = async () => {
-    const response = await axios.post(
-      "https://api.fr.stg.shipglobal.in/api/v1/auth/login",
+    setIsLoading(true);
+    try {
+      const data = await loginUser("auth/login", formData);
+      console.log(data);
 
-      {
-        email: formData.email,
-        password: formData.password,
-      },
-      {
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
+      if (data.data.token_details.token) {
+        localStorage.setItem("jwtToken", data.data.token_details.token);
+        console.log(data.data.token_details.token);
+        navigate("/front");
+      } else {
+        alert("Login unsuccessful");
       }
-    );
-    const data = await response.data;
-    console.log(data);
-
-    if (data.data.token_details.token) {
-      localStorage.setItem("jwtToken", data.token);
-      alert("successful");
-    } else {
-      alert("failed");
+    } catch (error) {
+      setWrongError("Wrong email or password. Try again");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center ">
-      <div className="rounded-lg shadow-lg  w-full max-w-md h-[510px] m-8 p-3  bg-white mb-18">
+      <div className="rounded-lg shadow-lg  w-full max-w-md h-[510px] m-7 p-3  bg-white mb-18">
         <div className="flex flex-col p-6 ">
           <h3 className="font-bold text-xl text-center tracking-tight">
             Login
@@ -74,9 +75,7 @@ const Login = ({ handleClick }) => {
         <div className="p-6 pt-0">
           <form action="" onSubmit={handleSubmit}>
             <div className="flex flex-col space-y-1 ">
-              <label className="text-sm font-normal">
-                Email <span className="text-red-600 ml-1">*</span>
-              </label>
+              <Label type="Email" />
               <Input
                 type="email"
                 name="email"
@@ -92,9 +91,7 @@ const Login = ({ handleClick }) => {
               )}
             </div>
             <div className="space-y-1 mt-4">
-              <label htmlFor="" className="text-sm font-normal">
-                Password <span className="text-red-600 ml-1 ">*</span>
-              </label>
+              <Label type="Password" />
               <div className="flex items-end  relative">
                 <Input
                   type={showPsswrd ? "text" : "password"}
@@ -135,14 +132,33 @@ const Login = ({ handleClick }) => {
                 </span>
               </a>
             </div>
+            {wrongError && (
+              <p className="text-xs font-medium text-red-600 mt-2">
+                {wrongError}
+              </p>
+            )}
             <div className="flex items-center justify-center ">
-              <button
+              {/* <button
                 className="bg-blue-900 hover:bg-blue-800 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
                 type="submit"
                 onClick={handleLogin}
               >
+                <div className="flex flex-row">
+                  <div className="ml-40">Submit</div>
+                  <div>
+                    {isLoading ? (
+                      <div className="w-4 h-4 border-4 ml-2 mt-0.5 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                    ) : null}
+                  </div>
+                </div>
+              </button> */}
+              <ButtonLoader
+                isLoading={isLoading}
+                onClick={handleLogin}
+                // name="Submit"
+              >
                 Submit
-              </button>
+              </ButtonLoader>
             </div>
           </form>
         </div>

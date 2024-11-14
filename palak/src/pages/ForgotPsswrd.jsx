@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { useState } from "react";
+import { Label } from "../components/Label";
 const Forgotpsswrd = ({ handleClick }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});
@@ -39,9 +40,7 @@ const Forgotpsswrd = ({ handleClick }) => {
           <div className="p-6 pt-0">
             <form action="" onSubmit={handleSubmit}>
               <div className="flex flex-col space-y-1 ">
-                <label className="text-sm font-normal">
-                  Email <span className="text-red-600 ml-1">*</span>
-                </label>
+                <Label type="Email" />
                 <input
                   type="email"
                   name="email"
