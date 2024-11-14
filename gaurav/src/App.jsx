@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root } from "./routes/Root";
-import { LoginPage } from "./pages/LoginPage";
 import { ForgotPage } from "./pages/ForgotPage";
+import EnhancedLoginPage from "./pages/LoginPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,7 +11,7 @@ function App() {
     },
     {
       path: "/login",
-      element: <LoginPage />,
+      element: <EnhancedLoginPage />,
     },
     {
       path: "/forgot",

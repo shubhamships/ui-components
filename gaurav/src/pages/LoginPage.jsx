@@ -7,22 +7,20 @@ import { FiEye, FiEyeOff, FiLoader } from "react-icons/fi";
 import { loginSchema } from "../zod/loginSchema";
 // import { set } from "zod";
 // import { z } from "zod";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
-export const LoginPage = () => {
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import { withLogger } from "../components/WithLogger";
+// import { set } from "zod";
+import withAuth from "../components/WithAuth";
+const LoginPage = ({ login }) => {
   const [forgot, setForgot] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(false);
   const [apiError, setApiError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleForgot = () => {
-    if (!forgot) {
-      setForgot(true);
-    } else {
-      setForgot(false);
-    }
+    setForgot(!forgot);
   };
   const validateForm = () => {
     const result = loginSchema.safeParse(formData);
@@ -42,11 +40,7 @@ export const LoginPage = () => {
     password: "",
   });
   const handlePasswordVisibility = () => {
-    if (!showPassword) {
-      setShowPassword(true);
-    } else {
-      setShowPassword(false);
-    }
+    setShowPassword(!showPassword);
   };
 
   const handleInputChange = (e) => {
@@ -57,52 +51,72 @@ export const LoginPage = () => {
     });
     console.log(formData);
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Form Submitted", formData);
+      return;
     }
-    handleLogin();
-  };
-
-  const handleLogin = async () => {
     setLoading(true);
-
-    const loginPayload = {
-      email: formData.email,
-      password: formData.password,
-    };
+    setApiError(false);
     try {
-      const res = await axios.post(
-        "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
-        loginPayload,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-          },
-        }
-      );
-      const token = res.data.token;
-      // Storing the token
-      localStorage.setItem("token", token);
-      // Set token in axios headers
-      setAuthToken(token);
-      navigate("/");
-      console.log("Successful");
+      const result = await login(formData);
+      if (!result.success) {
+        setApiError(true);
+      }
     } catch (error) {
-      console.log(error);
       setApiError(true);
+      console.log("Login Failed :", error);
     }
     setLoading(false);
+    // if (error.email !== "" && error.password !== "") {
+    //   // handleLogin();
+    //   setLoading(false);
+    // }
   };
-  const setAuthToken = (token) => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
-    }
-  };
+
+  {
+    /*
+      const handleLogin = async () => {
+      setLoading(true);
+      const loginPayload = {
+        email: formData.email,
+        password: formData.password,
+      };
+      try {
+        const res = await axios.post(
+          "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
+          loginPayload,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              accept: "application/json",
+            },
+          }
+        );
+        const token = res.data.token;
+        // Storing the token
+        localStorage.setItem("token", token);
+        // Set token in axios headers
+        setAuthToken(token);
+        navigate("/");
+        console.log("Successful");
+      } catch (error) {
+        console.log("Error occured", error);
+        setApiError(true);
+      }
+      setLoading(false);
+    };
+    const setAuthToken = (token) => {
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      } else {
+        delete axios.defaults.headers.common["Authorization"];
+      }
+    };
+  */
+  }
+
   return (
     <div className="h-screen w-full">
       <div className="bg-login-image bg-cover h-screen w-full">
@@ -113,7 +127,7 @@ export const LoginPage = () => {
         </a>
         <div className="flex justify-center items-center m-4 mt-32 md:mt-[118px]">
           {forgot ? (
-            <Card className="p-3 w-full mb-18 h-[512px] lg:mb-32 max-w-md  shadow-xl">
+            <Card className="p-3 w-full mb-18 h-[512px] lg:mb-32 max-w-md  shadow-lg">
               <div className="flex justify-center items-center font-semibold text-xl tracking-tighter p-6">
                 <h3 className="">Login</h3>
               </div>
@@ -161,11 +175,10 @@ export const LoginPage = () => {
                   )}
                   <div className="relative">
                     <FiLoader
-                      className={`animate-spin text-blue-800 absolute right-[136px] top-[62px] z-10 ${
+                      className={`animate-spin text-white absolute right-[136px] top-[62px] z-10 ${
                         loading ? "block" : "hidden"
-                      } `}
+                      }`}
                     />
-
                     <Button
                       title="Submit"
                       loading={loading}
@@ -202,7 +215,7 @@ export const LoginPage = () => {
                       className="w-full"
                       name="email"
                       type="email"
-                      // errorName={errorName}
+                      errorName={error.email}
                       // value={value}
                       // onChange={change}
                     />
@@ -228,3 +241,7 @@ export const LoginPage = () => {
     </div>
   );
 };
+
+const EnhancedLoginPage = withAuth(LoginPage);
+//  EnhancedLoginPage.displayName = "LoginPage"
+export default EnhancedLoginPage;
