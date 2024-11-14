@@ -1,19 +1,12 @@
 import { useState } from "react";
-import { GoEye } from "react-icons/go";
-import { GoEyeClosed } from "react-icons/go";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import withLoading from "../components/withLoading";
-
-// const Button = ({ children, ...props }) => (
-//   <button
-//     // className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
-//     {...props}
-//   >
-//     {children}
-//   </button>
-// );
+import { LuEyeOff } from "react-icons/lu";
+import { LuEye } from "react-icons/lu";
+import Input from "../components/Input";
+import apiClient from "../api/ApiClient";
 
 const LoadingButton = withLoading();
 
@@ -26,6 +19,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
   const [showPsswrd, setshowPsswrd] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
+  const [wrongError, setWrongError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -55,28 +49,19 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
   };
 
   const handleLogin = async () => {
-    const response = await axios.post(
-      "https://api.fr.stg.shipglobal.in/api/v1/auth/login",
+    try {
+      const response = await apiClient.post("/auth/login", formData);
+      const data = await response.data;
+      console.log(data);
 
-      {
-        email: formData.email,
-        password: formData.password,
-      },
-      {
-        headers: {
-          "content-type": "application/json",
-          accept: "application/json",
-        },
+      if (data.data.token_details.token) {
+        localStorage.setItem("jwtToken", data.token);
+        navigate("/dashboard");
+      } else {
+        alert("failed");
       }
-    );
-    const data = await response.data;
-    console.log(data);
-
-    if (data.data.token_details.token) {
-      localStorage.setItem("jwtToken", data.token);
-      navigate("/dashboard");
-    } else {
-      alert("failed");
+    } catch (error) {
+      setWrongError("Wrong email or password. Try again");
     }
   };
 
@@ -94,12 +79,11 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
               <label className="text-sm font-normal">
                 Email <span className="text-red-600 ml-1">*</span>
               </label>
-              <input
+              <Input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 py-2 text-sm "
                 placeholder="Enter Email ID ..."
               />
               {error.email && (
@@ -112,28 +96,29 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
               <label htmlFor="" className="text-sm font-normal">
                 Password <span className="text-red-600 ml-1 ">*</span>
               </label>
-              <div className="flex items-end  relative">
-                <input
+              <div className="flex items-end relative">
+                <Input
                   type={showPsswrd ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 py-2 text-sm appearance-none "
+                  className="pr-52 "
                   placeholder="Type here ..."
                 />
 
                 {showPsswrd ? (
-                  <GoEye
-                    className="absolute right-4 bottom-3 cursor-pointer"
+                  <LuEye
+                    className="absolute right-4 bottom-3 cursor-pointer text-xl "
                     onClick={handleShow}
                   />
                 ) : (
-                  <GoEyeClosed
-                    className="absolute right-4 bottom-3 cursor-pointer"
+                  <LuEyeOff
+                    className="absolute right-4 bottom-3 cursor-pointer text-xl "
                     onClick={handleShow}
                   />
                 )}
               </div>
+
               <div className=" w-64">
                 {error.password && (
                   <p className="text-xs font-semibold text-red-600">
@@ -145,13 +130,16 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
             <div className="my-1">
               <a href="#">
                 <span
-                  className="text-sm font-medium text-blue-900"
+                  className="text-sm font-medium text-blue-900 hover:underline"
                   onClick={handleClick}
                 >
                   Forgot Password?
                 </span>
               </a>
             </div>
+            {wrongError && (
+              <p className="text-sm font-medium text-red-600">{wrongError}</p>
+            )}
             <div className="flex items-center justify-center ">
               <LoadingButton loading={isLoading}>Submit</LoadingButton>
             </div>
