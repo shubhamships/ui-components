@@ -4,11 +4,13 @@ import { Label } from "../components/Label";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { ForgotPassword } from "./ForgotPassword";
-import axios from "axios";
+import { Api } from "./Api";
+
 import { useNavigate } from "react-router-dom";
 
+
 export const LoginPage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const schema = z.object({
     email: z.string().email("Must be a valid email address"),
     password: z.string().min(6, "Password must be at least 6 characters long"),
@@ -16,6 +18,8 @@ export const LoginPage = () => {
 
   const [passwordPage, setPasswordPage] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState({});
   const [data, setData] = useState({
     email: "",
@@ -31,39 +35,32 @@ export const LoginPage = () => {
 
     const result = schema.safeParse(data);
 
+    setLoading(true);
     if (result.success) {
-      console.log("Form data is valid:", data);
+      if (data.email && data.password) {
+        setLoading(true);
+        setShowError(false);
+        
+        try {
+          const res = await Api(data.email, data.password);
+ 
 
-      try {
-        const res = await axios.post(
-          "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
-          {
-            email: data.email,
-            password: data.password,
-          },
-          {
-            headers: {
-              "content-type": "application/json",
-              accept: "application/json",
-            },
-          }
-        );
-
-        const APIData = await res.data;
-        console.log(APIData);
-
-        const token = APIData.data.token_details.token;
+        const token = res.data.token_details.token;
         if (token) {
           localStorage.setItem("jwtToken", token);
-          console.log("Login successful");
+          setShowError(false);
           navigate("/blank");
         } else {
-          console.log("No token received");
+          setShowError(true);
         }
       } catch (error) {
-        console.error("Error during login:", error);
+        setShowError(true);
+        console.log(error);
       }
 
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
       setError({});
     } else {
       const errorMessages = {};
@@ -71,6 +68,7 @@ export const LoginPage = () => {
         errorMessages[err.path[0]] = err.message;
       });
       setError(errorMessages);
+    }
     }
   };
 
@@ -103,7 +101,7 @@ export const LoginPage = () => {
 
                 <div>
                   <Label type="Password" />
-                  <div className="flex items-end relative w-full mb-1.5">
+                  <div className="flex items-end relative  w-full mb-1.5">
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter password"
@@ -113,12 +111,13 @@ export const LoginPage = () => {
                       }
                       className="w-full pr-[200px]"
                     />
-                    <img
-                      src="src/assets/icon.svg"
-                      alt="eye icon"
-                      className="w-5 h-5 text-current bold absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                      onClick={() => setShowPassword(!showPassword)}
-                    />
+                    <span
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 cursor-pointer"
+        style={{ top: '50%', transform: 'translateY(-50%)' }}
+      >
+        <i className={`fa ${showPassword ?  'fa-eye':'fa-eye-slash' }`} />
+      </span>
                   </div>
                   {error.password && (
                     <p className="text-red-500 text-xs font-medium">
@@ -136,8 +135,19 @@ export const LoginPage = () => {
                   </span>
                 </div>
 
+                {showError && (
+                  <div>
+                    <p className="text-red-500 text-xs font-medium my-4">
+                      Wrong email or password. Try again
+                    </p>
+                  </div>
+                )}
+
                 <div className="flex items-center justify-center mb-20">
-                  <Button>Login</Button>
+                  <Button loading={loading} type={"Submit"}>
+                   
+                    
+                  </Button>
                 </div>
               </form>
             </div>
