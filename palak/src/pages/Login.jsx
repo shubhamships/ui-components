@@ -11,13 +11,7 @@ import Error from "../components/Error";
 
 const ButtonLoader = withLoading(Button);
 
-const Login = ({
-  handleClick,
-  handleDataChange,
-  handleDataSubmit,
-  formData,
-  error,
-}) => {
+const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData, error }) => {
   const [showPsswrd, setshowPsswrd] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [wrongError, setWrongError] = useState(false);
@@ -57,7 +51,7 @@ const Login = ({
             name="email"
             value={formData.email}
             onChange={handleDataChange}
-            className="pr-48"
+            className="w-96"
             placeholder="Enter Email ID ..."
           />
           {error.email && <Error>{error.email._errors[0]}</Error>}
@@ -71,30 +65,22 @@ const Login = ({
               value={formData.password}
               onChange={handleDataChange}
               placeholder="Type here ..."
-              className="pr-48"
+              className="w-96"
             />
 
             {showPsswrd ? (
-              <GoEye
-                className="absolute right-4 bottom-3 cursor-pointer"
-                onClick={handleShow}
-              />
+              <GoEye className="absolute right-4 bottom-3 cursor-pointer" onClick={handleShow} />
             ) : (
-              <GoEyeClosed
-                className="absolute right-4 bottom-3 cursor-pointer"
-                onClick={handleShow}
-              />
+              <GoEyeClosed className="absolute right-4 bottom-3 cursor-pointer" onClick={handleShow} />
             )}
           </div>
-          <div className="w-64">
-            {error.password && <Error>{error.password._errors[0]}</Error>}
-          </div>
+          <div className="w-64">{error.password && <Error>{error.password._errors[0]}</Error>}</div>
         </div>
         <div className="my-1">
           <a href="#">
             <span
               className="text-sm font-medium text-blue-900 hover:underline"
-              onClick={handleClick}
+              onClick={() => handleTypeChange("forgotPassword")}
             >
               Forgot Password?
             </span>
@@ -108,7 +94,7 @@ const Login = ({
         </div>
       </form>
     </div>
-    //
   );
 };
+
 export default Login;

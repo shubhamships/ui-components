@@ -4,7 +4,7 @@ function withLoading(WrappedComponent) {
   return ({ isLoading, children, ...props }) => (
     <WrappedComponent {...props}>
       {isLoading ? (
-        <div className="flex justify-center items-center gap-1">
+        <div className={`flex justify-center items-center gap-1 ${className}`}>
           Submit
           <ImSpinner3 className="animate-spin" />
         </div>
