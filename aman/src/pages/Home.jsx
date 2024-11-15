@@ -1,9 +1,7 @@
 import Login from "./Login";
-import background from "../assets/background.jpg";
-import shipGlobal from "../assets/shipGlobal.png";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import Forgotpsswrd from "./ForgotPsswrd";
+import OuterLayout from "../components/OuterLayout";
 const Home = () => {
   const [currCard, setCurrCard] = useState("A");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,15 +14,7 @@ const Home = () => {
     }
   };
   return (
-    <div
-      className=" bg-cover h-screen "
-      style={{ backgroundImage: `url(${background})` }}
-    >
-      <Link to="#" className="grid">
-        <div className="flex  items-start m-4 mb-40 justify-center lg:my-5 lg:mx-20 md:justify-start">
-          <img src={shipGlobal} className="h-12 " alt="logo" />
-        </div>
-      </Link>
+    <OuterLayout>
       {currCard === "A" ? (
         <Login
           handleClick={handleForgotClick}
@@ -34,7 +24,7 @@ const Home = () => {
       ) : (
         <Forgotpsswrd handleClick={handleForgotClick} />
       )}
-    </div>
+    </OuterLayout>
   );
 };
 export default Home;
