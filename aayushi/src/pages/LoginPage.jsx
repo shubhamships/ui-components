@@ -103,8 +103,7 @@ export const LoginPage = () => {
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 cursor-pointer"
-                    style={{ top: "50%", transform: "translateY(-50%)" }}
+                    className="absolute right-3 cursor-pointer top-1/2 transform -translate-y-1/2 "
                   >
                     <i
                       className={`fa ${
@@ -119,7 +118,6 @@ export const LoginPage = () => {
                   </p>
                 )}
               </div>
-
               <div>
                 <span
                   className="text-sm font-medium text-blue-800 hover:underline cursor-pointer"
