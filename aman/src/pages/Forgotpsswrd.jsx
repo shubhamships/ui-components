@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { useState } from "react";
 import Input from "../components/Input";
+import Button from "../components/Button";
 const Forgotpsswrd = ({ handleClick }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});
@@ -26,7 +27,7 @@ const Forgotpsswrd = ({ handleClick }) => {
   };
   return (
     <div>
-      <div className="flex flex-col p-6 ">
+      <div className="flex flex-col p-6">
         <h3 className="font-bold text-xl text-center tracking-tight">
           Forgot Your Password?
         </h3>
@@ -37,7 +38,7 @@ const Forgotpsswrd = ({ handleClick }) => {
       </div>
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
-          <div className="flex flex-col space-y-1 ">
+          <div className="flex flex-col space-y-1">
             <label className="text-sm font-normal">
               Email <span className="text-red-600 ml-1">*</span>
             </label>
@@ -54,13 +55,14 @@ const Forgotpsswrd = ({ handleClick }) => {
               </p>
             )}
           </div>
-          <div className="flex items-center justify-center ">
+          <div className="flex items-center justify-center">
             <button
               className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
               type="submit"
             >
               Submit
             </button>
+            {/* <Button buttonName="Submit"/> */}
           </div>
         </form>
       </div>

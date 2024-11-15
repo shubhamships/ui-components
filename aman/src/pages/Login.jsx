@@ -70,7 +70,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
       </div>
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
-          <div className="flex flex-col space-y-1 ">
+          <div className="flex flex-col space-y-1">
             <label className="text-sm font-normal">
               Email <span className="text-red-600 ml-1">*</span>
             </label>
@@ -89,7 +89,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
           </div>
           <div className="space-y-1 mt-4">
             <label htmlFor="" className="text-sm font-normal">
-              Password <span className="text-red-600 ml-1 ">*</span>
+              Password <span className="text-red-600 ml-1">*</span>
             </label>
             <div className="flex items-end relative">
               <Input
@@ -97,24 +97,24 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="pr-52 "
+                className="pr-52"
                 placeholder="Type here ..."
               />
 
               {showPsswrd ? (
                 <LuEye
-                  className="absolute right-4 bottom-3 cursor-pointer text-xl "
+                  className="absolute right-4 bottom-3 cursor-pointer text-xl"
                   onClick={handleShow}
                 />
               ) : (
                 <LuEyeOff
-                  className="absolute right-4 bottom-3 cursor-pointer text-xl "
+                  className="absolute right-4 bottom-3 cursor-pointer text-xl"
                   onClick={handleShow}
                 />
               )}
             </div>
 
-            <div className=" w-64">
+            <div className="w-64">
               {error.password && (
                 <p className="text-xs font-semibold text-red-600">
                   {error.password._errors[0]}
@@ -135,7 +135,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
           {wrongError && (
             <p className="text-sm font-medium text-red-600">{wrongError}</p>
           )}
-          <div className="flex items-center justify-center ">
+          <div className="flex items-center justify-center">
             <LoadingButton loading={isLoading}>Submit</LoadingButton>
           </div>
         </form>
