@@ -64,7 +64,7 @@ const Login = ({
         </div>
         <div className="space-y-1 mt-4">
           <Label type="Password" />
-          <div className="flex items-end  relative">
+          <div className="flex items-end relative">
             <Input
               type={showPsswrd ? "text" : "password"}
               name="password"
