@@ -1,10 +1,10 @@
 import React from "react";
 
-const Button = ({buttonName}) => {
+const Button = ({ buttonName }) => {
   return (
     <div>
       <button
-        className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
+        className="bg-blue-900 w-96 h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
         type="submit"
       >
         {buttonName}

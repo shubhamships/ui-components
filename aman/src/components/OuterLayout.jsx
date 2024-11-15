@@ -10,12 +10,12 @@ const OuterLayout = ({ children }) => {
       style={{ backgroundImage: `url(${Background})` }}
     >
       <Link to="#" className="grid">
-        <div className="flex  items-start m-4 mb-40 justify-center lg:my-5 lg:mx-20 md:justify-start">
+        <div className="flex items-start m-4 mb-40 justify-center lg:my-5 lg:mx-20 md:justify-start">
           <img src={ShipGlobal} className="h-12" alt="logo" />
         </div>
       </Link>
       <div className="flex flex-col items-center justify-center m-4 mt-10">
-        <div className="rounded-lg shadow-lg  w-full max-w-md h-[510px] m-8 p-3  bg-white mb-18">
+        <div className="rounded-lg shadow-lg  w-full max-w-md  m-8 p-3 bg-white mb-18">
           {children}
         </div>
       </div>

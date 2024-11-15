@@ -6,6 +6,8 @@ import { LuEyeOff } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import Input from "../components/Input";
 import apiClient from "../api/ApiClient";
+import Error from "../components/Error";
+import Label from "../components/Label";
 
 const LoadingButton = withLoading();
 
@@ -64,16 +66,14 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
   };
 
   return (
-    <div>
+    <div className="mb-28">
       <div className="flex flex-col p-6">
         <h3 className="font-bold text-xl text-center tracking-tight">Login</h3>
       </div>
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-1">
-            <label className="text-sm font-normal">
-              Email <span className="text-red-600 ml-1">*</span>
-            </label>
+            <Label lableTitle="Email" />
             <Input
               type="email"
               name="email"
@@ -81,16 +81,10 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
               onChange={handleChange}
               placeholder="Enter Email ID ..."
             />
-            {error.email && (
-              <p className="text-xs font-semibold text-red-600">
-                {error.email._errors[0]}
-              </p>
-            )}
+            {error.email && <Error>{error.email._errors[0]}</Error>}
           </div>
           <div className="space-y-1 mt-4">
-            <label htmlFor="" className="text-sm font-normal">
-              Password <span className="text-red-600 ml-1">*</span>
-            </label>
+            <Label lableTitle="Password" />
             <div className="flex items-end relative">
               <Input
                 type={showPsswrd ? "text" : "password"}
@@ -115,11 +109,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
             </div>
 
             <div className="w-64">
-              {error.password && (
-                <p className="text-xs font-semibold text-red-600">
-                  {error.password._errors[0]}
-                </p>
-              )}
+              {error.password && <Error>{error.password._errors[0]}</Error>}
             </div>
           </div>
           <div className="my-1">

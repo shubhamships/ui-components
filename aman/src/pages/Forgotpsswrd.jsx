@@ -2,6 +2,9 @@ import { z } from "zod";
 import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import Error from "../components/Error";
+import Label from "../components/Label";
+
 const Forgotpsswrd = ({ handleClick }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});
@@ -26,11 +29,11 @@ const Forgotpsswrd = ({ handleClick }) => {
     }
   };
   return (
-    <div>
+    <div className="mb-32">
       <div className="flex flex-col p-6">
-        <h3 className="font-bold text-xl text-center tracking-tight">
+        <p className="font-bold text-xl text-center tracking-tight">
           Forgot Your Password?
-        </h3>
+        </p>
         <p className="pt-6 text-sm text-center">
           Enter email address associated with your account and you will receive
           an email to reset your password.
@@ -39,9 +42,7 @@ const Forgotpsswrd = ({ handleClick }) => {
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-1">
-            <label className="text-sm font-normal">
-              Email <span className="text-red-600 ml-1">*</span>
-            </label>
+            <Label lableTitle="Email" />
             <Input
               type="email"
               name="email"
@@ -49,20 +50,10 @@ const Forgotpsswrd = ({ handleClick }) => {
               onChange={handleChange}
               placeholder="Enter Email ID ..."
             />
-            {error.email && (
-              <p className="text-xs font-semibold text-red-600">
-                {error.email._errors[0]}
-              </p>
-            )}
+            {error.email && <Error>{error.email._errors[0]}</Error>}
           </div>
           <div className="flex items-center justify-center">
-            <button
-              className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
-              type="submit"
-            >
-              Submit
-            </button>
-            {/* <Button buttonName="Submit"/> */}
+            <Button buttonName="Submit" />
           </div>
         </form>
       </div>
