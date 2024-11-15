@@ -1,5 +1,4 @@
 import React from "react";
-// import Button from "../components/Button";
 import LoaderButton from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
@@ -10,8 +9,8 @@ function Front() {
     navigate("/");
   };
   return (
-    <div className="flex items-center justify-center flex-col">
-      <h1 className="text-3xl mt-10">Dashboard</h1>
+    <div className="flex items-center justify-center flex-col font-poppins">
+      <p className="text-3xl mt-10">Dashboard</p>
       <LoaderButton onClick={handleLogout}>Logout </LoaderButton>
     </div>
   );

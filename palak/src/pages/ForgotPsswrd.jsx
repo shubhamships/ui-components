@@ -1,46 +1,35 @@
 import { z } from "zod";
 import { useState } from "react";
 import { Label } from "../components/Label";
-const Forgotpsswrd = ({ handleClick }) => {
-  const [formData, setFormData] = useState({ email: "" });
-  const [error, setError] = useState({});
+import Button from "../components/Button";
+import { Input } from "../components/Input";
+const Forgotpsswrd = ({
+  handleClick,
+  handleDataChange,
+  handleDataSubmit,
+  formData,
+  error,
+}) => {
   const schema = z.object({
     email: z.string().email("Must be a valid email address"),
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const result = schema.safeParse({
-      ...formData,
-    });
-    if (!result.success) {
-      const formattedErrors = result.error.format();
-      setError(formattedErrors);
-    } else {
-      setError({});
-    }
-  };
   return (
-    <div>
+    <div className="font-poppins">
       <p className="pt-2 px-6 text-sm text-center">
         Enter email address associated with your account and you will receive an
         email to reset your password.
       </p>
 
       <div className="p-6 pt-6">
-        <form action="" onSubmit={handleSubmit}>
+        <form action="" onSubmit={handleDataSubmit}>
           <div className="flex flex-col space-y-1 ">
             <Label type="Email" />
-            <input
+            <Input
               type="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
-              className="border-gray-300 border-[1px] flex h-10 w-full rounded-md px-3 text-sm "
+              onChange={handleDataChange}
               placeholder="Enter Email ID ..."
             />
             {error.email && (
@@ -49,13 +38,8 @@ const Forgotpsswrd = ({ handleClick }) => {
               </p>
             )}
           </div>
-          <div className="flex items-center justify-center ">
-            <button
-              className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
-              type="submit"
-            >
-              Submit
-            </button>
+          <div className="flex items-center justify-center">
+            <Button type="submit">Submit</Button>
           </div>
         </form>
       </div>
