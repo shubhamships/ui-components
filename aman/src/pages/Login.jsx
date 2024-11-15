@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import withLoading from "../components/withLoading";
 import { LuEyeOff } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
@@ -52,7 +51,6 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
     try {
       const response = await apiClient.post("/auth/login", formData);
       const data = await response.data;
-      console.log(data);
 
       if (data.data.token_details.token) {
         localStorage.setItem("jwtToken", data.token);

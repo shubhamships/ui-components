@@ -26,4 +26,4 @@ export default withLoading;
 //advanced components
 // HOC
 
-// layout based components - pi.ts
+// layout based components 

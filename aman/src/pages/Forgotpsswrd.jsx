@@ -48,7 +48,6 @@ const Forgotpsswrd = ({ handleClick }) => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  
                   placeholder="Enter Email ID ..."
                 />
                 {error.email && (
