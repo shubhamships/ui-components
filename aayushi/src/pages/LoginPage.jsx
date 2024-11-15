@@ -66,92 +66,84 @@ export const LoginPage = () => {
   };
 
   return (
-    
-      <div className="">
-        {passwordPage ? (
-          <div>
-            <div className="flex flex-col space-y-1.5 p-6">
-              <h2 className="font-semibold text-xl text-center">Login</h2>
-            </div>
-            <div className="p-6 pt-0">
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <Label type="Email" />
+    <div className="font-poppins">
+      {passwordPage ? (
+        <div>
+          <div className="flex flex-col space-y-1.5 p-6">
+            <h2 className="font-semibold text-xl text-center">Login</h2>
+          </div>
+          <div className="p-6 pt-0">
+            <form onSubmit={handleSubmit}>
+              <div>
+                <Label type="Email" />
+                <Input
+                  type="email"
+                  placeholder="Enter Email ID..."
+                  value={data.email}
+                  onChange={(e) => setData({ ...data, email: e.target.value })}
+                />
+                {error.email && (
+                  <p className="text-red-500 text-xs font-medium">
+                    {error.email}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <Label type="Password" />
+                <div className="flex items-end relative w-full mb-1.5">
                   <Input
-                    type="email"
-                    placeholder="Enter Email ID..."
-                    value={data.email}
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter password"
+                    value={data.password}
                     onChange={(e) =>
-                      setData({ ...data, email: e.target.value })
+                      setData({ ...data, password: e.target.value })
                     }
+                    className="w-full pr-[200px]"
                   />
-                  {error.email && (
-                    <p className="text-red-500 text-xs font-medium">
-                      {error.email}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <Label type="Password" />
-                  <div className="flex items-end relative w-full mb-1.5">
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter password"
-                      value={data.password}
-                      onChange={(e) =>
-                        setData({ ...data, password: e.target.value })
-                      }
-                      className="w-full pr-[200px]"
-                    />
-                    <span
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 cursor-pointer"
-                      style={{ top: "50%", transform: "translateY(-50%)" }}
-                    >
-                      <i
-                        className={`fa ${
-                          showPassword ? "fa-eye" : "fa-eye-slash"
-                        }`}
-                      />
-                    </span>
-                  </div>
-                  {error.password && (
-                    <p className="text-red-500 text-xs font-medium">
-                      {error.password}
-                    </p>
-                  )}
-                </div>
-
-                <div>
                   <span
-                    className="text-sm font-medium text-blue-800 hover:underline cursor-pointer"
-                    onClick={handlePasswordPageToggle}
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 cursor-pointer"
+                    style={{ top: "50%", transform: "translateY(-50%)" }}
                   >
-                    Forgot Password?
+                    <i
+                      className={`fa ${
+                        showPassword ? "fa-eye" : "fa-eye-slash"
+                      }`}
+                    />
                   </span>
                 </div>
-
-                {showError && (
-                  <div>
-                    <p className="text-red-500 text-xs font-medium my-4">
-                      Wrong email or password. Try again
-                    </p>
-                  </div>
+                {error.password && (
+                  <p className="text-red-500 text-xs font-medium">
+                    {error.password}
+                  </p>
                 )}
+              </div>
 
-                <div className="flex items-center justify-center mb-20">
-                  <Button loading={loading} type={"Submit"}>
-                    Login
-                  </Button>
-                </div>
-              </form>
-            </div>
+              <div>
+                <span
+                  className="text-sm font-medium text-blue-800 hover:underline cursor-pointer"
+                  onClick={handlePasswordPageToggle}
+                >
+                  Forgot Password?
+                </span>
+              </div>
+
+              {showError && (
+                <p className="text-red-500 text-xs font-medium my-4">
+                  Wrong email or password. Try again
+                </p>
+              )}
+
+              <div className="flex items-center justify-center mb-20">
+                <Button loading={loading} type={"Submit"} />
+              </div>
+            </form>
           </div>
-        ) : (
-          <ForgotPassword setPassword={handlePasswordPageToggle} />
-        )}
-      </div>
-    
+        </div>
+      ) : (
+        <ForgotPassword setPassword={handlePasswordPageToggle} />
+      )}
+    </div>
   );
 };

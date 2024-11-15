@@ -39,15 +39,17 @@ export const ForgotPassword = ({ setPassword }) => {
   };
 
   return (
-    <div className="">
-      <div className="px-7 pt-7 pb-4">
+    <div className="font-poppins">
+      <div className="p-8 ">
         <p className="text-xl font-semibold text-center">
           Forgot Your Password?
         </p>
       </div>
       <div className="px-6 mt-4 mb-36">
-        <p className="text-sm text-black text-center">
-          Enter email address associated with your account <br />
+        <p className="text-sm text-center">
+          Enter email address associated with your account{" "}
+        </p>
+        <p className="text-sm text-center">
           and you will receive an email to reset your password.
         </p>
         <form onSubmit={handleSubmit}>
@@ -64,7 +66,7 @@ export const ForgotPassword = ({ setPassword }) => {
             )}
           </div>
           <div className="flex items-center justify-center mt-6">
-            <Button loading={loading} type={"Submit"}></Button>
+            <Button loading={loading} type={"Submit"} />
           </div>
           <div className="mt-5">
             <span

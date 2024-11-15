@@ -13,7 +13,6 @@ export const BackGround = ({ type }) => {
           </a>
           <div className="flex flex-col items-center justify-center">
             <div className="rounded-lg shadow-lg m-4 p-3 w-full max-w-md mb-18 lg:mb-32 h-128 bg-white">
-                
               {/* //dynamic component */}
               {type && React.createElement(type)}
             </div>
