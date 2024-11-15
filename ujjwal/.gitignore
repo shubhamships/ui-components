@@ -24,3 +24,6 @@ dist-ssr
 *.sln
 *.sw?
 .env.development
+Components
+HideEyeIcon.svg
+ShowEyeIcon.svg
