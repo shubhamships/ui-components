@@ -89,30 +89,30 @@ function LoginPage() {
         }
         setTimeout(() => {
             setLoader(false);
-        }, 2000);
+        }, 500);
     }
     return (
         <div className="bg-backgroundImage bg-cover h-screen">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 py-4 -px-2 md:justify-center md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
-                <div className=''>
-                    <img src={LogoImg} alt="Shipglobal" className='h-12' />
+                <div>
+                    <img src={LogoImg} alt="Shipglobal" className='h-12'/>
                 </div>
             </a>
-            <div className='flex items-center justify-center mt-[53px] lg:mt-[88px] px-4'>
-                <div className='rounded-lg bg-white shadow-lg p-[12px] max-w-md w-full'>
+            <div className='flex items-center justify-center mt-14 lg:mt-20 px-4'>
+                <div className='rounded-lg bg-white shadow-lg p-3 max-w-md w-full'>
                     {forgotPassword ? (<ForgotPassword handleSubmit={handleSubmit} error={error} onBackToLogin={handleBackToLogin} />) : (
                         <>
                             <div className='p-6'>
                                 <h1 className='text-xl font-semibold text-center'>Login</h1>
                             </div>
-                            <form onSubmit={handleSubmit} className='pl-6 pr-6 pb-[143px]'>
+                            <form onSubmit={handleSubmit} className='pl-6 pr-6 pb-36'>
                                 <div className='space-y-1'>
-                                    <InputField name='email' type="email" placeholder='Enter Email ID . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Email"}/>
+                                    <InputField isRequired name='email' type="email" placeholder='Enter Email ID . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Email"}/>
                                     <Error errors={error.email && error.email._errors[0]}/>
                                 </div>
                                 <div className='space-y-1 mt-4'>
                                     <div className='flex'>
-                                        <InputField name='password' type={showPassword ? "text" : "password"} placeholder='Type here . . .' className='h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Password"}/>
+                                        <InputField isRequired name='password' type={showPassword ? "text" : "password"} placeholder='Type here . . .' className='h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Password"}/>
                                         <div onClick={handleshowPassword} className='mt-9'>
                                             {!showPassword ? (<ShowEyeIcon />) : (<HideEyeIcon />)}
                                         </div>
@@ -126,10 +126,10 @@ function LoginPage() {
                                         className='text-blue-900 text-sm hover:underline font-medium'>Forgot Password?</a>
                                 </div>
                                 <div>
-                                    {setApiErrorMessage&&<p className='text-xs font-medium text-red-600'>{apiErrorMessage}</p>}
+                                    {setApiErrorMessage &&<p className='text-xs font-medium text-red-600'>{apiErrorMessage}</p>}
                                 </div>
                                 <div className='mt-11'>
-                                    <div className='flex items-center justify-center border bg-blue-900 text-sm font-medium text-white rounded-md h-[46px]'>
+                                    <div className='flex items-center justify-center border bg-blue-900 text-sm font-medium text-white rounded-md h-12'>
                                         <button onClick={handleAPI} className="w-full flex items-center justify-center" type='submit' >Submit {setLoader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}</button>
                                     </div>
                                 </div>
