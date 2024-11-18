@@ -14,10 +14,8 @@ const OuterLayout = ({ children }) => {
           <img src={ShipGlobal} className="h-12" alt="logo" />
         </div>
       </Link>
-      <div className="flex flex-col items-center justify-center m-4 mt-10">
-        <div className="rounded-lg shadow-lg  w-full max-w-md  m-8 p-3 bg-white mb-18">
-          {children}
-        </div>
+      <div className="rounded-lg flex mx-auto my-auto mt-20 shadow-lg w-full max-w-md m-8 p-3 bg-white mb-18">
+        {children}
       </div>
     </div>
   );

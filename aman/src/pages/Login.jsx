@@ -8,6 +8,7 @@ import Input from "../components/Input";
 import apiClient from "../api/ApiClient";
 import Error from "../components/Error";
 import Label from "../components/Label";
+import Required from "../components/Required";
 
 const LoadingButton = withLoading();
 
@@ -17,7 +18,7 @@ const schema = z.object({
 });
 
 const Login = ({ handleClick, isLoading, setIsLoading }) => {
-  const [showPsswrd, setshowPsswrd] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
   const [wrongError, setWrongError] = useState("");
@@ -46,7 +47,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
   };
 
   const handleShow = () => {
-    setshowPsswrd(!showPsswrd);
+    setShowPassword(!showPassword);
   };
 
   const handleLogin = async () => {
@@ -73,7 +74,10 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-1">
-            <Label lableTitle="Email" />
+            <div className="flex">
+              <Label lableTitle="Email" />
+              <Required />
+            </div>
             <Input
               type="email"
               name="email"
@@ -84,10 +88,13 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
             {error.email && <Error>{error.email._errors[0]}</Error>}
           </div>
           <div className="space-y-1 mt-4">
-            <Label lableTitle="Password" />
+            <div className="flex">
+              <Label lableTitle="Password" />
+              <Required />
+            </div>
             <div className="flex items-end relative">
               <Input
-                type={showPsswrd ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -95,7 +102,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
                 placeholder="Type here ..."
               />
 
-              {showPsswrd ? (
+              {showPassword ? (
                 <LuEye
                   className="absolute right-4 bottom-3 cursor-pointer text-xl"
                   onClick={handleShow}
