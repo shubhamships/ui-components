@@ -66,7 +66,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="font-poppins">
+    <div>
       {passwordPage ? (
         <div>
           <div className="flex flex-col space-y-1.5 p-6">
@@ -99,7 +99,7 @@ export const LoginPage = () => {
                     onChange={(e) =>
                       setData({ ...data, password: e.target.value })
                     }
-                    className="w-full pr-[200px]"
+                    className="w-full pr-48"
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}

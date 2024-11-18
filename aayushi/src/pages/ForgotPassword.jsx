@@ -39,8 +39,8 @@ export const ForgotPassword = ({ setPassword }) => {
   };
 
   return (
-    <div className="font-poppins">
-      <div className="p-8 ">
+    <div>
+      <div className="p-8">
         <p className="text-xl font-semibold text-center">
           Forgot Your Password?
         </p>
