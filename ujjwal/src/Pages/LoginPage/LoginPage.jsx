@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LuLoader } from "react-icons/lu";
 import LogoImg from "../../assets/logo.png"
-
+import ShowEyeIcon from '../../assets/showEyeIcon.jsx';
+import HideEyeIcon from '../../assets/HideEyeIcon.jsx';
 function LoginPage() {
     const schema = zod.object({
         email: zod.string().email("Must be a valid email address"),
@@ -110,36 +111,8 @@ function LoginPage() {
                                     <label className='text-sm font-normal' htmlFor="">Password<span className='ml-2 text-red-600'>*</span></label>
                                     <div className='flex'>
                                         <input name='password' type={showPassword ? "text" : "password"} placeholder='Type here . . .' className='h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} />
-                                        <div onClick={handleshowPassword} className='mt-2.5'>
-                                            {!showPassword ? (<svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                className="w-5 h-5 text-current self-center -ml-10 cursor-pointer"
-                                            >
-                                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
-                                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
-                                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
-                                                <line x1="2" x2="22" y1="2" y2="22"></line>
-                                            </svg>) : (<svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="24"
-                                                height="24"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                className="lucide lucide-eye self-center w-5 h-5 -ml-10 cursor-pointer"
-                                            >
-                                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                                                <circle cx="12" cy="12" r="3"></circle>
-                                            </svg>)}
+                                        <div onClick={handleshowPassword} className='mt-2.5 z-10'>
+                                            {!showPassword ? (<ShowEyeIcon />) : (<HideEyeIcon />)}
                                         </div>
                                     </div>
                                     {error.password && (<p className='text-xs font-medium text-red-600'>{error.password._errors[0]}</p>)}
