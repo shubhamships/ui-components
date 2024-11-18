@@ -8,17 +8,24 @@ import Button from "../components/Button";
 import { Label } from "../components/Label";
 import { loginUser } from "../api/FetchApi";
 import Error from "../components/Error";
+import Required from "../components/Required";
 
 const ButtonLoader = withLoading(Button);
 
-const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData, error }) => {
-  const [showPsswrd, setshowPsswrd] = useState(false);
+const Login = ({
+  handleTypeChange,
+  handleDataChange,
+  handleDataSubmit,
+  formData,
+  error,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [wrongError, setWrongError] = useState(false);
   const navigate = useNavigate();
 
   const handleShow = () => {
-    setshowPsswrd(!showPsswrd);
+    setShowPassword(!showPassword);
   };
 
   const handleLogin = async () => {
@@ -31,8 +38,6 @@ const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData,
         localStorage.setItem("jwtToken", data.data.token_details.token);
         console.log(data.data.token_details.token);
         navigate("/front");
-      } else {
-        alert("Login unsuccessful");
       }
     } catch (error) {
       setWrongError(true);
@@ -42,10 +47,13 @@ const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData,
   };
 
   return (
-    <div className="p-6 pt-0 font-poppins">
+    <div className="p-6 pt-0">
       <form action="" onSubmit={handleDataSubmit}>
         <div className="flex flex-col space-y-1 ">
-          <Label type="Email" />
+          <div className="flex items-start">
+            <Label type="Email" />
+            <Required />
+          </div>
           <Input
             type="email"
             name="email"
@@ -57,10 +65,13 @@ const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData,
           {error.email && <Error>{error.email._errors[0]}</Error>}
         </div>
         <div className="space-y-1 mt-4">
-          <Label type="Password" />
+          <div className="flex items-start">
+            <Label type="Password" />
+            <Required />
+          </div>
           <div className="flex items-end relative">
             <Input
-              type={showPsswrd ? "text" : "password"}
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formData.password}
               onChange={handleDataChange}
@@ -68,13 +79,21 @@ const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData,
               className="w-96"
             />
 
-            {showPsswrd ? (
-              <GoEye className="absolute right-4 bottom-3 cursor-pointer" onClick={handleShow} />
+            {showPassword ? (
+              <GoEye
+                className="absolute right-4 bottom-3 cursor-pointer"
+                onClick={handleShow}
+              />
             ) : (
-              <GoEyeClosed className="absolute right-4 bottom-3 cursor-pointer" onClick={handleShow} />
+              <GoEyeClosed
+                className="absolute right-4 bottom-3 cursor-pointer"
+                onClick={handleShow}
+              />
             )}
           </div>
-          <div className="w-64">{error.password && <Error>{error.password._errors[0]}</Error>}</div>
+          <div className="w-64">
+            {error.password && <Error>{error.password._errors[0]}</Error>}
+          </div>
         </div>
         <div className="my-1">
           <a href="#">
