@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Error from "../components/Error";
 import Label from "../components/Label";
 
-const Forgotpsswrd = ({ handleClick }) => {
+const ForgotPassword = ({ handleClick }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});
   const schema = z.object({
@@ -67,4 +67,4 @@ const Forgotpsswrd = ({ handleClick }) => {
     </div>
   );
 };
-export default Forgotpsswrd;
+export default ForgotPassword;

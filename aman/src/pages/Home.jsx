@@ -1,28 +1,28 @@
 import Login from "./Login";
 import { useState } from "react";
-import Forgotpsswrd from "./ForgotPsswrd";
+import ForgotPassword from "./ForgotPassword";
 import OuterLayout from "../components/OuterLayout";
 const Home = () => {
-  const [currCard, setCurrCard] = useState("A");
+  const [currCard, setCurrCard] = useState("LoginPage");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleForgotClick = () => {
-    if (currCard === "A") {
-      setCurrCard("B");
-    } else if (currCard === "B") {
-      setCurrCard("A");
+    {
+      currCard === "LoginPage"
+        ? setCurrCard("ForgotPassword")
+        : setCurrCard("LoginPage");
     }
   };
   return (
     <OuterLayout>
-      {currCard === "A" ? (
+      {currCard === "LoginPage" ? (
         <Login
           handleClick={handleForgotClick}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
         />
       ) : (
-        <Forgotpsswrd handleClick={handleForgotClick} />
+        <ForgotPassword handleClick={handleForgotClick} />
       )}
     </OuterLayout>
   );
