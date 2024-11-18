@@ -7,6 +7,8 @@ import { LuLoader } from "react-icons/lu";
 import LogoImg from "../../assets/logo.png"
 import ShowEyeIcon from '../../assets/showEyeIcon.jsx';
 import HideEyeIcon from '../../assets/HideEyeIcon.jsx';
+import InputField from '../../Components/InputField.jsx';
+import Error from '../../Components/Errors.jsx';
 function LoginPage() {
     const schema = zod.object({
         email: zod.string().email("Must be a valid email address"),
@@ -18,6 +20,7 @@ function LoginPage() {
     const [error, setError] = useState({})
     const [apiError, setApiError] = useState(false)
     const [loader, setLoader] = useState(false)
+    const [apiErrorMessage,setApiErrorMessage]=useState("");
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -82,13 +85,14 @@ function LoginPage() {
             }
         } catch (error) {
             setApiError(true)
+            setApiErrorMessage("Wrong email or password. Try again")
         }
         setTimeout(() => {
             setLoader(false);
         }, 2000);
     }
     return (
-        <div className="bg-backgroundImage bg-cover h-screen font-poppins">
+        <div className="bg-backgroundImage bg-cover h-screen">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 py-4 -px-2 md:justify-center md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
                 <div className=''>
                     <img src={LogoImg} alt="Shipglobal" className='h-12' />
@@ -103,27 +107,26 @@ function LoginPage() {
                             </div>
                             <form onSubmit={handleSubmit} className='pl-6 pr-6 pb-[143px]'>
                                 <div className='space-y-1'>
-                                    <label className='text-sm font-normal' htmlFor="">Email<span className='ml-2 text-red-600'>*</span></label>
-                                    <input name='email' type="email" placeholder='Enter Email ID . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} />
-                                    {error.email && (<p className='text-xs font-medium text-red-600'>{error.email._errors[0]}</p>)}
+                                    <InputField name='email' type="email" placeholder='Enter Email ID . . .' className='h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Email"}/>
+                                    <Error errors={error.email && error.email._errors[0]}/>
                                 </div>
                                 <div className='space-y-1 mt-4'>
-                                    <label className='text-sm font-normal' htmlFor="">Password<span className='ml-2 text-red-600'>*</span></label>
                                     <div className='flex'>
-                                        <input name='password' type={showPassword ? "text" : "password"} placeholder='Type here . . .' className='h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} />
-                                        <div onClick={handleshowPassword} className='mt-2.5 z-10'>
+                                        <InputField name='password' type={showPassword ? "text" : "password"} placeholder='Type here . . .' className='h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md' onChange={handleChange} label={"Password"}/>
+                                        <div onClick={handleshowPassword} className='mt-9'>
                                             {!showPassword ? (<ShowEyeIcon />) : (<HideEyeIcon />)}
                                         </div>
                                     </div>
-                                    {error.password && (<p className='text-xs font-medium text-red-600'>{error.password._errors[0]}</p>)}
+                                    <Error errors={error.password && error.password._errors[0]}/>
                                 </div>
                                 <div className='mt-1'>
                                     <a href="#"
+
                                         onClick={handleForgotPassword}
                                         className='text-blue-900 text-sm hover:underline font-medium'>Forgot Password?</a>
                                 </div>
                                 <div>
-                                    {apiError && <p className='text-xs font-medium text-red-600'>{"Wrong email or password. Try again"}</p>}
+                                    {setApiErrorMessage&&<p className='text-xs font-medium text-red-600'>{apiErrorMessage}</p>}
                                 </div>
                                 <div className='mt-11'>
                                     <div className='flex items-center justify-center border bg-blue-900 text-sm font-medium text-white rounded-md h-[46px]'>
