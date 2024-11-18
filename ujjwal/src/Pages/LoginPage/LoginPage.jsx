@@ -4,6 +4,7 @@ import zod from 'zod'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { LuLoader } from "react-icons/lu";
+import LogoImg from "../../assets/logo.png"
 
 function LoginPage() {
 
@@ -106,7 +107,7 @@ function LoginPage() {
         <div className="bg-[url('./images/background.jpg')] bg-cover h-screen">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 py-4 -px-2 md:justify-center md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
                 <div className=''>
-                    <img src="./images/logo.png" alt="Shipglobal" className='h-12' />
+                    <img src={LogoImg} alt="Shipglobal" className='h-12' />
                 </div>
             </a>
 
