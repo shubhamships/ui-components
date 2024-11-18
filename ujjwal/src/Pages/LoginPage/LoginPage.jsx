@@ -88,7 +88,7 @@ function LoginPage() {
         }, 2000);
     }
     return (
-        <div className="bg-[url('./images/background.jpg')] bg-cover h-screen">
+        <div className="bg-[url('./images/background.jpg')] bg-cover h-screen font-poppins">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 py-4 -px-2 md:justify-center md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
                 <div className=''>
                     <img src={LogoImg} alt="Shipglobal" className='h-12' />

@@ -2,7 +2,7 @@ import React from 'react'
 
 function ForgotPassword({ onBackToLogin, handleSubmit, error }) {
     return (
-        <div>
+        <div className='font-poppins'>
             <div className='flex items-center justify-center'>
                 <div className='rounded-lg max-w-md w-full'>
                     <div className='p-6'>
