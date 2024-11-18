@@ -4,6 +4,7 @@ import { Label } from "../components/Label";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { ForgotPassword } from "./ForgotPassword";
+import {Error} from "../components/Error";
 import { Api } from "./Api";
 
 import { useNavigate } from "react-router-dom";
@@ -82,11 +83,7 @@ export const LoginPage = () => {
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
-                {error.email && (
-                  <p className="text-red-500 text-xs font-medium">
-                    {error.email}
-                  </p>
-                )}
+                 <Error message={error.email} />
               </div>
 
               <div>
@@ -112,11 +109,7 @@ export const LoginPage = () => {
                     />
                   </span>
                 </div>
-                {error.password && (
-                  <p className="text-red-500 text-xs font-medium">
-                    {error.password}
-                  </p>
-                )}
+                <Error message={error.password} />
               </div>
               <div>
                 <span

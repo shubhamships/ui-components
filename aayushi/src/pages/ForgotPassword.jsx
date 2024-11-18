@@ -4,6 +4,7 @@ import { z } from "zod";
 import { Button } from "../components/Button";
 import { Input } from "../components/Input";
 import { Label } from "../components/Label";
+import {Error} from "../components/Error";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("Must be a valid email address"),
@@ -61,9 +62,7 @@ export const ForgotPassword = ({ setPassword }) => {
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
-            {error.email && (
-              <p className="text-red-500 text-xs font-medium">{error.email}</p>
-            )}
+             <Error message={error.email} />
           </div>
           <div className="flex items-center justify-center mt-6">
             <Button loading={loading} type={"Submit"} />
