@@ -5,22 +5,21 @@ import Home from "./Pages/HomePage/Home";
 import CustomError from "./Pages/CustomError";
 
 function App() {
-
   const router = createBrowserRouter([
     {
-      path: '/',
+      path: "/",
       element: <LoginPage />,
-      errorElement: <CustomError />
+      errorElement: <CustomError />,
     },
     {
-      path: '/home',
+      path: "/home",
       element: <Home />,
     },
-  ])
-
-  return <>
-    <RouterProvider router={router} />
-  </>
+  ]);
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
-
 export default App;

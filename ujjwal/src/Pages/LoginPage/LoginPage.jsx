@@ -7,12 +7,10 @@ import { LuLoader } from "react-icons/lu";
 import LogoImg from "../../assets/logo.png"
 
 function LoginPage() {
-
     const schema = zod.object({
         email: zod.string().email("Must be a valid email address"),
         password: zod.string().min(6, "Password must be 6 or more characters long").max(20)
     })
-
     const navigate = useNavigate();
     const [forgotPassword, setForgotPassword] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
@@ -27,7 +25,6 @@ function LoginPage() {
         e.preventDefault();
         setForgotPassword(true);
     }
-
     const handleBackToLogin = () => {
         setForgotPassword(false);
     };
@@ -44,12 +41,8 @@ function LoginPage() {
             ...data,
             [e.target.name]: e.target.value
         })
-
-
     }
-
     const handleSubmit = (e) => {
-
         e.preventDefault();
         const res = schema.safeParse({
             ...data
@@ -63,14 +56,9 @@ function LoginPage() {
             setError({});
             handleAPI();
         }
-
     }
-
-
-
     const handleAPI = async () => {
         setLoader(true);
-
         try {
             const res = await axios.post("https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
                 {
@@ -83,7 +71,6 @@ function LoginPage() {
                         accept: "application/json"
                     }
                 }
-
             )
             const APIData = await res.data
             console.log(APIData);
@@ -93,16 +80,12 @@ function LoginPage() {
                 navigate('/home')
             }
         } catch (error) {
-
             setApiError(true)
         }
         setTimeout(() => {
             setLoader(false);
         }, 2000);
-
     }
-
-
     return (
         <div className="bg-[url('./images/background.jpg')] bg-cover h-screen">
             <a href="/" className='flex items-start justify-center lg:w-56 mb-0 h-12 py-4 -px-2 md:justify-center md:w-56 lg:py-8 lg:mx-16 sm:w-56' >
@@ -110,8 +93,6 @@ function LoginPage() {
                     <img src={LogoImg} alt="Shipglobal" className='h-12' />
                 </div>
             </a>
-
-
             <div className='flex items-center justify-center mt-[53px] lg:mt-[88px] px-4'>
                 <div className='rounded-lg bg-white shadow-lg p-[12px] max-w-md w-full'>
                     {forgotPassword ? (<ForgotPassword handleSubmit={handleSubmit} error={error} onBackToLogin={handleBackToLogin} />) : (
