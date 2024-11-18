@@ -16,9 +16,13 @@ function App() {
     {
       path: "/forgot",
       element: <ForgotPage />,
-    }
+    },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <div className="font-poppins">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
