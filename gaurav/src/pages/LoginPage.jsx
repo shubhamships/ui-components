@@ -12,6 +12,8 @@ import { loginSchema } from "../zod/loginSchema";
 // import { withLogger } from "../components/WithLogger";
 // import { set } from "zod";
 import withAuth from "../components/WithAuth";
+import { useNavigate } from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 const LoginPage = ({ login }) => {
   const [forgot, setForgot] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
@@ -51,6 +53,7 @@ const LoginPage = ({ login }) => {
     });
     console.log(formData);
   };
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
@@ -63,12 +66,15 @@ const LoginPage = ({ login }) => {
       const result = await login(formData);
       if (!result.success) {
         setApiError(true);
+      } else {
+        navigate("/");
       }
     } catch (error) {
       setApiError(true);
       console.log("Login Failed :", error);
     }
     setLoading(false);
+
     // if (error.email !== "" && error.password !== "") {
     //   // handleLogin();
     //   setLoading(false);
@@ -122,29 +128,27 @@ const LoginPage = ({ login }) => {
       <div className="bg-login-image bg-cover h-screen w-full">
         <a href="https://fr.stg.shipglobal.in/" className="">
           <div className="flex justify-center items-start p-4 md:justify-start lg:py-8 lg:mx-16">
-            <img src={logo} style={{ height: 48 }} />
+            <img src={logo} className="h-12" />
           </div>
         </a>
-        <div className="flex justify-center items-center m-4 mt-32 md:mt-[118px]">
+        <div className="flex justify-center items-center m-4 mt-32 md:mt-28">
           {forgot ? (
-            <Card className="p-3 w-full mb-18 h-[512px] lg:mb-32 max-w-md  shadow-lg">
+            <Card className="p-3 w-full mb-18 pb-32 lg:mb-32 max-w-md  shadow-xl">
               <div className="flex justify-center items-center font-semibold text-xl tracking-tighter p-6">
                 <h3 className="">Login</h3>
               </div>
               <div className="px-6 pb-6 space-y-1">
                 <form onSubmit={handleSubmit} className="">
-                  <div className="">
-                    <Input
-                      labelData="Email"
-                      placeholder="Enter Email ID . . ."
-                      className="w-full"
-                      name="email"
-                      type="email"
-                      errorName={error.email}
-                      value={formData.email}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                  <Input
+                    labelData="Email"
+                    placeholder="Enter Email ID . . ."
+                    className="w-full"
+                    name="email"
+                    type="email"
+                    errorName={error.email}
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
                   <div className="space-y-1 mt-5 relative text-black">
                     <Input
                       labelData="Password"
@@ -175,7 +179,7 @@ const LoginPage = ({ login }) => {
                   )}
                   <div className="relative">
                     <FiLoader
-                      className={`animate-spin text-white absolute right-[136px] top-[62px] z-10 ${
+                      className={`animate-spin text-white absolute mr-3 right-32 top-11 z-10 item-center mt-5  ${
                         loading ? "block" : "hidden"
                       }`}
                     />
@@ -191,23 +195,18 @@ const LoginPage = ({ login }) => {
               </div>
             </Card>
           ) : (
-            <Card className="p-3 w-full mb-18 h-[512px] lg:mb-32 max-w-md shadow-xl">
+            <Card className="p-3 w-full mb-18 pb-36 lg:mb-32 max-w-md shadow-xl">
               <div className="flex flex-col justify-center items-center p-6">
-                <h3 className=" font-semibold text-xl tracking-tighter text-center w-40 md:w-auto">
-                  Forgot Your Password
+                <h3 className=" font-semibold text-xl  text-center w-40 md:w-auto">
+                  Forgot Your Password?
                 </h3>
-                <div className="text-sm font-normal mt-[6px] pt-6 text-center">
+                <div className="text-sm font-normal mt-6 pt-2 text-center">
                   Enter email address associated with your account and you will
                   receive an email to reset your password.
                 </div>
               </div>
               <div className="px-6 pb-4">
-                <form
-                  action="
-              "
-                  onSubmit={handleSubmit}
-                  className=""
-                >
+                <form onSubmit={handleSubmit} className="">
                   <div className="">
                     <Input
                       labelData="Email"
@@ -228,7 +227,7 @@ const LoginPage = ({ login }) => {
                   </div>
                 </form>
                 <div
-                  className="text-sm font-medium text-blue-800 hover:underline text-center block mt-4 cursor-pointer"
+                  className="font-medium text-blue-800 hover:underline text-center block mt-4 cursor-pointer"
                   onClick={handleForgot}
                 >
                   Return to Login

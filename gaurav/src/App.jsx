@@ -18,11 +18,7 @@ function App() {
       element: <ForgotPage />,
     },
   ]);
-  return (
-    <div className="font-poppins">
-      <RouterProvider router={router} />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

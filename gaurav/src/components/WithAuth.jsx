@@ -1,12 +1,10 @@
 import axios from "axios";
 // import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const withAuth = (WrappedComponent) => {
   const WithAuthComponent = (props) => {
     // const [auth, setAuth] = useState(false);
     // const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
     {
       /*
             useEffect(() => {
@@ -59,7 +57,6 @@ const withAuth = (WrappedComponent) => {
         localStorage.setItem("token", token);
         // Set token in axios headers
         setAuthToken(token);
-        navigate("/");
         console.log("Successful");
         return { success: true };
       } catch (error) {

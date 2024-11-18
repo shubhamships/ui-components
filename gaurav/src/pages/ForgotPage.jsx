@@ -11,16 +11,16 @@ export const // eslint-disable-next-line react/prop-types
         <div className="bg-login-image bg-cover h-screen w-full">
           <a href="https://fr.stg.shipglobal.in/" className="">
             <div className="flex justify-center items-start p-4 md:justify-start lg:py-8 lg:mx-16">
-              <img src={logo} style={{ height: 48 }} />
+              <img src={logo} className="h-12" />
             </div>
           </a>
-          <div className="flex justify-center items-center m-4 mt-32 md:mt-[118px]">
-            <Card className="p-3 w-full mb-18 h-[512px] lg:mb-32 max-w-md  shadow-xl">
-              <div className="flex flex-col justify-center items-center  p-6">
+          <div className="flex justify-center items-center m-4 mt-32 md:mt-28">
+            <Card className="p-3 w-full mb-18 pb-36 lg:mb-32 max-w-md shadow-xl">
+              <div className="flex flex-col justify-center items-center p-6">
                 <h3 className="font-semibold text-xl tracking-tighter">
                   Forgot Password
                 </h3>
-                <div className="text-sm font-normal mt-[6px] pt-6">
+                <div className="text-sm font-normal mt-2 pt-6">
                   Enter email address associated with your account and you will
                   receive an email to reset your password.
                 </div>

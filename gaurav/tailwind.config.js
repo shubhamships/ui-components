@@ -11,6 +11,7 @@ export default {
         'login-image': "url('./src/assets/login.jpg')"
       },
       fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
         'poppins': ["Poppins", "sans-serif"],
       }
     },
