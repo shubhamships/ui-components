@@ -4,10 +4,11 @@ import { Label } from "../components/Label";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { ForgotPassword } from "./ForgotPassword";
-import {Error} from "../components/Error";
+import { Error } from "../components/Error";
 import { Api } from "./Api";
 
 import { useNavigate } from "react-router-dom";
+import { Required } from "../components/Required";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -76,18 +77,24 @@ export const LoginPage = () => {
           <div className="p-6 pt-0">
             <form onSubmit={handleSubmit}>
               <div>
-                <Label type="Email" />
+                <div className="flex items-center space-x-1">
+                  <Label type={"Email"} />
+                  <Required />
+                </div>
                 <Input
                   type="email"
                   placeholder="Enter Email ID..."
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
-                 <Error message={error.email} />
+                <Error message={error.email} />
               </div>
 
               <div>
-                <Label type="Password" />
+                <div className="flex items-center space-x-1">
+                  <Label type={"Password"} />
+                  <Required />
+                </div>
                 <div className="flex items-end relative w-full mb-1.5">
                   <Input
                     type={showPassword ? "text" : "password"}
