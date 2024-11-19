@@ -1,5 +1,24 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Root } from "./routes/Root";
+import { ForgotPage } from "./pages/ForgotPage";
+import EnhancedLoginPage from "./pages/LoginPage";
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello Gaurav!</h1>;
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+    },
+    {
+      path: "/login",
+      element: <EnhancedLoginPage />,
+    },
+    {
+      path: "/forgot",
+      element: <ForgotPage />,
+    },
+  ]);
+  return <RouterProvider router={router} />;
 }
 
 export default App;
