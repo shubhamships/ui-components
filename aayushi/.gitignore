@@ -10,6 +10,11 @@ lerna-debug.log*
 
 node_modules
 dist
+gaurav
+palak
+aman
+chinmay
+ujjwal
 dist-ssr
 *.local
 
@@ -24,3 +29,4 @@ dist-ssr
 *.sln
 *.sw?
 .env.development
+.vite.config
