@@ -6,6 +6,7 @@ import Error from "../components/Error";
 import Label from "../components/Label";
 import Required from "../components/Required";
 
+// eslint-disable-next-line react/prop-types
 const ForgotPassword = ({ handleClick }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});

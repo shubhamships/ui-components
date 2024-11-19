@@ -17,6 +17,7 @@ const schema = z.object({
   password: z.string().min(6, "Password must be 6 or more characters long"),
 });
 
+// eslint-disable-next-line react/prop-types
 const Login = ({ handleClick, isLoading, setIsLoading }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -62,7 +63,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
         alert("failed");
       }
     } catch (error) {
-      setWrongError("Wrong email or password. Try again");
+      setWrongError("Wrong email or password. Try again", error);
     }
   };
 

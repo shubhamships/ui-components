@@ -1,8 +1,8 @@
-import React from "react";
 import Background from "../assets/background.jpg";
 import ShipGlobal from "../assets/shipGlobal.png";
 import { Link } from "react-router-dom";
 
+// eslint-disable-next-line react/prop-types
 const OuterLayout = ({ children }) => {
   return (
     <div

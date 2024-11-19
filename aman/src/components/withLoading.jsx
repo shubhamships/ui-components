@@ -1,10 +1,14 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable react/display-name */
+
 import { ImSpinner3 } from "react-icons/im";
 
-const withLoading = (WrappedComponent) => {
+const withLoading = () => {
   return ({ loading, children, ...props }) => (
     <button
-      className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
+      className={`bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm ${
+        loading ? "opacity-40" : ""
+      } `}
       disabled={loading}
       {...props}
     >
