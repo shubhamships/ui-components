@@ -9,6 +9,7 @@ import ShowEyeIcon from "../../assets/showEyeIcon.jsx";
 import HideEyeIcon from "../../assets/HideEyeIcon.jsx";
 import InputField from "../../Components/InputField.jsx";
 import Error from "../../Components/Errors.jsx";
+import API from "../../Components/api.js";
 function LoginPage() {
   const schema = zod.object({
     email: zod.string().email("Must be a valid email address"),
@@ -63,19 +64,7 @@ function LoginPage() {
   const handleAPI = async () => {
     setLoader(true);
     try {
-      const res = await axios.post(
-        "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",
-        {
-          email: data.email,
-          password: data.password,
-        },
-        {
-          headers: {
-            "content-type": "application/json",
-            accept: "application/json",
-          },
-        },
-      );
+      const res = await API.post("/auth/login", data);
       const APIData = await res.data;
       console.log(APIData);
       const token = APIData.data.token_details.token;
