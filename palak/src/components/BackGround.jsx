@@ -18,36 +18,34 @@ const BackGround = ({
       style={{ backgroundImage: `url(${BackgroundImage})` }}
     >
       <Link to="#" className="grid">
-        <div className="flex items-start mb-8 justify-center lg:mt-8 mx-20 md:justify-start md:my-2">
+        <div className="flex items-start lg:mb-8 justify-center mt-8 mx-20 md:justify-start">
           <img src={Logo} alt="Logo" className="h-12" />
         </div>
       </Link>
 
-      <div className="flex flex-col items-center justify-center">
-        <div className="rounded-lg shadow-lg w-full max-w-md max-h-screen m-12 px-3 bg-white pb-28">
-          <p className="font-semibold text-xl text-center flex flex-col p-8 tracking-tight">
-            {type === "login" && "Login"}
-            {type === "forgotPassword" && "Forgot Your Password?"}
-          </p>
-          {type === "login" && (
-            <Login
-              handleTypeChange={handleTypeChange}
-              handleDataChange={handleDataChange}
-              handleDataSubmit={handleDataSubmit}
-              formData={formData}
-              error={error}
-            />
-          )}
-          {type === "forgotPassword" && (
-            <ForgotPassword
-              handleTypeChange={handleTypeChange}
-              handleDataChange={handleDataChange}
-              handleDataSubmit={handleDataSubmit}
-              formData={formData}
-              error={error}
-            />
-          )}
-        </div>
+      <div className="rounded-lg shadow-lg w-full mx-auto my-auto max-w-md max-h-screen mt-8 px-3 bg-white pb-28">
+        <p className="font-semibold text-xl text-center flex flex-col p-8 tracking-tight">
+          {type === "login" && "Login"}
+          {type === "forgotPassword" && "Forgot Your Password?"}
+        </p>
+        {type === "login" && (
+          <Login
+            handleTypeChange={handleTypeChange}
+            handleDataChange={handleDataChange}
+            handleDataSubmit={handleDataSubmit}
+            formData={formData}
+            error={error}
+          />
+        )}
+        {type === "forgotPassword" && (
+          <ForgotPassword
+            handleTypeChange={handleTypeChange}
+            handleDataChange={handleDataChange}
+            handleDataSubmit={handleDataSubmit}
+            formData={formData}
+            error={error}
+          />
+        )}
       </div>
     </div>
   );

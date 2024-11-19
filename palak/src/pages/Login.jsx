@@ -107,7 +107,11 @@ const Login = ({
         </div>
         {wrongError && <Error>Wrong email or password. Try again</Error>}
         <div className="flex items-center justify-center ">
-          <ButtonLoader isLoading={isLoading} onClick={handleLogin}>
+          <ButtonLoader
+            isLoading={isLoading}
+            onClick={handleLogin}
+            className={`${isLoading ? "opacity-60" : ""}`}
+          >
             Submit
           </ButtonLoader>
         </div>
