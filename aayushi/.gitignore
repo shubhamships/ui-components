@@ -7,9 +7,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
+palak
+aman
+ujjwal
+gaurav
+chinmay
 node_modules
 dist
+.vite
 dist-ssr
 *.local
 
