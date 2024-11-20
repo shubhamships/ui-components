@@ -14,6 +14,7 @@ interface IButtonProps {
   size: keyof typeof buttonSize;
   className: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  
 }
 const buttonColors = {
   default:
@@ -29,8 +30,8 @@ const buttonColors = {
   dark: "bg-black text-white hover:bg-black-500",
 };
 const buttonSize = {
-  default: "h-9 px-4 py-2 font-medium rounded-md break-words",
-  xs: "h-6 px-3 py-1 text-xs font-semibold rounded-md text-wrap",
+  default: "h-9 px-4 py-2 font-medium rounded-md",
+  xs: "h-6 px-3 py-1 text-xs font-semibold rounded-md",
   sm: "h-8 rounded-md px-4 py-2 text-sm font-medium rounded-md",
   lg: "h-10 rounded-md px-6 py-3 text-lg font-medium rounded-md",
   xl: "h-11 px-8 py-4 rounded-md w-full max-w-sm text-lg font-medium rounded-md",

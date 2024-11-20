@@ -1,4 +1,12 @@
 import React from "react";
+
+interface ICardProps {
+    children: React.ReactNode;
+    variant: string;
+    size: string;
+    className: string;
+    
+}
 function Card({
     children,
     variant = "default",
