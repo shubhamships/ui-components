@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import ForgotPassword from "./ForgotPassword";
 import zod from "zod";
-import axios from "axios";
+import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
 import LogoImg from "../../assets/logo.png";
-import ShowEyeIcon from "../../assets/showEyeIcon.jsx";
-import HideEyeIcon from "../../assets/HideEyeIcon.jsx";
 import InputField from "../../Components/InputField.jsx";
 import Error from "../../Components/Errors.jsx";
 import API from "../../Components/api.js";
@@ -113,7 +111,7 @@ function LoginPage() {
                   <Error errors={error.email && error.email._errors[0]} />
                 </div>
                 <div className="space-y-1 mt-4">
-                  <div className="flex">
+                  <div className="flex relative">
                     <InputField
                       isRequired
                       name="password"
@@ -123,8 +121,8 @@ function LoginPage() {
                       onChange={handleChange}
                       label={"Password"}
                     />
-                    <div onClick={handleshowPassword} className="mt-9">
-                      {!showPassword ? <ShowEyeIcon /> : <HideEyeIcon />}
+                    <div onClick={handleshowPassword} className="top-9 right-3 absolute">
+                      {!showPassword ? <EyeOff /> : <Eye />}
                     </div>
                   </div>
                   <Error errors={error.password && error.password._errors[0]} />
