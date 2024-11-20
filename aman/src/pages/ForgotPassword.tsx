@@ -1,13 +1,13 @@
 import { z } from "zod";
 import { useState } from "react";
-import Input from "../components/Input";
-import Button from "../components/Button";
-import Error from "../components/Error";
-import Label from "../components/Label";
-import Required from "../components/Required";
+import Label from "@/components/Label";
+import Error from "@/components/Error";
+import Required from "@/components/Required";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
 
 // eslint-disable-next-line react/prop-types
-const ForgotPassword = ({ handleClick }) => {
+const ForgotPassword = ({ handleClick }: { handleClick: any }) => {
   const [formData, setFormData] = useState({ email: "" });
   const [error, setError] = useState({});
   const schema = z.object({
@@ -33,12 +33,9 @@ const ForgotPassword = ({ handleClick }) => {
   return (
     <div className="mb-32">
       <div className="flex flex-col p-6 text-center">
-        <p className="font-bold text-xl tracking-tight">
-          Forgot Your Password?
-        </p>
+        <p className="font-bold text-xl tracking-tight">Forgot Your Password?</p>
         <p className="pt-6 text-sm ">
-          Enter email address associated with your account and you will receive
-          an email to reset your password.
+          Enter email address associated with your account and you will receive an email to reset your password.
         </p>
       </div>
       <div className="p-6 pt-0">

@@ -1,10 +1,9 @@
-
 // eslint-disable-next-line react/prop-types
-function Label({ lableTitle }) {
+function Label({ lableTitle }: { lableTitle: string }) {
   return (
     <div>
       <label htmlFor="" className="text-sm font-normal">
-        {lableTitle} 
+        {lableTitle}
       </label>
     </div>
   );

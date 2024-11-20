@@ -1,6 +1,13 @@
 /* eslint-disable react/prop-types */
-
-function Input({ type, name, value, onChange, placeholder, className }) {
+interface InputProps {
+  type: string;
+  name: string;
+  value: string;
+  onChange: any;
+  placeholder?: string;
+  className?: string;
+}
+function Input({ type, name, value, onChange, placeholder, className }: InputProps) {
   return (
     <input
       type={type}

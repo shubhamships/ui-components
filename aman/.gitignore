@@ -13,7 +13,6 @@ dist
 dist-ssr
 *.local
 .vite
-package-lock
 
 # Editor directories and files
 .vscode/*
