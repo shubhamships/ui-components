@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { GoEye } from "react-icons/go";
-import { GoEyeClosed } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import withLoading from "../components/withLoading";
@@ -9,6 +7,7 @@ import { Label } from "../components/Label";
 import { loginUser } from "../api/FetchApi";
 import Error from "../components/Error";
 import Required from "../components/Required";
+import { Eye, EyeOff } from "lucide-react";
 
 const ButtonLoader = withLoading(Button);
 
@@ -80,13 +79,13 @@ const Login = ({
             />
 
             {showPassword ? (
-              <GoEye
-                className="absolute right-4 bottom-3 cursor-pointer"
+              <Eye
+                className="absolute right-4 bottom-2 cursor-pointer"
                 onClick={handleShow}
               />
             ) : (
-              <GoEyeClosed
-                className="absolute right-4 bottom-3 cursor-pointer"
+              <EyeOff
+                className="absolute right-4 bottom-2 cursor-pointer"
                 onClick={handleShow}
               />
             )}
