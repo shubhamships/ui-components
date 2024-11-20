@@ -23,11 +23,21 @@ interface Loginprops {
   setIsLoading: (isLoading: boolean) => void;
 }
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
+interface ErrorState {
+  email?: { _errors: string[] };
+  password?: { _errors: string[] };
+}
+
 // eslint-disable-next-line react/prop-types
 const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [error, setError] = useState({});
+  const [formData, setFormData] = useState<FormData>({ email: "", password: "" });
+  const [error, setError] = useState<ErrorState>({});
   const [wrongError, setWrongError] = useState("");
   const navigate = useNavigate();
 
