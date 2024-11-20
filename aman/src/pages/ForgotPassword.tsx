@@ -7,18 +7,29 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 
 // eslint-disable-next-line react/prop-types
-const ForgotPassword = ({ handleClick }: { handleClick: any }) => {
-  const [formData, setFormData] = useState({ email: "" });
-  const [error, setError] = useState({});
-  const schema = z.object({
-    email: z.string().email("Must be a valid email address"),
-  });
+const schema = z.object({
+  email: z.string().email("Must be a valid email address"),
+});
+interface ForgotPasswordProps {
+  handleClick: () => void;
+}
 
-  const handleChange = (e) => {
+interface FormData {
+  email: string;
+}
+
+interface ErrorState {
+  email?: { _errors: string[] };
+}
+const ForgotPassword = ({ handleClick }: ForgotPasswordProps) => {
+  const [formData, setFormData] = useState<FormData>({ email: "" });
+  const [error, setError] = useState<ErrorState>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = schema.safeParse({
       ...formData,

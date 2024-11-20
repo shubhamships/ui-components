@@ -17,18 +17,24 @@ const schema = z.object({
   password: z.string().min(6, "Password must be 6 or more characters long"),
 });
 
+interface Loginprops {
+  handleClick: () => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
+}
+
 // eslint-disable-next-line react/prop-types
-const Login = ({ handleClick, isLoading, setIsLoading }) => {
+const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState({});
   const [wrongError, setWrongError] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const result = schema.safeParse({
       ...formData,
@@ -63,7 +69,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
         alert("failed");
       }
     } catch (error) {
-      setWrongError("Wrong email or password. Try again", error);
+      setWrongError("Wrong email or password. Try again");
     }
   };
 
@@ -104,35 +110,22 @@ const Login = ({ handleClick, isLoading, setIsLoading }) => {
               />
 
               {showPassword ? (
-                <LuEye
-                  className="absolute right-4 bottom-3 cursor-pointer text-xl"
-                  onClick={handleShow}
-                />
+                <LuEye className="absolute right-4 bottom-3 cursor-pointer text-xl" onClick={handleShow} />
               ) : (
-                <LuEyeOff
-                  className="absolute right-4 bottom-3 cursor-pointer text-xl"
-                  onClick={handleShow}
-                />
+                <LuEyeOff className="absolute right-4 bottom-3 cursor-pointer text-xl" onClick={handleShow} />
               )}
             </div>
 
-            <div className="w-64">
-              {error.password && <Error>{error.password._errors[0]}</Error>}
-            </div>
+            <div className="w-64">{error.password && <Error>{error.password._errors[0]}</Error>}</div>
           </div>
           <div className="my-1">
             <a href="#">
-              <span
-                className="text-sm font-medium text-blue-900 hover:underline"
-                onClick={handleClick}
-              >
+              <span className="text-sm font-medium text-blue-900 hover:underline" onClick={handleClick}>
                 Forgot Password?
               </span>
             </a>
           </div>
-          {wrongError && (
-            <p className="text-sm font-medium text-red-600">{wrongError}</p>
-          )}
+          {wrongError && <p className="text-sm font-medium text-red-600">{wrongError}</p>}
           <div className="flex items-center justify-center">
             <LoadingButton loading={isLoading}>Submit</LoadingButton>
           </div>
