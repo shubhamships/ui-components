@@ -5,8 +5,11 @@ export default {
     extend: {
       colors: {
         'primary': '#1f499e',
-        'destructive':'#ff0000',
-        
+        'destructive': '#ff0000',
+      },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
+        'poppins': ["Poppins", "sans-serif"],
       }
     },
   },
