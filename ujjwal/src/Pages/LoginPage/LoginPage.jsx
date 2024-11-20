@@ -8,6 +8,7 @@ import LogoImg from "../../assets/logo.png";
 import InputField from "../../Components/InputField.jsx";
 import Error from "../../Components/Errors.jsx";
 import API from "../../Components/api.js";
+import Button from "../../Components/button.jsx";
 function LoginPage() {
   const schema = zod.object({
     email: zod.string().email("Must be a valid email address"),
@@ -138,12 +139,10 @@ function LoginPage() {
                 </div>
                 <div>{setApiErrorMessage && <p className="text-xs font-medium text-red-600">{apiErrorMessage}</p>}</div>
                 <div className="mt-11">
-                  <div className="flex items-center justify-center border bg-blue-900 text-sm font-medium text-white rounded-md h-12">
-                    <button onClick={handleAPI} className="w-full flex items-center justify-center" type="submit">
-                      Submit{" "}
-                      {setLoader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}
-                    </button>
-                  </div>
+                  <Button onClick={handleAPI} type="submit">
+                    Submit
+                    {setLoader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}
+                  </Button>
                 </div>
               </form>
             </>

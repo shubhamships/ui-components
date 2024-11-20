@@ -1,6 +1,7 @@
 import React from "react";
 import InputField from "../../Components/InputField";
 import Error from "../../Components/Errors";
+import Button from "../../Components/button";
 
 function ForgotPassword({ onBackToLogin, handleSubmit, error }) {
   return (
@@ -25,17 +26,15 @@ function ForgotPassword({ onBackToLogin, handleSubmit, error }) {
             </div>
             <Error errors={error.email && error.email._errors[0]} className="mt-1" />
             <div className="mt-11">
-              <div className="flex items-center justify-center border bg-blue-900 font-medium text-white rounded-md h-12">
-                <button>Submit</button>
-              </div>
+              <Button>Submit</Button>
             </div>
             <div className="mt-5">
-              <button
-                className="text-blue-900 font-medium hover:underline flex item-center justify-center ml-32"
+              <div
+                className="text-blue-900 font-medium hover:underline flex item-center text-base justify-center"
                 onClick={onBackToLogin}
               >
                 Return to Login
-              </button>
+              </div>
             </div>
           </form>
         </div>
