@@ -3,7 +3,7 @@ import Root from "./Root";
 import { Blank } from "./pages/Blank";
 import { BackToLogin } from "./pages/BackToLogin";
 import { HomePage } from "./pages/HomePage";
-console.log("commit message");
+
 const router = createBrowserRouter([
   {
     path: "/",
