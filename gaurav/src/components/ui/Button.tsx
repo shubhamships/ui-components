@@ -14,9 +14,7 @@ interface IButtonProps {
   size: keyof typeof buttonSize;
   className: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  icon?: React.ReactNode;
-  iconSize?: keyof typeof buttonSize.iconSize;
-  iconName?: React.ReactNode;
+  children?: React.ReactNode;
 }
 const buttonColors = {
   default:
@@ -39,27 +37,12 @@ const buttonSize = {
   lg: "h-10 rounded-md px-6 py-3 text-lg font-medium rounded-md",
   xl: "h-11 px-8 py-4 rounded-md w-full max-w-sm text-lg font-medium rounded-md",
   icon: "h-10 w-10 p-1 rounded-full",
-  iconSize: {
-    xs: "h-4 w-4 pr-1",
-    sm: "h-5 w-5 pr-1",
-    default: "",
-    md: "h-6 w-6 pr-1",
-  },
 };
 
 function Button(props: any) {
-  const {
-    title,
-    type,
-    variant = "default",
-    size = "default",
-    className,
-    onClick,
-    iconName,
-    iconSize = "default",
-  }: IButtonProps = props;
+  const { title, type, variant = "default", size = "default", className, onClick, children }: IButtonProps = props;
 
-  const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none";
+  const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none whitespace-nowrap";
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
 
@@ -71,8 +54,7 @@ function Button(props: any) {
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
         type={type}
       >
-        <span className={`${buttonSize.iconSize[iconSize]}`}>{iconName}</span>
-        {title}
+        <span>{children}</span>{title}
       </button>
     </div>
   );

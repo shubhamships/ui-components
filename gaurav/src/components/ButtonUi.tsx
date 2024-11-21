@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
-import { Mail, Send } from "lucide-react";
+import { BrainCircuit, Inbox, Layers3, Layers3Icon, Mail, Send } from "lucide-react";
 
 export const ButtonUi = () => {
   return (
@@ -90,13 +90,11 @@ export const ButtonUi = () => {
         <div className="pt-6">
           <div className="text-sm font-medium  rounded text-gray-600">Button with icon</div>
           <Card className="flex justify-center items-center p-4 w-full gap-8" variant="link">
-            <Button title="mail xs" variant="withIcon" size="xs" iconName={<Mail />} iconSize="xs" />
-            <Button title="Send sm" variant="withIcon" size="sm">
-              <Send className="h-5 w-5 pr-1" />
-            </Button>
-            <Button title="Button Default" variant="withIcon" />
-            <Button title="Button lg" variant="withIcon" size="lg" />
-            <Button title="Button xl" variant="withIcon" size="xl" />
+            <Button title="mail xs" variant="withIcon" size="xs"><Mail className="h-4 w-4 pr-1" /></Button> 
+            <Button title="Send sm" variant="withIcon" size="sm"><Send className="h-5 w-5 pr-1" /></Button> 
+            <Button title="Inbox Default" variant="withIcon"><Inbox className="h-6 w-6 pr-2" /></Button> 
+            <Button title="Button lg" variant="withIcon" size="lg"><Layers3 className="h-7 w-7 pr-2" /></Button> 
+            <Button title="Button xl" variant="withIcon" size="xl" ><BrainCircuit className="h-8 w-8 pr-2" /></Button>
             <Button title="+" variant="withIcon" size="icon" />
           </Card>
         </div>
