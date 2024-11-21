@@ -28,3 +28,4 @@ ujjwal
 *.sln
 *.sw?
 .env.development
+*-lock.json
