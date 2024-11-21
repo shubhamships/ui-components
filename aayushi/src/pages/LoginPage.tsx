@@ -37,7 +37,7 @@ export const LoginPage = () => {
     setPasswordPage(!passwordPage);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = schema.safeParse(data);
@@ -58,7 +58,6 @@ export const LoginPage = () => {
 
     try {
       const res = await Api({ email: data.email, password: data.password });
-
       const token = res.data.token_details.token;
       if (token) {
         localStorage.setItem("jwtToken", token);
