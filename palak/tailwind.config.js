@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require("tailwindcss/defaultTheme");
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      fontFamily: {
-        poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
+      backgroundImage: {
+        "login-image": "url('./src/assets/bg.jpg')",
       },
+      fontFamily: { sans: ["Poppins", "sans-serif"], poppins: ["Poppins", "sans-serif"] },
     },
   },
   plugins: [],
