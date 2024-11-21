@@ -10,6 +10,11 @@ import { Api } from "./Api";
 import { useNavigate } from "react-router-dom";
 import { Required } from "../components/Required";
 
+interface FormError{
+    email?:{_errors:string[]};
+    password?:{_errors:string[]};
+}
+
 export const LoginPage = () => {
   const navigate = useNavigate();
 
@@ -18,11 +23,11 @@ export const LoginPage = () => {
     password: z.string().min(6, "Password must be at least 6 characters long"),
   });
 
-  const [passwordPage, setPasswordPage] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({});
+  const [passwordPage, setPasswordPage] = useState<boolean>(true);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showError, setShowError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<FormError>({});
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -32,7 +37,7 @@ export const LoginPage = () => {
     setPasswordPage(!passwordPage);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const result = schema.safeParse(data);

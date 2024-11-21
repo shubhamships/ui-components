@@ -1,8 +1,11 @@
 import axios from "axios";
 
-interface 
+interface ApiInterface{
+    email:string;
+    password:string;
+}
 
-export const Api = async (email, password) => {
+export const Api = async ({email, password}:ApiInterface) => {
   try {
     const response = await axios.post(
       "https://api.fr.stg.shipglobal.in/public/api/v1/auth/login",

@@ -11,14 +11,23 @@ const forgotPasswordSchema = z.object({
   email: z.string().email("Must be a valid email address"),
 });
 
-export const ForgotPassword = ({ setPassword }) => {
+interface FormError{
+    email?:{_errors:string[]};
+    password?:{_errors:string[]};
+}
+
+interface ForgotPasswordProps {
+    setPassword?: (password: string) => void; 
+  } 
+
+export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
   const [data, setData] = useState({
     email: "",
   });
-  const [error, setError] = useState({});
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<FormError>({});
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = forgotPasswordSchema.safeParse(data);
@@ -34,7 +43,7 @@ export const ForgotPassword = ({ setPassword }) => {
     } else {
       const errorMessages = {};
       result.error.errors.forEach((err) => {
-        errorMessages[err.path[0]] = err.message;
+        errorMessages[err.path[0]] = { _errors: [err.message] };
       });
       setError(errorMessages);
     }

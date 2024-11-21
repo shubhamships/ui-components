@@ -10,7 +10,7 @@ interface InputProps {
   name?: string; 
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = ({
   type,
   placeholder,
   className = "",
@@ -18,7 +18,7 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   id,
   name,
-}) => {
+}:InputProps) => {
   return (
     <div>
       <input
