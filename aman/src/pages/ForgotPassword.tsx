@@ -65,8 +65,8 @@ const ForgotPassword = ({ handleClick }: ForgotPasswordProps) => {
             />
             {error.email && <Error>{error.email._errors[0]}</Error>}
           </div>
-          <div className="flex items-center justify-center">
-            <Button buttonName="Submit" />
+          <div className="">
+            <Button title="Submit" className="w-full mt-10" size="xl" onClick={handleSubmit}/>
           </div>
         </form>
       </div>
