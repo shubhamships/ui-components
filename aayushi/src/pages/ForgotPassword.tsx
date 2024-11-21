@@ -42,7 +42,7 @@ export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
         setLoading(false);
       }, 2000);
     } else {
-      const errorMessages = {};
+      const errorMessages: { [key: string]: { _errors: string[] } } = {};
       result.error.errors.forEach((err) => {
         errorMessages[err.path[0]] = { _errors: [err.message] };
       });

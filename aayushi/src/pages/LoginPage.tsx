@@ -10,9 +10,9 @@ import { Api } from "./Api";
 import { useNavigate } from "react-router-dom";
 import { Required } from "../components/Required";
 
-interface FormError{
-    email?:{_errors:string[]};
-    password?:{_errors:string[]};
+interface FormError {
+  email?: { _errors: string[] };
+  password?: { _errors: string[] };
 }
 
 export const LoginPage = () => {
@@ -37,16 +37,18 @@ export const LoginPage = () => {
     setPasswordPage(!passwordPage);
   };
 
-  const handleSubmit = async (e:React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const result = schema.safeParse(data);
 
     if (!result.success) {
-      const errorMessages = {};
+      const errorMessages: { [key: string]: string } = {};
+
       result.error.errors.forEach((err) => {
         errorMessages[err.path[0]] = err.message;
       });
+
       setError(errorMessages);
       return;
     }
@@ -55,7 +57,7 @@ export const LoginPage = () => {
     setShowError(false);
 
     try {
-      const res = await Api({email:data.email,password: data.password});
+      const res = await Api({ email: data.email, password: data.password });
 
       const token = res.data.token_details.token;
       if (token) {
@@ -105,20 +107,14 @@ export const LoginPage = () => {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter password"
                     value={data.password}
-                    onChange={(e) =>
-                      setData({ ...data, password: e.target.value })
-                    }
+                    onChange={(e) => setData({ ...data, password: e.target.value })}
                     className="w-full pr-48"
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3 cursor-pointer top-1/2 transform -translate-y-1/2 "
                   >
-                    <i
-                      className={`fa ${
-                        showPassword ? "fa-eye" : "fa-eye-slash"
-                      }`}
-                    />
+                    <i className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`} />
                   </span>
                 </div>
                 <Error message={error.password?._errors?.[0]} />
@@ -132,11 +128,7 @@ export const LoginPage = () => {
                 </span>
               </div>
 
-              {showError && (
-                <p className="text-red-500 text-xs font-medium my-4">
-                  Wrong email or password. Try again
-                </p>
-              )}
+              {showError && <p className="text-red-500 text-xs font-medium my-4">Wrong email or password. Try again</p>}
 
               <div className="flex items-center justify-center mb-20">
                 <Button loading={loading} type={"Submit"} />
