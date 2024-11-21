@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 
 //add typescript types
 //add tailwind color config custom
@@ -7,14 +7,38 @@ import React, { Children } from "react";
 //lucide react icons
 //MOBILE RESPONSIVNES
 
+/**
+ * Here are the paramaters for the Button component
+ * @param title:string(required) - Button text to display on the button element
+ * @param title:React.ButtonHTMLAttributes<HTMLButtonElement>['type'] (optional) - The type of the button element (e.g., "button", "submit", "reset").
+ * @param variant: keyof typeof buttonColors (optional) - The color variant of the button element. Default is "default".
+ * @param size: keyof typeof buttonSize (optional) - The size variant of the button element. Default is "default".
+ * @param className:string (optional) - Additional classes to be added to the button element.
+ * @param onClick: (event: React.MouseEvent<HTMLButtonElement>) => void (optional) - The function to be called when the button is clicked.
+ * @param children: React.ReactNode (optional) - The children of the button element.
+ * @param iconName: React.ReactNode (optional) - The icon to be displayed on the button element.
+ * 
+ */
+/**
+ * Explanation of props
+ * @param title - The text to be displayed on the button
+ * @param type - The type of the button element (e.g., "button", "submit", "reset").
+ * @param variant - The color variant of the button element. Default is "default".
+ * @param size - The size variant of the button element. Default is "default".
+ * @param className - Additional classes to be added to the button element.
+ * @param onClick - The function to be called when the button is clicked.
+ * @param children - The children of the button element.
+ * @param iconName - The icon to be displayed on the button element.
+ */
+
 interface IButtonProps {
   title: string;
-  type: any;
-  variant: keyof typeof buttonColors;
-  size: keyof typeof buttonSize;
-  className: string;
+  type?: any;
+  variant?: keyof typeof buttonColors;
+  size?: keyof typeof buttonSize;
+  className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  children?: React.ReactNode;
+  iconName?: React.ReactNode;
 }
 const buttonColors = {
   default:
@@ -39,14 +63,10 @@ const buttonSize = {
   icon: "h-10 w-10 p-1 rounded-full",
 };
 
-function Button(props: any) {
-  const { title, type, variant = "default", size = "default", className, onClick, children }: IButtonProps = props;
-
+function Button({ title, type = "button", variant = "default", size = "default", className, onClick, iconName }: IButtonProps) {
   const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none whitespace-nowrap";
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
-
-  //className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ''}
   return (
     <div>
       <button
@@ -54,7 +74,7 @@ function Button(props: any) {
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
         type={type}
       >
-        <span>{children}</span>{title}
+        <span>{iconName}</span>{title}
       </button>
     </div>
   );

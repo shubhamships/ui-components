@@ -1,7 +1,6 @@
-import React from "react";
 import Button from "./ui/Button";
 import Card from "./ui/Card";
-import { BrainCircuit, Inbox, Layers3, Layers3Icon, Mail, Send } from "lucide-react";
+import { BrainCircuit, Inbox, Layers3, Mail, Send } from "lucide-react";
 
 export const ButtonUi = () => {
   return (
@@ -45,7 +44,7 @@ export const ButtonUi = () => {
         </div>
         <div className="pt-6">
           <div className="text-sm font-medium text-success">Success Buttons</div>
-          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="success">
+          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="secondary">
             <Button title="Button xs" variant="success" size="xs" />
             <Button title="Button sm" variant="success" size="sm" />
             <Button title="Button Default" variant="success" />
@@ -56,7 +55,7 @@ export const ButtonUi = () => {
         </div>
         <div className="pt-6">
           <div className="text-sm font-medium text-primary">Soft Buttons</div>
-          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="soft">
+          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="secondary">
             <Button title="Button xs" variant="soft" size="xs" />
             <Button title="Button sm" variant="soft" size="sm" />
             <Button title="Button Default" variant="soft" />
@@ -67,7 +66,7 @@ export const ButtonUi = () => {
         </div>
         <div className="pt-6">
           <div className="text-sm font-medium rounded text-primary underline">Link Buttons</div>
-          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="link">
+          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="secondary">
             <Button title="Button xs" variant="link" size="xs" />
             <Button title="Button sm" variant="link" size="sm" />
             <Button title="Button Default" variant="link" />
@@ -78,7 +77,7 @@ export const ButtonUi = () => {
         </div>
         <div className="pt-6">
           <div className="text-sm font-medium  rounded text-gray-600">Ghost Buttons</div>
-          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="link">
+          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="secondary">
             <Button title="Button xs" variant="ghost" size="xs" />
             <Button title="Button sm" variant="ghost" size="sm" />
             <Button title="Button Default" variant="ghost" />
@@ -89,12 +88,12 @@ export const ButtonUi = () => {
         </div>
         <div className="pt-6">
           <div className="text-sm font-medium  rounded text-gray-600">Button with icon</div>
-          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="link">
-            <Button title="mail xs" variant="withIcon" size="xs"><Mail className="h-4 w-4 pr-1" /></Button> 
-            <Button title="Send sm" variant="withIcon" size="sm"><Send className="h-5 w-5 pr-1" /></Button> 
-            <Button title="Inbox Default" variant="withIcon"><Inbox className="h-6 w-6 pr-2" /></Button> 
-            <Button title="Button lg" variant="withIcon" size="lg"><Layers3 className="h-7 w-7 pr-2" /></Button> 
-            <Button title="Button xl" variant="withIcon" size="xl" ><BrainCircuit className="h-8 w-8 pr-2" /></Button>
+          <Card className="flex justify-center items-center p-4 w-full gap-8" variant="secondary">
+            <Button title="mail xs" variant="withIcon" size="xs" iconName={<Mail className="h-4 w-4 pr-1" />} />
+            <Button title="Send sm" variant="withIcon" size="sm" iconName={<Send className="h-5 w-5 pr-1" />} />
+            <Button title="Inbox Default" variant="withIcon" iconName={<Inbox className="h-6 w-6 pr-2" />} />
+            <Button title="Button lg" variant="withIcon" size="lg" iconName={<Layers3 className="h-7 w-7 pr-2" />} />
+            <Button title="Button xl" variant="withIcon" size="xl" iconName={<BrainCircuit className="h-8 w-8 pr-2" />} />
             <Button title="+" variant="withIcon" size="icon" />
           </Card>
         </div>
