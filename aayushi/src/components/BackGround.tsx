@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import BGImage from "../assets/bg.jpg";
+import BGImage from "./assets/bg.jpg";
 import Logo from "../assets/logo.png";
 
-export const BackGround = ({ type }) => {
+interface BackGroundProps {
+  type?: React.ComponentType; 
+}
+
+export const BackGround:React.FC<BackGroundProps> = ({ type }) => {
   return (
     <div className="w-full h-screen">
       <div

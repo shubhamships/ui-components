@@ -1,9 +1,9 @@
 import { HomePage } from "./pages/HomePage";
 
 const Root = () => (
-    <div>
-      <HomePage/>
-    </div>
-  );
+  <div>
+    <HomePage />
+  </div>
+);
 
-  export default Root;
+export default Root;
