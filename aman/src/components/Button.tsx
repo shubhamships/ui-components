@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+//TODO: make it more customisable based on props
+
 const Button = ({ buttonName }: { buttonName: string }) => {
   return (
     <div>

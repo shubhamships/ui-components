@@ -2,6 +2,7 @@ import Background from "../assets/background.jpg";
 import ShipGlobal from "@/assets/shipGlobal.png";
 import { Link } from "react-router-dom";
 
+//TODO - create dashboard layout based on this
 // eslint-disable-next-line react/prop-types
 const OuterLayout = ({ children }: { children: any }) => {
   return (

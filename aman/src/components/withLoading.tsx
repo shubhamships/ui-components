@@ -8,6 +8,7 @@ interface withLoadingProps {
   children: string;
 }
 
+//TODO - Check the functionality of this in one component or page
 const withLoading = () => {
   return ({ loading, children, ...props }: withLoadingProps) => (
     <button
