@@ -1,13 +1,35 @@
 import { Mail, CircleUserRound, MapPin, Plus, Search } from "lucide-react";
 import { useState } from "react";
 
+/**
+ * `FormInput` is a customizable input field component that allows various configurations for label, placeholder, size, color, and icons.
+ * It supports floating labels, custom icons, and flexible styling.
+ *
+ * @param {string} name - The name of the input field, used for form submission and identifying the field. Default is "input-field".
+ * @param {string} type - The type of the input field (e.g., text, email, password). This is a required field.
+ * @param {string} [label] - The label to display above the input field. It’s optional and will float when the input is focused or filled.
+ * @param {string} [placeholder] - The placeholder text inside the input field when it is empty.
+ * @param {boolean} [isRequired=false] - If `true`, adds a red asterisk next to the label indicating the input field is required.
+ * @param {React.ReactNode} [children] - Any child components or elements to be rendered within the input field. This is not used in the current implementation.
+ * @param {string} [className] - Optional additional CSS classes to customize the input's appearance.
+ * @param {keyof typeof colorCombination} [variant="default"] - Determines the color scheme of the input field.
+ *  Available options: "default", "blue", "green", "yellow", "red".
+ * @param {keyof typeof InputSize} [size="md"] - Determines the size of the input field.
+ *  Available options: "sm", "md", "lg", "xl".
+ * @param {keyof typeof Icon} [icon="default"] - Specifies which icon should be shown inside the input field.
+ *  Available options: "default", "search", "mail", "location", "number", "person".
+ * @param {boolean} [isFloatingLabel=false] - If `true`, the label will float above the input field when the field is focused or filled.
+ *
+ * @returns {JSX.Element} A customizable input field with floating labels, optional icons, and dynamic appearance based on the provided props.
+ */
+
 interface FormInputProps {
   name?: string;
   type: string;
   label?: string;
   placeholder?: string;
-  value: any;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  // value: any;
+  // onChange?: (e) => void;
   isRequired?: boolean;
   children?: any;
   className?: string;
@@ -18,11 +40,11 @@ interface FormInputProps {
 }
 
 const colorCombination = {
-  default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-non",
-  blue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-non",
-  green: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-non",
-  yellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-non",
-  red: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-non",
+  default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  blue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
+  green: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
+  yellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
+  red: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-none",
 };
 
 const InputSize = {
@@ -46,8 +68,6 @@ function FormInput({
   type,
   label,
   placeholder,
-  value,
-  onChange ,
   isRequired = false,
   variant = "default",
   size = "md",
@@ -55,21 +75,28 @@ function FormInput({
   icon = "default",
 }: FormInputProps) {
   const [isFocused, setIsFocused] = useState(false);
-
+  const [data, setData] = useState("");
   const variantClass = colorCombination[variant] || colorCombination.default;
   const sizeClass = InputSize[size] || InputSize.md;
   const iconClass = Icon[icon] || null;
 
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => {
-    if (value) {
-      setIsFocused(false);
-    } else if (!value && !isFocused) {
+  const isFloating = isFocused;
+
+  const handleInputEvent = (e: any) => {
+    const { type, target } = e;
+    const inputValue = target.value.trim();
+
+    if (type === "focus") {
       setIsFocused(true);
+    } else if (type === "blur") {
+      if (inputValue === "") {
+        setIsFocused(false);
+      }
+    } else if (type === "change") {
+      setData(e.target.value);
+      setIsFocused(inputValue !== "");
     }
   };
-
-  const isFloating = isFocused || Boolean(value);
 
   return (
     <div className="relative flex flex-col">
@@ -81,7 +108,7 @@ function FormInput({
           <label
             htmlFor={name}
             className={`absolute left-12 transition-all duration-200 ease-in-out ${
-              isFloating ? "top-1 text-xs text-gray-500" : "top-1/2 -translate-y-1/2  text-gray-500"
+              isFloating ? "top-1 text-xs text-white" : "top-1/2 -translate-y-1/2  text-white"
             }`}
           >
             {label}
@@ -93,10 +120,10 @@ function FormInput({
           name={name}
           type={type}
           placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          value={data}
+          onChange={handleInputEvent}
+          onFocus={handleInputEvent}
+          onBlur={handleInputEvent}
           className={`${iconClass ? "pl-12" : ""} ${variantClass} ${sizeClass} ${className || ""}`}
         />
       </div>
