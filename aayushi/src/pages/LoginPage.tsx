@@ -55,7 +55,7 @@ export const LoginPage = () => {
     setShowError(false);
 
     try {
-      const res = await Api(data.email, data.password);
+      const res = await Api({email:data.email,password: data.password});
 
       const token = res.data.token_details.token;
       if (token) {
@@ -92,7 +92,7 @@ export const LoginPage = () => {
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
-                <Error message={error.email} />
+                <Error message={error.email?._errors?.[0]} />
               </div>
 
               <div>
@@ -121,7 +121,7 @@ export const LoginPage = () => {
                     />
                   </span>
                 </div>
-                <Error message={error.password} />
+                <Error message={error.password?._errors?.[0]} />
               </div>
               <div>
                 <span

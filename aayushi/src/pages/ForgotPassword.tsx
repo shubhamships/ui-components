@@ -14,10 +14,11 @@ const forgotPasswordSchema = z.object({
 interface FormError{
     email?:{_errors:string[]};
     password?:{_errors:string[]};
+    message?: { _errors: string[] } | null;
 }
 
 interface ForgotPasswordProps {
-    setPassword?: (password: string) => void; 
+    setPassword?: (password: boolean) => void; 
   } 
 
 export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
@@ -75,7 +76,7 @@ export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
-            <Error message={error.email} />
+            <Error message={error.email?._errors?.[0]}/>
           </div>
           <div className="flex items-center justify-center mt-6">
             <Button loading={loading} type={"Submit"} />
@@ -83,7 +84,7 @@ export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
           <div className="mt-5">
             <span
               className="text-blue-800 font-medium hover:underline flex item-center justify-center cursor-pointer"
-              onClick={() => setPassword(true)}
+              onClick={() => setPassword && setPassword(true)}
               >
                 Return to Login
               </span>
