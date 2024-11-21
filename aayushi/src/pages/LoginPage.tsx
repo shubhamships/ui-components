@@ -93,7 +93,7 @@ export const LoginPage = () => {
                   value={data.email}
                   onChange={(e) => setData({ ...data, email: e.target.value })}
                 />
-                <Error message={error.email?._errors?.[0]} />
+                <Error message={error.email?._errors?.[0] || ""} />
               </div>
 
               <div>
@@ -116,7 +116,7 @@ export const LoginPage = () => {
                     <i className={`fa ${showPassword ? "fa-eye" : "fa-eye-slash"}`} />
                   </span>
                 </div>
-                <Error message={error.password?._errors?.[0]} />
+                <Error message={error.password?._errors?.[0] || ""} />
               </div>
               <div>
                 <span

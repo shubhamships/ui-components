@@ -76,7 +76,7 @@ export const ForgotPassword = ({ setPassword }:ForgotPasswordProps) => {
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
             />
-            <Error message={error.email?._errors?.[0]}/>
+            <Error message={error.email?._errors?.[0] || ""} />
           </div>
           <div className="flex items-center justify-center mt-6">
             <Button loading={loading} type={"Submit"} />
