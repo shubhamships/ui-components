@@ -8,7 +8,7 @@ export const Blank = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-      navigate("/backtologin");
+      navigate("/back-to-login");
     }, 2000);
   }, [navigate]);
 

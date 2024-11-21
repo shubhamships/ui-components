@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     element: <Blank />,
   },
   {
-    path: "/backtologin",
+    path: "/back-to-login",
     element: <BackToLogin />,
   },
   {
