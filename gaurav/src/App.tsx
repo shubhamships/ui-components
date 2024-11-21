@@ -1,5 +1,14 @@
+import React from "react";
+import { ButtonUI } from "./components/ButtonUI";
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello Gaurav!</h1>;
-}
+  return (
+    <div className="font-sans flex justify-center items-center">
+      <div>
+        <ButtonUI />
+      </div>
+      </div>
+    );
+  }
+
 
 export default App;
