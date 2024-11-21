@@ -3,7 +3,16 @@ import Login from "../pages/Login";
 import ForgotPassword from "../pages/ForgotPassword";
 import Logo from "../assets/logo.png";
 import BackgroundImage from "../assets/bg.jpg";
+import { FormError } from "../pages/Home";
 
+interface backgroundProps {
+  type: "login" | "forgotPassword";
+  handleTypeChange: (newType: "login" | "forgotPassword") => void;
+  formData: { email: string; password: string };
+  error: FormError;
+  handleDataChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDataSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
 const BackGround = ({
   type,
   handleTypeChange,
@@ -11,12 +20,9 @@ const BackGround = ({
   error,
   handleDataChange,
   handleDataSubmit,
-}) => {
+}: backgroundProps) => {
   return (
-    <div
-      className="bg-cover h-screen"
-      style={{ backgroundImage: `url(${BackgroundImage})` }}
-    >
+    <div className="bg-cover h-screen" style={{ backgroundImage: `url(${BackgroundImage})` }}>
       <Link to="#" className="grid">
         <div className="flex items-start lg:mb-8 justify-center mt-8 mx-20 md:justify-start">
           <img src={Logo} alt="Logo" className="h-12" />

@@ -6,7 +6,7 @@ import Button from "../components/Button";
 
 function Front() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const LoaderButton = withLoading(Button);
   const handleLogout = () => {
     setIsLoading(true);
@@ -24,11 +24,7 @@ function Front() {
   return (
     <div className="flex items-center justify-center flex-col">
       <p className="text-3xl mt-10">Dashboard</p>
-      <LoaderButton
-        onClick={handleLogout}
-        isLoading={isLoading}
-        className={`${isLoading ? "opacity-60" : ""}`}
-      >
+      <LoaderButton onClick={handleLogout} isLoading={isLoading} className={`${isLoading ? "opacity-60" : ""}`}>
         Logout
       </LoaderButton>
     </div>

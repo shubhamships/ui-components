@@ -1,11 +1,12 @@
-export const Input = ({
-  type,
-  placeholder,
-  className,
-  onChange,
-  value,
-  name,
-}) => {
+interface inputProps {
+  type: string;
+  placeholder: string;
+  className?: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  name: string;
+}
+export const Input = ({ type, placeholder, className, onChange, value, name }: inputProps) => {
   return (
     <input
       type={type}

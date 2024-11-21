@@ -8,19 +8,22 @@ import { loginUser } from "../api/FetchApi";
 import Error from "../components/Error";
 import Required from "../components/Required";
 import { Eye, EyeOff } from "lucide-react";
+import { FormError } from "../pages/Home";
 
 const ButtonLoader = withLoading(Button);
 
-const Login = ({
-  handleTypeChange,
-  handleDataChange,
-  handleDataSubmit,
-  formData,
-  error,
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [wrongError, setWrongError] = useState(false);
+interface LoginProps {
+  handleTypeChange: (newType: "login" | "forgotPassword") => void;
+  formData: { email: string; password: string };
+  error: FormError;
+  handleDataChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDataSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+}
+
+const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData, error }: LoginProps) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [wrongError, setWrongError] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleShow = () => {
@@ -30,7 +33,7 @@ const Login = ({
   const handleLogin = async () => {
     setIsLoading(true);
     try {
-      const data = await loginUser("auth/login", formData);
+      const data = await loginUser({ additionalURL: "auth/login", formData });
       console.log(data);
 
       if (data.data.token_details.token) {
@@ -79,20 +82,12 @@ const Login = ({
             />
 
             {showPassword ? (
-              <Eye
-                className="absolute right-4 bottom-2 cursor-pointer"
-                onClick={handleShow}
-              />
+              <Eye className="absolute right-4 bottom-2 cursor-pointer" onClick={handleShow} />
             ) : (
-              <EyeOff
-                className="absolute right-4 bottom-2 cursor-pointer"
-                onClick={handleShow}
-              />
+              <EyeOff className="absolute right-4 bottom-2 cursor-pointer" onClick={handleShow} />
             )}
           </div>
-          <div className="w-64">
-            {error.password && <Error>{error.password._errors[0]}</Error>}
-          </div>
+          <div className="w-64">{error.password && <Error>{error.password._errors[0]}</Error>}</div>
         </div>
         <div className="my-1">
           <a href="#">
@@ -106,11 +101,7 @@ const Login = ({
         </div>
         {wrongError && <Error>Wrong email or password. Try again</Error>}
         <div className="flex items-center justify-center ">
-          <ButtonLoader
-            isLoading={isLoading}
-            onClick={handleLogin}
-            className={`${isLoading ? "opacity-60" : ""}`}
-          >
+          <ButtonLoader isLoading={isLoading} onClick={handleLogin} className={`${isLoading ? "opacity-60" : ""}`}>
             Submit
           </ButtonLoader>
         </div>
