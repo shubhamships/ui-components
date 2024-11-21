@@ -1,7 +1,5 @@
-import { Mail } from "lucide-react";
-import { MapPin } from "lucide-react";
-import { Hash } from "lucide-react";
-import { Search } from "lucide-react";
+import { Mail, CircleUserRound, MapPin, Plus, Search } from "lucide-react";
+import { useState } from "react";
 
 interface FormInputProps {
   name?: string;
@@ -9,28 +7,29 @@ interface FormInputProps {
   label?: string;
   placeholder?: string;
   value: any;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   isRequired?: boolean;
-  children: any;
+  children?: any;
   className?: string;
   variant?: keyof typeof colorCombination;
   size?: keyof typeof InputSize;
   icon?: keyof typeof Icon;
+  isFloatingLabel?: boolean;
 }
 
 const colorCombination = {
-  default: "text-gray-800 bg-gray-100 p-2 hover:bg-gray-200 focus:ring-1 focus:ring-green-400",
-  blue: "text-black p-2 focus:ring-1 focus:ring-blue-400",
-  green: "text-black p-2 focus:ring-1 focus:ring-green-400",
-  yellow: "text-black p-2 focus:ring-1 focus:ring-yellow-400",
-  red: "text-black p-2 hover:bg-red-200 focus:ring-1 focus:ring-red-400",
+  default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-non",
+  blue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-non",
+  green: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-non",
+  yellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-non",
+  red: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-non",
 };
 
 const InputSize = {
-  sm: "text-sm px-2 py-1 border border-yellow-300 rounded-xs",
-  md: "text-md px-3 py-2 border border border-blue-300 rounded-md",
-  lg: "text-lg px-4 py-3 border border-green-300 rounded-lg",
-  xl: "text-xl px-5 py-4  border border-red-300 rounded-2xl",
+  sm: "text-xs px-2 py-1 border border-gray-200 rounded-md w-48 h-10",
+  md: "text-sm px-3 py-2 border border-gray-200 rounded-lg w-1/4 h-12",
+  lg: "text-md px-4 py-3 border border-gray-200 rounded-2xl w-2/4 h-14",
+  xl: "text-lg px-5 py-4 border border-gray-200 rounded-3xl w-3/4 h-16",
 };
 
 const Icon = {
@@ -38,34 +37,56 @@ const Icon = {
   search: <Search />,
   mail: <Mail />,
   location: <MapPin />,
-  number: <Hash />,
+  number: <Plus />,
+  person: <CircleUserRound />,
 };
 
 function FormInput({
   name = "input-field",
   type,
   label,
-  placeholder = "Enter text....",
+  placeholder,
   value,
-  onChange,
+  onChange ,
   isRequired = false,
   variant = "default",
   size = "md",
   className,
   icon = "default",
 }: FormInputProps) {
+  const [isFocused, setIsFocused] = useState(false);
+
   const variantClass = colorCombination[variant] || colorCombination.default;
   const sizeClass = InputSize[size] || InputSize.md;
   const iconClass = Icon[icon] || null;
 
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => {
+    if (value) {
+      setIsFocused(false);
+    } else if (!value && !isFocused) {
+      setIsFocused(true);
+    }
+  };
+
+  const isFloating = isFocused || Boolean(value);
+
   return (
-    <div className="flex flex-col">
-      <label>
-        {label} {isRequired && <span className="text-red-600">*</span>}
-      </label>
+    <div className="relative flex flex-col">
       <div className="relative">
         {iconClass && (
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black">{iconClass}</span>
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white">{iconClass}</span>
+        )}
+        {label && (
+          <label
+            htmlFor={name}
+            className={`absolute left-12 transition-all duration-200 ease-in-out ${
+              isFloating ? "top-1 text-xs text-gray-500" : "top-1/2 -translate-y-1/2  text-gray-500"
+            }`}
+          >
+            {label}
+            {isRequired && <span className="text-red-600">*</span>}
+          </label>
         )}
         <input
           id={name}
@@ -74,7 +95,9 @@ function FormInput({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
-          className={`${iconClass ? "pl-10" : ""} ${variantClass} ${sizeClass} ${className} || ""`}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          className={`${iconClass ? "pl-12" : ""} ${variantClass} ${sizeClass} ${className || ""}`}
         />
       </div>
     </div>
