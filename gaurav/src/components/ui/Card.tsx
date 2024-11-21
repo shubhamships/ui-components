@@ -26,6 +26,8 @@ const cardVariants = {
   primary: "bg-blue-50 border border-blue-200",
   secondary: "bg-gray-50 border border-gray-200",
 };
+
+//TODO: remove default margins
 const cardSize = {
   default: "mt-1",
   sm: "p-4",

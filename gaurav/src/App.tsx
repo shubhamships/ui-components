@@ -1,10 +1,10 @@
 import React from "react";
-import { ButtonUi } from "./components/ButtonUi";
+import { ButtonUI } from "./components/ButtonUI";
 function App() {
   return (
     <div className="font-sans flex justify-center items-center">
       <div>
-        <ButtonUi />
+        <ButtonUI />
       </div>
       </div>
     );

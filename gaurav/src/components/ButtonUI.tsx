@@ -2,7 +2,7 @@ import Button from "./ui/Button";
 import Card from "./ui/Card";
 import { BrainCircuit, Inbox, Layers3, Mail, Send } from "lucide-react";
 
-export const ButtonUi = () => {
+export const ButtonUI = () => {
   return (
     <>
       <div>
