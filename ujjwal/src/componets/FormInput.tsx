@@ -28,8 +28,8 @@ interface FormInputProps {
   type: string;
   label?: string;
   placeholder?: string;
-  // value: any;
-  // onChange?: (e) => void;
+  value?: any;
+  onChange?: (e: any) => void;
   isRequired?: boolean;
   children?: any;
   className?: string;
