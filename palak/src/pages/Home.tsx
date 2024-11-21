@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { z } from "zod";
 import BackGround from "../components/BackGround";
-
+import Login from "./Login";
+import ForgotPassword from "./ForgotPassword";
 interface FormData {
   email: string;
   password: string;
@@ -41,14 +42,30 @@ const Home = () => {
     }
   };
   return (
-    <BackGround
-      type={type}
-      handleTypeChange={handleTypeChange}
-      handleDataChange={handleChange}
-      handleDataSubmit={handleSubmit}
-      formData={formData}
-      error={error}
-    />
+    <BackGround>
+      <p className="font-semibold text-xl text-center flex flex-col p-8 tracking-tight">
+        {type === "login" && "Login"}
+        {type === "forgotPassword" && "Forgot Your Password?"}
+      </p>
+      {type === "login" && (
+        <Login
+          handleTypeChange={handleTypeChange}
+          handleDataChange={handleChange}
+          handleDataSubmit={handleSubmit}
+          formData={formData}
+          error={error}
+        />
+      )}
+      {type === "forgotPassword" && (
+        <ForgotPassword
+          handleTypeChange={handleTypeChange}
+          handleDataChange={handleChange}
+          handleDataSubmit={handleSubmit}
+          formData={formData}
+          error={error}
+        />
+      )}
+    </BackGround>
   );
 };
 export default Home;
