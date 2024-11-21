@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 
 //add typescript types
 //add tailwind color config custom
@@ -14,7 +14,9 @@ interface IButtonProps {
   size: keyof typeof buttonSize;
   className: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  
+  icon?: React.ReactNode;
+  iconSize?: keyof typeof buttonSize.iconSize;
+  iconName?: React.ReactNode;
 }
 const buttonColors = {
   default:
@@ -24,10 +26,11 @@ const buttonColors = {
   destructive: "bg-destructive text-white hover:opacity-75",
   success: "bg-success text-white hover:opacity-75",
   outline: "border bg-white text-black hover:text-black-100 ",
-  ghost: "bg-grey-400",
-  link: "bg-primary hover:bg-btn-primary-hover text-white border text-white hover:underline",
+  ghost: "bg-grey-400 text-black border-none shadow-none text-gray-600 hover:bg-gray-100",
+  link: "hover:bg-btn-primary-hover text-primary border hover:underline border-none shadow-none",
   disabled: "bg-grey-400 text-black border border-gray p-3 block hover:hidden cursor-not-allowed",
   dark: "bg-black text-white hover:bg-black-500",
+  withIcon: " text-black/75 border shadow hover:opacity-75",
 };
 const buttonSize = {
   default: "h-9 px-4 py-2 font-medium rounded-md",
@@ -36,10 +39,25 @@ const buttonSize = {
   lg: "h-10 rounded-md px-6 py-3 text-lg font-medium rounded-md",
   xl: "h-11 px-8 py-4 rounded-md w-full max-w-sm text-lg font-medium rounded-md",
   icon: "h-10 w-10 p-1 rounded-full",
+  iconSize: {
+    xs: "h-4 w-4 pr-1",
+    sm: "h-5 w-5 pr-1",
+    default: "",
+    md: "h-6 w-6 pr-1",
+  },
 };
 
-function Button(props) {
-  const { title, type, variant = "default", size = "default", className, onClick }: IButtonProps = props;
+function Button(props: any) {
+  const {
+    title,
+    type,
+    variant = "default",
+    size = "default",
+    className,
+    onClick,
+    iconName,
+    iconSize = "default",
+  }: IButtonProps = props;
 
   const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none";
   const sizeClasses = buttonSize[size] || buttonSize.default;
@@ -53,6 +71,7 @@ function Button(props) {
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
         type={type}
       >
+        <span className={`${buttonSize.iconSize[iconSize]}`}>{iconName}</span>
         {title}
       </button>
     </div>

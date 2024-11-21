@@ -6,8 +6,9 @@ function App() {
       <div>
         <ButtonUi />
       </div>
-    </div>
-  );
+      </div>
+    );
+  }
 
 
 export default App;
