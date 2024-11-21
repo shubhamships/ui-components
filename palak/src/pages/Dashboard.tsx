@@ -3,10 +3,12 @@ import { useState } from "react";
 import withLoading from "../components/withLoading";
 import Button from "../components/Button";
 
-function Front() {
+function Dashboard() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const LoaderButton = withLoading(Button);
+
   const handleLogout = () => {
     setIsLoading(true);
     try {
@@ -20,6 +22,7 @@ function Front() {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="flex items-center justify-center flex-col">
       <p className="text-3xl mt-10">Dashboard</p>
@@ -30,4 +33,4 @@ function Front() {
   );
 }
 
-export default Front;
+export default Dashboard;

@@ -1,4 +1,4 @@
-interface inputProps {
+interface InputProps {
   type: string;
   placeholder: string;
   className?: string;
@@ -6,7 +6,8 @@ interface inputProps {
   value: string;
   name: string;
 }
-export const Input = ({ type, placeholder, className, onChange, value, name }: inputProps) => {
+
+export const Input = ({ type, placeholder, className, onChange, value, name }: InputProps) => {
   return (
     <input
       type={type}

@@ -3,6 +3,7 @@ import Button from "../components/Button";
 import { Input } from "../components/Input";
 import Required from "../components/Required";
 import { FormError } from "../pages/Home";
+
 interface ForgotPasswordProps {
   handleTypeChange: (newType: "login" | "forgotPassword") => void;
   formData: { email: string; password: string };
@@ -10,6 +11,7 @@ interface ForgotPasswordProps {
   handleDataChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleDataSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
+
 const Forgotpassword = ({
   handleTypeChange,
   handleDataChange,
@@ -22,7 +24,6 @@ const Forgotpassword = ({
       <p className="pt-2 px-6 text-sm text-center">
         Enter email address associated with your account and you will receive an email to reset your password.
       </p>
-
       <div className="p-6 pt-6">
         <form action="" onSubmit={handleDataSubmit}>
           <div className="flex flex-col space-y-1 ">

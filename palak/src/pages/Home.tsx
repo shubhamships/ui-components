@@ -3,6 +3,7 @@ import { z } from "zod";
 import BackGround from "../components/BackGround";
 import Login from "./Login";
 import ForgotPassword from "./ForgotPassword";
+
 interface FormData {
   email: string;
   password: string;
@@ -21,6 +22,7 @@ const Home = () => {
     email: z.string().email("Must be a valid email address"),
     password: z.string().min(6, "Password must be 6 or more characters long"),
   });
+
   const handleTypeChange = (newType: "login" | "forgotPassword") => {
     setType(newType);
   };
@@ -29,6 +31,7 @@ const Home = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     console.log(formData);
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = schema.safeParse({
