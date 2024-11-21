@@ -21,9 +21,9 @@
     "noFallthroughCasesInSwitch": true,
 
     /* directory path modifier */ // not working with new vite installation
-    "baseUrl": "",
+    "baseUrl": ".",
     "paths": {
-      "@/": ["src/"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],
