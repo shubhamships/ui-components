@@ -1,5 +1,7 @@
 import axios from "axios";
 
+interface 
+
 export const Api = async (email, password) => {
   try {
     const response = await axios.post(
