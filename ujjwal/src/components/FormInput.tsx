@@ -41,10 +41,10 @@ interface FormInputProps {
 
 const colorCombination = {
   default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
-  blue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
-  green: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
-  yellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
-  red: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-none",
+  focusBlue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
+  focusGreen: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
+  focusYellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
+  focusRed: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-none",
 };
 
 const InputSize = {
@@ -79,23 +79,17 @@ function FormInput({
   const variantClass = colorCombination[variant] || colorCombination.default;
   const sizeClass = InputSize[size] || InputSize.md;
   const iconClass = Icon[icon] || null;
-
   const isFloating = isFocused;
 
   const handleInputEvent = (e: any) => {
     const { type, target } = e;
     const inputValue = target.value.trim();
 
-    if (type === "focus") {
-      setIsFocused(true);
-    } else if (type === "blur") {
-      if (inputValue === "") {
-        setIsFocused(false);
-      }
-    } else if (type === "change") {
-      setData(e.target.value);
-      setIsFocused(inputValue !== "");
-    }
+    type === "focus"
+      ? setIsFocused(true)
+      : type === "blur"
+        ? setIsFocused(false)
+        : type === "change" && (setData(e.target.value), setIsFocused(inputValue !== ""));
   };
 
   return (
@@ -130,5 +124,4 @@ function FormInput({
     </div>
   );
 }
-
 export default FormInput;
