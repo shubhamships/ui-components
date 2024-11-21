@@ -11,7 +11,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { FormError } from "../pages/Home";
 
 const ButtonLoader = withLoading(Button);
-
 interface LoginProps {
   handleTypeChange: (newType: "login" | "forgotPassword") => void;
   formData: { email: string; password: string };
