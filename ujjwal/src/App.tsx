@@ -1,10 +1,5 @@
 import { useState } from "react";
-import FormInput from "./componets/FormInput";
-
-// input basic components
-// floating input
-// submit type
-// hidden
+import FormInput from "./components/FormInput";
 
 function App() {
   const [data, setData] = useState({
@@ -53,7 +48,7 @@ function App() {
         <FormInput type="hidden" value={data.hidden1} name="hidden1" placeholder="value" variant="default" />
         <FormInput type="hidden" value={data.hidden2} name="hidden2" placeholder="value" variant="default" />
         <FormInput type="hidden" value={data.hidden3} name="hidden3" placeholder="Enter value" variant="default" />
-        <FormInput type="submit" label="Submit" name="Submit" placeholder="Submit" variant="default" />
+        <FormInput type="submit" name="Submit" placeholder="Tap" variant="default" />
       </form>
     </div>
   );
