@@ -3,53 +3,71 @@ import { MdOutlineCancel } from "react-icons/md";
 
 function Popup() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleLogin = () => {
-    setIsLoginOpen(!isLoginOpen);
-  };
-
   return (
-    <div
-      className={` inset-0 h-screen w-screen flex items-center justify-center relative transition-opacity ${
-        isOpen ? "bg-black/60" : "bg-gradient-to-br from-blue-300 to-white"
-      }`}
-    >
-      <button className="z-10 bg-blue-400 px-10 py-3 rounded-md text-white" onClick={handleClick}>
-        Subscribe
-      </button>
-      <button
-        className="absolute top-5 right-5 z-10 bg-blue-400 py-3 px-10 rounded-md text-white"
-        onClick={handleLogin}
+    <div className="relative inset-0 h-screen w-screen flex items-center justify-center bg-popup bg-cover">
+      <div className={`absolute inset-0 transition-all duration-300 ${isOpen ? "bg-black/60" : ""}`}></div>
+
+      {/* GlassEffect Popup */}
+      <div
+        className={`absolute z-20 w-96 max-h-screen pb-20 flex flex-col rounded-md shadow-lg transform transition-all duration-300 bg-blue-500/20 backdrop-blur-md`}
       >
-        Login
-      </button>
+        <p className="mt-10 mx-auto text-white font-semibold text-lg">
+          Login for <span className="text-blue-900">better</span> experience
+        </p>
+        <label className="mt-12 px-8 text-blue-950">Email</label>
+        <input
+          type="text"
+          placeholder="Your Email here.."
+          className="mx-auto mt-1 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 focus:ring-blue-400 p-2 border border-blue-300 text-sm bg-blue-100/40 backdrop-blur-md text-white"
+        />
+        <label className="mt-6 px-8 text-blue-950">Password</label>
+        <input
+          type="text"
+          placeholder="Your Password here.."
+          className="mx-auto mt-1 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 focus:ring-blue-400 p-2 border border-blue-300 text-sm bg-blue-100/40 backdrop-blur-md text-white"
+        />
+        <a className="text-sm px-8 text-blue-950 underline mt-1.5" href="">
+          Forgot Password
+        </a>
+
+        <button
+          className="px-36 mt-16 h-10 mx-auto rounded-md p-2 text-white bg-white/20 backdrop-blur-lg"
+          onClick={handleClick}
+        >
+          Login
+        </button>
+      </div>
 
       {/* Normal Popup */}
       <div
-        className={`absolute z-20 w-96 h-96 bg-gradient-to-br from-blue-400 to-white flex flex-col p-2 rounded-md shadow-lg transform transition-all duration-300 ${
+        className={`absolute z-20 max-w-lg h-96 bg-gradient-to-br from-blue-400 to-white flex flex-col p-2 rounded-md shadow-lg transform transition-all duration-300 ${
           isOpen ? "scale-100 opacity-100" : "scale-75 opacity-0 pointer-events-none"
-        }`}
+        } `}
       >
         <button className="text-white text-xl absolute top-3 right-3" onClick={handleClick}>
           <MdOutlineCancel />
         </button>
-        <p className="mt-10 mx-auto text-white font-semibold text-lg">Subscribe for free Music</p>
-        <p className="mt-2 px-5 text-white text-sm">
-          Enjoy the next 2 months for free. Pay 99/month after your free subscription expires.
+
+        <p className="mt-14 mx-auto text-white font-semibold text-lg">Subscribe for free Music</p>
+        <p className="mt-2 px-10 text-white text-sm">
+          Enjoy the next 2 months for free. Pay <span className="text-blue-950">99/month </span>after your free
+          subscription expires.
         </p>
-        <div className="flex gap-3">
+
+        <div className="flex gap-3 mx-auto">
           <input
             type="text"
             placeholder="Your Email here.."
-            className="ml-5 mt-16 rounded-md h-10 w-56 focus-visible:outline-none focus-visible:ring-1 focus:ring-blue-400 p-2 border border-blue-300 text-sm"
+            className="mt-12 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 bg-gradient-to-br from-white to-blue-200 focus:ring-blue-400 p-2 border border-blue-300 text-sm"
           />
-          <button className="w-24 mt-16 h-10 bg-blue-400 rounded-md p-2 text-white">Subscribe</button>
+          <button className="w-24 mt-12 h-10 bg-blue-400 rounded-md p-2 text-white">Subscribe</button>
         </div>
+
         <a href="#" className="text-blue-700 text-sm mx-auto my-auto underline">
           Read More
         </a>
