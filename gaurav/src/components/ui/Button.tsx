@@ -17,7 +17,7 @@ import React from "react";
  * @param onClick: (event: React.MouseEvent<HTMLButtonElement>) => void (optional) - The function to be called when the button is clicked.
  * @param children: React.ReactNode (optional) - The children of the button element.
  * @param iconName: React.ReactNode (optional) - The icon to be displayed on the button element.
- * 
+ *
  */
 /**
  * Explanation of props
@@ -39,6 +39,7 @@ interface IButtonProps {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   iconName?: React.ReactNode;
+  disabled?: any;
 }
 const buttonColors = {
   default:
@@ -63,7 +64,16 @@ const buttonSize = {
   icon: "h-10 w-10 p-1 rounded-full",
 };
 
-function Button({ title, type = "button", variant = "default", size = "default", className, onClick, iconName }: IButtonProps) {
+function Button({
+  title,
+  type = "button",
+  variant = "default",
+  size = "default",
+  disabled,
+  className,
+  onClick,
+  iconName,
+}: IButtonProps) {
   const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none whitespace-nowrap";
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
@@ -73,8 +83,10 @@ function Button({ title, type = "button", variant = "default", size = "default",
         onClick={onClick}
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
         type={type}
+        disabled={disabled}
       >
-        <span>{iconName}</span>{title}
+        <span>{iconName}</span>
+        {title}
       </button>
     </div>
   );
