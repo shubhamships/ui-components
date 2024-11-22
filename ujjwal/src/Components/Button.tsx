@@ -1,6 +1,12 @@
-import React from "react";
+import { ReactNode } from "react";
 
-function Button({ onClick, type, children, className }) {
+interface ButtonProps {
+  onClick?: any;
+  type?: "submit" | "reset" | "button" | undefined;
+  children?: ReactNode;
+  className?: string;
+}
+function Button({ onClick, type, children, className }: ButtonProps) {
   return (
     <div>
       <button

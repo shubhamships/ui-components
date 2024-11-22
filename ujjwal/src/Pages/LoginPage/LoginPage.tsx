@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import ForgotPassword from "./ForgotPassword";
+import { ChangeEvent, useState } from "react";
+import ForgotPassword from "./ForgotPassword.js";
 import zod from "zod";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
-import LogoImg from "../../assets/logo.png";
-import InputField from "../../Components/InputField.jsx";
-import Error from "../../Components/Errors.jsx";
-import API from "../../Components/api.js";
-import Button from "../../Components/button.jsx";
+import LogoImg from "@/assets/logo.png";
+import InputField from "../../Components/InputField.js";
+import Error from "../../Components/Errors.js";
+import Button from "@/Components/Button.js";
+import API from "@/Components/api.js";
 function LoginPage() {
   const schema = zod.object({
     email: zod.string().email("Must be a valid email address"),
@@ -17,15 +17,16 @@ function LoginPage() {
   const navigate = useNavigate();
   const [forgotPassword, setForgotPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState({});
-  const [apiError, setApiError] = useState(false);
+  const [error, setError] = useState<any>({});
+  // usestate({email:"",password:""})
+  // const [apiError, setApiError] = useState(false);
   const [loader, setLoader] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState("");
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-  const handleForgotPassword = (e) => {
+  const handleForgotPassword = (e: any) => {
     e.preventDefault();
     setForgotPassword(true);
   };
@@ -39,14 +40,14 @@ function LoginPage() {
       setShowPassword(true);
     }
   };
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     const res = schema.safeParse({
       ...data,
@@ -72,7 +73,7 @@ function LoginPage() {
         navigate("/home");
       }
     } catch (error) {
-      setApiError(true);
+      // setApiError(true);
       setApiErrorMessage("Wrong email or password. Try again");
     }
     setTimeout(() => {
@@ -137,11 +138,11 @@ function LoginPage() {
                     Forgot Password?
                   </a>
                 </div>
-                <div>{setApiErrorMessage && <p className="text-xs font-medium text-red-600">{apiErrorMessage}</p>}</div>
+                <div>{apiErrorMessage && <p className="text-xs font-medium text-red-600">{apiErrorMessage}</p>}</div>
                 <div className="mt-11">
                   <Button onClick={handleAPI} type="submit">
                     Submit
-                    {setLoader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}
+                    {loader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}
                   </Button>
                 </div>
               </form>

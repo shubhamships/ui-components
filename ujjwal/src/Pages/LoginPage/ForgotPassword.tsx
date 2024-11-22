@@ -1,7 +1,7 @@
 import React from "react";
 import InputField from "../../Components/InputField";
 import Error from "../../Components/Errors";
-import Button from "../../Components/button";
+import Button from "../../Components/Button";
 
 function ForgotPassword({ onBackToLogin, handleSubmit, error }) {
   return (
