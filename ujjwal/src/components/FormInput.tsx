@@ -1,5 +1,6 @@
-import { Mail, CircleUserRound, MapPin, Plus, Search } from "lucide-react";
+import { Mail, CircleUserRound, MapPin, Plus, Search, LockKeyhole } from "lucide-react";
 import { useState } from "react";
+import { text } from "stream/consumers";
 
 /**
  * `FormInput` is a customizable input field component that allows various configurations for label, placeholder, size, color, and icons.
@@ -40,7 +41,9 @@ interface FormInputProps {
 }
 
 const colorCombination = {
+  null:"apearence-none",
   default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  checkbox:"w-4 h-3.5 rounded-3xl",
   focusBlue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
   focusGreen: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
   focusYellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
@@ -48,10 +51,10 @@ const colorCombination = {
 };
 
 const InputSize = {
-  sm: "text-xs px-2 py-1 border border-gray-200 rounded-md w-48 h-10",
-  md: "text-sm px-3 py-2 border border-gray-200 rounded-lg w-1/4 h-12",
-  lg: "text-md px-4 py-3 border border-gray-200 rounded-2xl w-2/4 h-14",
-  xl: "text-lg px-5 py-4 border border-gray-200 rounded-3xl w-3/4 h-16",
+  sm: "text-xs w-full px-2 border border-gray-200 rounded-md w-48 h-10",
+  md: "text-sm w-full px-3 border border-gray-200 rounded-lg w-1/4 h-12",
+  lg: "text-md w-full px-4 border border-gray-200 rounded-2xl w-2/4 h-14",
+  xl: "text-lg w-full px-5 border border-gray-200 rounded-3xl w-3/4 h-16",
 };
 
 const Icon = {
@@ -61,6 +64,7 @@ const Icon = {
   location: <MapPin />,
   number: <Plus />,
   person: <CircleUserRound />,
+  password:<LockKeyhole />
 };
 
 function FormInput({
@@ -69,7 +73,7 @@ function FormInput({
   label,
   placeholder,
   isRequired = false,
-  variant = "default",
+  variant = "null",
   size = "md",
   className,
   icon = "default",
