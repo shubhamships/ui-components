@@ -24,7 +24,8 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  // return <RouterProvider router={router} />;
+  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
 }
 
 export default App;
