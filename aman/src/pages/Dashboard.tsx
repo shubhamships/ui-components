@@ -11,12 +11,6 @@ const Dashboard = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h1 className="text-red-800 font-extrabold text-5xl mt-56">HEY ! WELCOME TO DASHBOARD</h1>
-      {/* <button
-        className="bg-blue-900 w-full h-11 mt-10 text-white text-sm font-medium rounded-lg max-w-sm"
-        onClick={handleClick}
-      >
-        Logout
-      </button> */}
       <div className="w-96">
         <Button title="Logout" variant="success" size="xl" className="mt-5" onClick={handleClick} />
       </div>
