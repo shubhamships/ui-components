@@ -1,8 +1,11 @@
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
+
+import Popup from "./popup/Popup";
 
 const Root = () => (
   <div>
-    <Home />
+    {/* <Home /> */}
+    <Popup />
   </div>
 );
 
