@@ -2,19 +2,19 @@ import PopupColors from "./components/PopupColors";
 
 const Root = () => {
   const BlueColorPalette = {
-    bgColor: "bg-[#4335A7]",
+    bgColor: "bg-gradient-to-br from-[#4335A7] via-white to-[#4335A7]",
     glassBgColor: "bg-white/20",
-    textColor: "text-white",
+    textColor: "text-blue-900",
     inputBgColor: "bg-white/60",
-    buttonBgColor: "bg-white/10 text-white",
+    buttonBgColor: "bg-white/10 text-blue-900",
     spanColor: "text-blue-950",
-    popupBgColor: "bg-gradient-to-br from-[#4335A7] to-white",
+    popupBgColor: "bg-gradient-to-br from-white to-[#4335A7]",
     popupButton: "bg-[#4335A7] text-white",
     inputBorder: "focus:ring-blue-800 border border-blue-600",
   };
 
   const LightBlueColorPalette = {
-    bgColor: "bg-[#80C4E9]",
+    bgColor: "bg-gradient-to-br from-[#80C4E9] via-blue-100 to-white",
     glassBgColor: "bg-white/30",
     textColor: "text-blue-950",
     inputBgColor: "bg-white/50",
@@ -26,7 +26,7 @@ const Root = () => {
   };
 
   const OrangeColorPalette = {
-    bgColor: "bg-[#FF7F3E]",
+    bgColor: "bg-gradient-to-br from-[#FF7F3E] via-orange-300 to-white",
     glassBgColor: "bg-white/20",
     textColor: "text-white",
     inputBgColor: "bg-orange-200/40",
@@ -38,11 +38,11 @@ const Root = () => {
   };
 
   const PinkColorPalette = {
-    bgColor: "bg-pink-200",
-    glassBgColor: "bg-white/30",
+    bgColor: "bg-gradient-to-br from-pink-200 to-white",
+    glassBgColor: "bg-white/40",
     textColor: "text-pink-700",
     inputBgColor: "bg-white/30",
-    buttonBgColor: "bg-pink-100/10 text-pink-700",
+    buttonBgColor: "bg-pink-200/30 text-pink-700",
     spanColor: "text-pink-900",
     popupBgColor: "bg-gradient-to-br from-white to-pink-200",
     popupButton: "bg-pink-200 text-pink-600",
