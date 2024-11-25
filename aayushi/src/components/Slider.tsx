@@ -7,10 +7,10 @@ export const Slider = () => {
     <div className="bg-amber-900 h-80 p-6">
       <Navbar />
       <div>
-        <div className="flex flex-row space-x-20 p-6">
+        <div className="flex flex-row space-x-10 p-6">
           <div className="text-white font-semibold text-md pl-16 pt-8 pb-12 pr-6">
-            <p className="text-4xl">Get your book reviewed by a </p>
-            <p className="text-4xl pb-2">professional reviewer</p>
+            <p className="text-4xl mb-sm space-bottom-xs-sm">Get your book reviewed by a professional reviewer</p>
+            
 
             <p className="text-lg font-normal mb-4">Submit your book to Reedsy Discovery for $50.</p>
             <button className="bg-white text-black pl-20 py-1 border-2 border-white rounded mx-2 inline-flex items-center ">
@@ -28,7 +28,7 @@ export const Slider = () => {
             </button>
           </div>
 
-          <img src={imgSrc} className="h-48 pr-20" />
+          <img src={imgSrc} className="h-48 pl-20 pr-20 lg:block hidden" />
         </div>
         <div></div>
       </div>
