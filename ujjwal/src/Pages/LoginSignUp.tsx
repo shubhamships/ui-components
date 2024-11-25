@@ -1,8 +1,7 @@
-import React from "react";
 import CardComponent from "../Components/cards/CardComponent.tsx";
 import Button from "@/Components/Button/Button.tsx";
-import logo from "../assets/logo.png";
-import { Linkedin, Instagram, Twitter } from "lucide-react";
+import logo from "@/assets/logo.png";
+import { Instagram, Linkedin, Twitter } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import FormInput from "@/Components/FormInput.tsx";
 
@@ -23,7 +22,7 @@ function LoginSignUp() {
               </a>
             </div>
           </div>
-          <CardComponent dimension="primary" theme="defaultLight" className="space-y-5 mt-10">
+          <CardComponent dimension="innerCard" theme="defaultLight" className="space-y-5 mt-10">
             <p className="text-3xl font-medium">
               Lets <br /> Start Shipping ...
             </p>
