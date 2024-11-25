@@ -11,6 +11,7 @@ export const MarkTime = () => {
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.data.punchInDate);
   const punchData = useSelector((state: any) => state.data);
+
   console.log(data, "fsdfsd");
   const handlePunchIn = () => {
     try {
@@ -40,6 +41,7 @@ export const MarkTime = () => {
       setIsDisabled(false);
     }
   };
+  console.log("isCompleted : ",isCompleted + " |" +  "isDisabled : " + isDisabled + " |"  +  " error : " + error );
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 py-32 bg-slate-50">
@@ -50,7 +52,7 @@ export const MarkTime = () => {
             disabled={isDisabled}
             className={` ${isDisabled ? "cursor-not-allowed" : "cursor-pointer"} w-full sticky top-0`}
             type=""
-            onClick={() => handlePunchIn()}
+            onClick={handlePunchIn}
           />
           <div className="flex flex-col justify-center w-full items-center gap-1 sticky top-11">
             <Button
@@ -58,27 +60,27 @@ export const MarkTime = () => {
               variant="success"
               disabled={!isDisabled}
               className={`${!isDisabled ? "cursor-not-allowed" : "cursor-pointer"} w-full`}
-              onClick={() => handlePunchOut()}
+              onClick={handlePunchOut}
             />
             <div>
               {error && <span className="text-sm font-medium text-destructive">You have not Completed 9 hours</span>}
             </div>
           </div>
-          <div className="overflow-y-scroll overflow-x-clip space-y-2 w-full">
+          <div className="overflow-y-scroll overflow-x-clip space-y-2 w-full mt-4">
             {punchData.punchData.map((item: any, index: number) => (
               <Card
                 className={`flex justify-center items-center h-14 w-full px-16 gap-2 text-sm font-semibold  whitespace-nowrap border-none
-                ${isCompleted && index % 2 === 0 ? "bg-green-50" : "bg-sky-50"}
+                ${ index % 2 !== 0 ? "bg-green-50" : "bg-sky-50"}
                 `}
                 variant="default"
                 key={index}
               >
                 <div className="flex justify-around items-center gap-4">
-                  <div className={`text-sm ${isCompleted && index % 2 === 0 ? "text-success" : "text-primary"}`}>
-                    {isCompleted && index % 2 === 0 ? (
-                      <div className="text-sm">Punch Out TIme {new Date(item.time).toLocaleTimeString()}</div>
+                  <div className={`text-sm `}>
+                    {index % 2 !== 0? (
+                      <div className="text-sm text-success">Punch Out TIme {new Date(item.time).toLocaleTimeString()}</div>
                     ) : (
-                      <div className="text-sm">Punch In Time {new Date(item.time).toLocaleTimeString()}</div>
+                      <div className="text-sm text-primary">Punch In Time {new Date(item.time).toLocaleTimeString()}</div>
                     )}
                   </div>
                 </div>
