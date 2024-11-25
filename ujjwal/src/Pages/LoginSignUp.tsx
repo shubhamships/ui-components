@@ -51,7 +51,7 @@ function LoginSignUp() {
             ></Button>
             <Button
               title="Google"
-              variant="soft"
+              variant="link"
               size="lg"
               className="w-full rounded-xl h-12 gap-2 hover:bg-slate-100"
               iconName={<FaGoogle />}
