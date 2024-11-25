@@ -78,7 +78,6 @@ function Button({
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
   return (
-    <div>
       <button
         onClick={onClick}
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
@@ -88,7 +87,6 @@ function Button({
         <span>{iconName}</span>
         {title}
       </button>
-    </div>
   );
 }
 export default Button;

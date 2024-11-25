@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import punchDataReducer from "../redux/reducers.ts"
+import punchDataReducer from "../redux/reducers.ts";
+
 export default configureStore({
-    reducer: {
-        data: punchDataReducer
-    }
-})
+  reducer: {
+    data: punchDataReducer,
+  },
+});
