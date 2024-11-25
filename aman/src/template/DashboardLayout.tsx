@@ -54,39 +54,39 @@ const DashboardLayout = () => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <span className="mt-1 flex items-end justify-end">
+        <span className="absolute top-0 right-0 m-2">
           {!pinCliped ? (
             <Pin
-              className={`h-5 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
+              className={`h-4 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
               onClick={togglePin}
             />
           ) : (
             <PinOff
-              className={`h-5 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
+              className={`h-4 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
               onClick={togglePin}
             />
           )}
         </span>
-        <ul className="flex flex-col mt-2 mx-4 text-center items-center gap-y-3">
+        <ul className="flex flex-col mt-8 mx-4 text-center items-center gap-y-5">
           <Link to="edit-account" className="w-full">
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-center p-2 border-b rounded-md">
               <UserCog className="text-gray-500 flex-shrink-0" />
               <h4
-                className={`text-gray-500 overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`text-gray-500 font-normal overflow-hidden transition-all duration-300 ease-in-out ${
                   isSidebarHovered ? "opacity-100 visible" : "opacity-0 invisible"
-                } text-xl`}
+                } text-m`}
               >
                 Account
               </h4>
             </div>
           </Link>
           <Link to="log-out" className="w-full">
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 items-center p-2 border-b rounded-md">
               <LogOut className="text-gray-500 flex-shrink-0" />
               <h4
-                className={`text-gray-500 overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`text-gray-500 overflow-hidden font-normal transition-all duration-300 ease-in-out ${
                   isSidebarHovered ? "opacity-100 visible" : "opacity-0 invisible"
-                } text-xl`}
+                } text-m`}
               >
                 Logout
               </h4>
