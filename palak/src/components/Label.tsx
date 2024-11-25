@@ -4,5 +4,5 @@ interface LabelProps {
 }
 
 export const Label = ({ type, className }: LabelProps) => {
-  return <label className={`text-sm mb-2 ${className}`}>{type}</label>;
+  return <label className={`text-md mb-2 ${className}`}>{type}</label>;
 };

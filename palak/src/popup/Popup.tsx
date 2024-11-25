@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { MdOutlineCancel } from "react-icons/md";
+import { Label } from "../components/Label";
+import { Input } from "../components/Input";
+import Button from "../components/Button";
+import Heading from "../components/Heading";
 
 interface Colors {
   bgColor: string;
@@ -41,31 +45,33 @@ const Popup = ({
       <div
         className={`absolute z-20 w-96 max-h-screen pb-20 flex flex-col rounded-md shadow-lg transform transition-all duration-300 ${glassBgColor} backdrop-blur-sm`}
       >
-        <p className={`mt-10 mx-auto ${textColor} font-semibold text-lg`}>
+        <Heading className={`mt-10 ${textColor}`}>
           Login for <span className={`${spanColor}`}>better</span> experience
-        </p>
-        <label className={`mt-12 px-8 ${textColor}`}>Email</label>
-        <input
-          type="text"
-          placeholder="Your Email here.."
-          className={`mx-auto mt-1 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 ${inputBorder} p-2 text-sm ${inputBgColor} backdrop-blur-md placeholder:text-gray-400`}
+        </Heading>
+
+        <Label type="Email" className={`mt-12 px-8 ${textColor}`} />
+        <Input
+          type={"text"}
+          name="email"
+          placeholder="Type Email here ..."
+          className={` ${inputBgColor} ${inputBorder} `}
         />
-        <label className={`mt-6 px-8 ${textColor}`}>Password</label>
-        <input
-          type="text"
-          placeholder="Your Password here.."
-          className={`mx-auto mt-1 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 focus:ring-blue-400 p-2 border border-blue-300 text-sm ${inputBgColor} ${inputBorder} backdrop-blur-md`}
+
+        <Label type="Password" className={`mt-6 px-8 ${textColor}`} />
+        <Input
+          type={"text"}
+          name="password"
+          placeholder="Type Password here ..."
+          className={` ${inputBgColor} ${inputBorder} `}
         />
-        <a className={`text-sm px-8 ${textColor} underline mt-1.5`} href="">
+
+        <a className={`text-sm px-8 ${textColor} underline mt-1.5`} href="#">
           Forgot Password
         </a>
 
-        <button
-          className={`px-36 mt-16 h-10 mx-auto rounded-md p-2 ${buttonBgColor} backdrop-blur-lg`}
-          onClick={handleClick}
-        >
+        <Button className={`px-36 mt-16 ${buttonBgColor}`} onClick={handleClick}>
           Login
-        </button>
+        </Button>
       </div>
 
       {/* Normal Popup */}
@@ -75,23 +81,24 @@ const Popup = ({
         }`}
         onMouseDownCapture={() => setIsOpen(true)}
       >
-        <button className={`text-white text-xl absolute top-3 right-3`} onClick={handleClick}>
-          <MdOutlineCancel />
-        </button>
+        <MdOutlineCancel onClick={handleClick} className={`text-white text-xl absolute top-3 right-3 cursor-pointer`} />
 
-        <p className={`mt-14 mx-auto ${textColor} font-semibold text-lg`}>Subscribe for free Music</p>
+        <Heading className={`mt-14 ${textColor}`}>Subscribe for free Music</Heading>
         <p className={`mt-2 px-10 ${textColor} text-sm`}>
           Enjoy the next 2 months for free. Pay <span className={`${spanColor}`}>99/month </span>after your free
           subscription expires.
         </p>
 
         <div className="flex gap-3 mx-auto">
-          <input
-            type="text"
-            placeholder="Your Email here.."
-            className="mt-12 rounded-md h-10 w-80 focus-visible:outline-none focus-visible:ring-1 p-2 border border-blue-300 text-sm"
+          <Input
+            type={"text"}
+            name="email"
+            placeholder="Type Password here ..."
+            className={`mt-12 ${inputBgColor} ${inputBorder} `}
           />
-          <button className={`w-24 mt-12 h-10 rounded-md p-2 ${popupButton}`}>Subscribe</button>
+          <Button className={`w-24 mt-12 ${popupButton}`} onClick={handleClick}>
+            Subscribe
+          </Button>
         </div>
 
         <a href="#" className={`${spanColor} text-sm mx-auto my-auto underline`}>
