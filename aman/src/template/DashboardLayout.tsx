@@ -1,10 +1,7 @@
 import ShipGlobal from "@/assets/shipGlobal.png";
-import { Bell } from "lucide-react";
-import { UserRoundPen } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
-import { UserCog } from "lucide-react";
 import { useState } from "react";
-import { Pin, PinOff } from "lucide-react";
+import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut } from "lucide-react";
 
 const DashboardLayout = () => {
   const [isSidebarHovered, setIsSidebarHovered] = useState(false);
@@ -28,7 +25,7 @@ const DashboardLayout = () => {
     <div>
       <header className="flex fixed top-0 left-0 z-10 w-full border-b border-b-gray-200 max-h-14 bg-white">
         <div className="flex flex-row items-center justify-start">
-          <img src={ShipGlobal} className="h-full p-3" alt="logo" />
+          <img src={ShipGlobal} className="h-full p-3 ml-1" alt="logo" />
         </div>
 
         <div className="flex flex-row items-center ml-auto">
@@ -42,22 +39,22 @@ const DashboardLayout = () => {
               </div>
             </div>
             <div className="m-2">
-              <h4>Recharge</h4>
+              <h4 className="text-blue-800 font-semibold">Recharge</h4>
             </div>
           </div>
-          <button>
+          <button className="mr-4">
             <UserRoundPen />
           </button>
         </div>
       </header>
       <nav
         className={`fixed h-screen left-0 z-10 bg-white border-r border-r-gray-200 top-14 transition-all duration-300 ease-in-out ${
-          isSidebarHovered ? "w-52" : "w-16"
+          isSidebarHovered ? "w-48" : "w-16"
         }`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div className="w-full mt-3 flex items-end justify-end">
+        <span className="mt-1 flex items-end justify-end">
           {!pinCliped ? (
             <Pin
               className={`h-5 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
@@ -69,10 +66,10 @@ const DashboardLayout = () => {
               onClick={togglePin}
             />
           )}
-        </div>
-        <ul className="flex flex-col mt-4 mx-4 text-center items-center">
+        </span>
+        <ul className="flex flex-col mt-2 mx-4 text-center items-center gap-y-3">
           <Link to="edit-account" className="w-full">
-            <div className="flex items-center space-x-4 border-b">
+            <div className="flex space-x-4">
               <UserCog className="text-gray-500 flex-shrink-0" />
               <h4
                 className={`text-gray-500 overflow-hidden transition-all duration-300 ease-in-out ${
@@ -83,14 +80,23 @@ const DashboardLayout = () => {
               </h4>
             </div>
           </Link>
-          <Link to="log-out">
-            <h5>Logout</h5>
+          <Link to="log-out" className="w-full">
+            <div className="flex space-x-4">
+              <LogOut className="text-gray-500 flex-shrink-0" />
+              <h4
+                className={`text-gray-500 overflow-hidden transition-all duration-300 ease-in-out ${
+                  isSidebarHovered ? "opacity-100 visible" : "opacity-0 invisible"
+                } text-xl`}
+              >
+                Logout
+              </h4>
+            </div>
           </Link>
         </ul>
       </nav>
       <div
-        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out ${
-          isSidebarHovered ? "ml-52" : "ml-16"
+        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 min-h-screen ${
+          isSidebarHovered ? "ml-48" : "ml-16"
         }`}
       >
         <Outlet />

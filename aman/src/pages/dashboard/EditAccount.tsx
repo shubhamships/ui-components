@@ -1,12 +1,8 @@
 const EditAccount = () => {
   return (
-    <aside>
-      <section className="bg-gray-100 min-h-screen">
-        <div className="items-center justify-between flex">
-          <h5>Setting</h5>
-        </div>
-      </section>
-    </aside>
+    <div className="m-4">
+      <h1>WE ARE SETTING UP THINGS</h1>
+    </div>
   );
 };
 
