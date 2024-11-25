@@ -47,7 +47,7 @@ export const Navbar = () => {
 
         <div className="md:hidden flex justify-between items-center p-4">
           <button
-            onClick={() => setIsMenuOpen(true)}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="relative w-8 h-8 flex flex-col justify-between items-center"
           >
             <svg
@@ -62,7 +62,7 @@ export const Navbar = () => {
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 6h16"
-                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+                className={`transition-all duration-500 ease-in-out`}
               />
 
               <path
@@ -70,14 +70,14 @@ export const Navbar = () => {
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 12h16"
-                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+                className={`transition-all duration-500 ease-in-out`}
               />
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
                 d="M4 18h16"
-                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+                className={`transition-all duration-500 ease-in-out`}
               />
             </svg>
           </button>
