@@ -21,8 +21,9 @@ const DashboardLayout = () => {
   const togglePin = () => {
     setPinCliped(!pinCliped);
   };
+
   return (
-    <div>
+    <div className=" overflow-auto">
       <header className="flex fixed top-0 left-0 z-10 w-full border-b border-b-gray-200 max-h-14 bg-white">
         <div className="flex flex-row items-center justify-start">
           <img src={ShipGlobal} className="h-full p-3 ml-1" alt="logo" />
@@ -95,9 +96,10 @@ const DashboardLayout = () => {
         </ul>
       </nav>
       <div
-        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 min-h-screen ${
+        className={`relative mt-14  overflow-auto transition-all duration-300 ease-in-out bg-gray-100  ${
           isSidebarHovered ? "ml-48" : "ml-16"
         }`}
+        style={{ height: "calc(100vh - 56px)" }}
       >
         <Outlet />
       </div>

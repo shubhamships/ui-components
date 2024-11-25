@@ -1,4 +1,4 @@
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import DashboardLayout from "@/template/DashboardLayout";
 import EditAccount from "./pages/dashboard/EditAccount";
