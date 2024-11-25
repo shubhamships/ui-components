@@ -117,20 +117,18 @@ function LoginPage() {
                   />
                   <Error errors={error.email && error.email._errors[0]} />
                 </div>
-                <div className="space-y-1 mt-4">
-                  <div className="flex relative">
-                    <InputField
-                      isRequired
-                      name="password"
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Type here . . ."
-                      className=" top-6 left-0 h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md"
-                      onChange={handleChange}
-                      label={"Password"}
-                    />
-                    <div onClick={handleshowPassword} className="top-9 right-3 absolute">
-                      {!showPassword ? <EyeOff /> : <Eye />}
-                    </div>
+                <div className="space-y-1 relative">
+                  <InputField
+                    isRequired
+                    name="password"
+                    type="Password"
+                    placeholder="Enter Your Password . . ."
+                    className="h-10 w-full px-3 py-2 text-sm border border-gray-300 rounded-md"
+                    onChange={handleChange}
+                    label="Password"
+                  />
+                  <div onClick={handleshowPassword} className="top-8 right-3 absolute">
+                    {!showPassword ? <EyeOff /> : <Eye />}
                   </div>
                   <Error errors={error.password && error.password._errors[0]} />
                 </div>
