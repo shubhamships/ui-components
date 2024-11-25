@@ -5,8 +5,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { LuLoader } from "react-icons/lu";
 import LogoImg from "@/assets/logo.png";
-import InputField from "../../Components/InputField.js";
-import Error from "../../Components/Errors.js";
+import InputField from "@/Components/InputField.js";
+import Error from "@/Components/Errors.js";
 import Button from "@/Components/Button.js";
 import API from "@/Components/api.js";
 function LoginPage() {
@@ -22,7 +22,12 @@ function LoginPage() {
   // const [apiError, setApiError] = useState(false);
   const [loader, setLoader] = useState(false);
   const [apiErrorMessage, setApiErrorMessage] = useState("");
-  const [data, setData] = useState({
+  interface Formdata {
+    email: string;
+    password: string;
+  }
+
+  const [data, setData] = useState<Formdata>({
     email: "",
     password: "",
   });
@@ -119,7 +124,7 @@ function LoginPage() {
                       name="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Type here . . ."
-                      className="h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md"
+                      className=" top-6 left-0 h-10 w-full px-3 outline- py-2 text-sm border border-gray-300 rounded-md"
                       onChange={handleChange}
                       label={"Password"}
                     />
@@ -129,7 +134,7 @@ function LoginPage() {
                   </div>
                   <Error errors={error.password && error.password._errors[0]} />
                 </div>
-                <div className="mt-1">
+                <div>
                   <a
                     href="#"
                     onClick={handleForgotPassword}
@@ -139,7 +144,7 @@ function LoginPage() {
                   </a>
                 </div>
                 <div>{apiErrorMessage && <p className="text-xs font-medium text-red-600">{apiErrorMessage}</p>}</div>
-                <div className="mt-11">
+                <div className="mt-9">
                   <Button onClick={handleAPI} type="submit">
                     Submit
                     {loader ? <LuLoader className={`${loader ? "block" : "hidden"} animate-spin ml-2`} /> : ""}

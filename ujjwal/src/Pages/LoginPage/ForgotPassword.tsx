@@ -1,9 +1,15 @@
-import React from "react";
-import InputField from "../../Components/InputField";
-import Error from "../../Components/Errors";
-import Button from "../../Components/Button";
+import InputField from "@/Components/InputField";
+import Error from "@/Components/Errors";
+import Button from "@/Components/Button";
 
-function ForgotPassword({ onBackToLogin, handleSubmit, error }) {
+interface ForgotPasswordProps {
+  onBackToLogin: () => void;
+  handleSubmit: (e: any) => void;
+  email: string;
+  error: boolean;
+}
+
+function ForgotPassword({ onBackToLogin, handleSubmit, error }: ForgotPasswordProps) {
   return (
     <div>
       <div className="flex items-center justify-center text-sm">
