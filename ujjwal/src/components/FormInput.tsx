@@ -1,6 +1,5 @@
 import { Mail, CircleUserRound, MapPin, Plus, Search, LockKeyhole } from "lucide-react";
 import { useState } from "react";
-import { text } from "stream/consumers";
 
 /**
  * `FormInput` is a customizable input field component that allows various configurations for label, placeholder, size, color, and icons.
@@ -38,13 +37,15 @@ interface FormInputProps {
   size?: keyof typeof InputSize;
   icon?: keyof typeof Icon;
   isFloatingLabel?: boolean;
+  disabled?: boolean;
 }
 
 const colorCombination = {
-  null:"apearence-none",
-  default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
-  checkbox:"w-4 h-3.5 rounded-3xl",
-  focusBlue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
+  null: "apearence-none",
+  defaultDark: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  checkbox: "w-4 h-3.5 rounded-3xl",
+  defaultWhite: "text-black bg-white p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  focusBlue: "text-white bg-blue-900 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
   focusGreen: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
   focusYellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
   focusRed: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-none",
@@ -64,7 +65,7 @@ const Icon = {
   location: <MapPin />,
   number: <Plus />,
   person: <CircleUserRound />,
-  password:<LockKeyhole />
+  password: <LockKeyhole />,
 };
 
 function FormInput({
@@ -77,10 +78,12 @@ function FormInput({
   size = "md",
   className,
   icon = "default",
+  disabled,
+  children,
 }: FormInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [data, setData] = useState("");
-  const variantClass = colorCombination[variant] || colorCombination.default;
+  const variantClass = colorCombination[variant] || colorCombination.defaultDark;
   const sizeClass = InputSize[size] || InputSize.md;
   const iconClass = Icon[icon] || null;
   const isFloating = isFocused;
@@ -100,7 +103,7 @@ function FormInput({
     <div className="relative flex flex-col">
       <div className="relative">
         {iconClass && (
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white">{iconClass}</span>
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">{iconClass}</span>
         )}
         {label && (
           <label
@@ -122,6 +125,7 @@ function FormInput({
           onChange={handleInputEvent}
           onFocus={handleInputEvent}
           onBlur={handleInputEvent}
+          disabled={disabled}
           className={`${iconClass ? "pl-12" : ""} ${variantClass} ${sizeClass} ${className || ""}`}
         />
       </div>
