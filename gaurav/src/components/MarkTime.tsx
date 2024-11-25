@@ -26,7 +26,7 @@ export const MarkTime = () => {
     const time = new Date();
     const punchOutTime = time.getTime();
     const punchInTime = new Date(data).getTime(); // - epoch time in ms
-    const totalTime = (punchOutTime - punchInTime) / 100;
+    const totalTime = (punchOutTime - punchInTime) / (1000 * 60 * 60);
     console.log(totalTime);
     console.log(new Date(data).getTime(), "asssssssbchdcjjsdhjdsh", punchOutTime - punchInTime);
     if (totalTime < 9) {
@@ -44,7 +44,7 @@ export const MarkTime = () => {
   console.log("isCompleted : ",isCompleted + " |" +  "isDisabled : " + isDisabled + " |"  +  " error : " + error );
   return (
     <>
-      <div className="flex flex-col items-center h-screen w-full p-4 py-32 bg-slate-50">
+      <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
         <h1 className="text-3xl font-semibold text-primary m-4">TimeLog</h1>
         <Card className="relative flex flex-col items-center h-full min-w-80 max-w-96 py-8 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <Button
@@ -69,14 +69,14 @@ export const MarkTime = () => {
           <div className="overflow-y-scroll overflow-x-clip space-y-2 w-full mt-4">
             {punchData.punchData.map((item: any, index: number) => (
               <Card
-                className={`flex justify-center items-center h-14 w-full px-16 gap-2 text-sm font-semibold  whitespace-nowrap border-none
+                className={`flex justify-center items-center h-14 w-ful gap-2 text-sm font-semibold  whitespace-nowrap border-none
                 ${ index % 2 !== 0 ? "bg-green-50" : "bg-sky-50"}
                 `}
                 variant="default"
                 key={index}
               >
                 <div className="flex justify-around items-center gap-4">
-                  <div className={`text-sm `}>
+                  <div className={`text-sm tracking-wide `}>
                     {index % 2 !== 0? (
                       <div className="text-sm text-success">Punch Out TIme {new Date(item.time).toLocaleTimeString()}</div>
                     ) : (
