@@ -17,10 +17,10 @@ function InputComponents() {
     <div className="bg-gray-950 h-full">
       <p className="px-10 text-2xl text-white font-bold hover:text-gray-300 underline">Submit</p>
       <div className="flex flex-col space-y-6 p-8">
-        <FormInput type="text" placeholder="Enter First Name ...." variant="default" size="sm" icon="person" />
-        <FormInput type="text" placeholder="Enter Last Name ...." variant="default" size="md" icon="person" />
-        <FormInput type="text" placeholder="Enter Company ...." variant="default" size="lg" icon="person" />
-        <FormInput type="text" label="Team" variant="default" size="xl" icon="person" />
+        <FormInput type="text" placeholder="Enter First Name ...." variant="defaultDark" size="sm" icon="person" />
+        <FormInput type="text" placeholder="Enter Last Name ...." variant="defaultDark" size="md" icon="person" />
+        <FormInput type="text" placeholder="Enter Company ...." variant="defaultDark" size="lg" icon="person" />
+        <FormInput type="text" label="Team" variant="defaultDark" size="xl" icon="person" />
       </div>
       <p className="px-10 text-2xl text-white font-bold hover:text-gray-300 underline">Email</p>
       <div className="flex flex-col space-y-6 p-8">
@@ -45,10 +45,16 @@ function InputComponents() {
       </div>
       <p className="px-10 text-2xl text-white font-bold hover:text-gray-300 underline">Hidden</p>
       <form onSubmit={handleSubmit} className="flex flex-col space-y-6 p-8">
-        <FormInput type="hidden" value={data.companyName} name="companyName" placeholder="value" variant="default" />
-        <FormInput type="hidden" value={data.ID1} name="ID1" placeholder="value" variant="default" />
-        <FormInput type="hidden" value={data.ID2} name="ID2" placeholder="Enter value" variant="default" />
-        <FormInput type="submit" name="Submit" placeholder="Tap" variant="default" />
+        <FormInput
+          type="hidden"
+          value={data.companyName}
+          name="companyName"
+          placeholder="value"
+          variant="defaultDark"
+        />
+        <FormInput type="hidden" value={data.ID1} name="ID1" placeholder="value" variant="defaultDark" />
+        <FormInput type="hidden" value={data.ID2} name="ID2" placeholder="Enter value" variant="defaultDark" />
+        <FormInput type="submit" name="Submit" placeholder="Tap" variant="defaultDark" />
       </form>
     </div>
   );

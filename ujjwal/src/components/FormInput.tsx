@@ -1,4 +1,4 @@
-import { Mail, CircleUserRound, MapPin, Plus, Search, LockKeyhole } from "lucide-react";
+import { Mail, CircleUserRound, MapPin, Plus, Search, LockKeyhole, Dog, Castle, Wallet, Circle } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -44,7 +44,7 @@ const colorCombination = {
   null: "apearence-none",
   defaultDark: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
   checkbox: "w-4 h-3.5 rounded-3xl",
-  defaultWhite: "text-black bg-white p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  defaultWhite: "text-black bg-white p-2 focus:ring-1 focus:ring-teal-400 appearance-none",
   focusBlue: "text-white bg-blue-900 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
   focusGreen: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
   focusYellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
@@ -66,6 +66,10 @@ const Icon = {
   number: <Plus />,
   person: <CircleUserRound />,
   password: <LockKeyhole />,
+  dog: <Dog />,
+  castle: <Castle />,
+  wallet: <Wallet />,
+  circle: <Circle />,
 };
 
 function FormInput({
@@ -79,7 +83,6 @@ function FormInput({
   className,
   icon = "default",
   disabled,
-  children,
 }: FormInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [data, setData] = useState("");
@@ -103,7 +106,9 @@ function FormInput({
     <div className="relative flex flex-col">
       <div className="relative">
         {iconClass && (
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">{iconClass}</span>
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:cursor-pointer">
+            {iconClass}
+          </span>
         )}
         {label && (
           <label
