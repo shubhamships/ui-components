@@ -1,5 +1,5 @@
 import React from 'react'
-import errorImage from '../assets/errorimage.png'
+import errorImage from '@/assets/errorimage.png'
 import { useRouteError } from "react-router-dom";
 
 function CustomError() {
