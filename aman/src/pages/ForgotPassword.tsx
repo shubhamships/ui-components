@@ -1,12 +1,9 @@
 import { z } from "zod";
 import { useState } from "react";
-import Label from "@/components/Label";
 import Error from "@/components/Error";
-import Required from "@/components/Required";
-import Input from "@/components/Input";
 import Button from "@/components/Button";
+import FormInput from "@/components/FormInput";
 
-// eslint-disable-next-line react/prop-types
 const schema = z.object({
   email: z.string().email("Must be a valid email address"),
 });
@@ -52,11 +49,8 @@ const ForgotPassword = ({ handleClick }: ForgotPasswordProps) => {
       <div className="p-6 pt-0">
         <form action="" onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-1">
-            <div className="flex">
-              <Label lableTitle="Email" />
-              <Required />
-            </div>
-            <Input
+            <FormInput
+              lableTitle="Email"
               type="email"
               name="email"
               value={formData.email}
@@ -65,8 +59,8 @@ const ForgotPassword = ({ handleClick }: ForgotPasswordProps) => {
             />
             {error.email && <Error>{error.email._errors[0]}</Error>}
           </div>
-          <div className="flex items-center justify-center">
-            <Button buttonName="Submit" />
+          <div className="">
+            <Button title="Submit" className="w-full mt-10" size="xl" onClick={handleSubmit} />
           </div>
         </form>
       </div>

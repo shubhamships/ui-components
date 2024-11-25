@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/display-name */
-
 import { ImSpinner3 } from "react-icons/im";
 
 interface withLoadingProps {
@@ -8,7 +5,6 @@ interface withLoadingProps {
   children: string;
 }
 
-//TODO - Check the functionality of this in one component or page
 const withLoading = () => {
   return ({ loading, children, ...props }: withLoadingProps) => (
     <button
