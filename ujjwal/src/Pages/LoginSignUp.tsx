@@ -1,7 +1,7 @@
 import CardComponent from "../Components/cards/CardComponent.tsx";
 import Button from "@/Components/Button/Button.tsx";
 import logo from "@/assets/logo.png";
-import { Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram, Twitter } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
 import FormInput from "@/Components/FormInput.tsx";
 
