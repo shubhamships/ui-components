@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { X } from "lucide-react";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,26 +39,45 @@ export const Navbar = () => {
             <span className="absolute top-4 left-0 w-0 h-1 bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
           </li>
           <li>
-          <button className="bg-amber-400 border-amber-400 text-white rounded p-2 mx-4 hover:bg-amber-600">
-            Join us
-          </button>
+            <button className="bg-amber-400 border-amber-400 text-white rounded p-2 mx-4 hover:bg-amber-600">
+              Join us
+            </button>
           </li>
         </ul>
 
         <div className="md:hidden flex justify-between items-center p-4">
-          <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button
+            onClick={() => setIsMenuOpen(true)}
+            className="relative w-8 h-8 flex flex-col justify-between items-center"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-white"
+              className="w-6 h-6 text-white transition-all duration-300 ease-in-out"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16"
+                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+              />
+
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 12h16"
+                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 18h16"
+                className={`transition-all duration-500 ease-in-out ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
               />
             </svg>
           </button>
@@ -67,11 +87,12 @@ export const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <ul className="absolute top-16 left-0 w-full bg-white p-4 space-y-4 text-black text-lg font-semibold">
-            <li>
+          <ul className="absolute lg:hidden md:hidden top-16 left-0 w-full bg-white p-4 space-y-4 text-black text-lg font-semibold">
+            <li className="flex justify-between">
               <a href="#" className="block">
                 Connect
               </a>
+              <X onClick={() => setIsMenuOpen(false)} />
             </li>
             <li>
               <a href="#" className="block">
