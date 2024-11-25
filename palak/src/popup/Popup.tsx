@@ -9,7 +9,10 @@ function Popup() {
   };
 
   return (
-    <div className="relative inset-0 h-screen w-screen flex items-center justify-center bg-popup bg-cover">
+    <div
+      className="relative inset-0 h-screen w-screen flex items-center justify-center bg-popup bg-cover"
+      onMouseDownCapture={() => setIsOpen(false)}
+    >
       <div className={`absolute inset-0 transition-all duration-300 ${isOpen ? "bg-black/60" : ""}`}></div>
 
       {/* GlassEffect Popup */}
@@ -48,6 +51,7 @@ function Popup() {
         className={`absolute z-20 max-w-lg h-96 bg-gradient-to-br from-blue-400 to-white flex flex-col p-2 rounded-md shadow-lg transform transition-all duration-300 ${
           isOpen ? "scale-100 opacity-100" : "scale-75 opacity-0 pointer-events-none"
         } `}
+        onMouseDownCapture={() => setIsOpen(true)}
       >
         <button className="text-white text-xl absolute top-3 right-3" onClick={handleClick}>
           <MdOutlineCancel />
