@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import apiClient from "@/api/ApiClient";
 
 const Logout = () => {
   const [loading, setLoading] = useState(false);
@@ -15,16 +15,11 @@ const Logout = () => {
         navigate("/");
         return;
       }
-      const response = await axios.get(
-        "https://api.fr.stg.shipglobal.in/api/v1/auth/logout",
-
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+      const response = await apiClient.get("/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (response.status === 200) {
         console.log("Logout successful");
