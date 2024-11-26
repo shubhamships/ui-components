@@ -3,6 +3,7 @@ import Button from "./ui/Button";
 import Card from "./ui/Card";
 import { punchIn, punchOut } from "@/redux/actions";
 import { useState } from "react";
+import Errors from "./ui/Errors";
 
 export const MarkTime = () => {
   const [error, setError] = useState(false);
@@ -54,7 +55,7 @@ export const MarkTime = () => {
             type=""
             onClick={handlePunchIn}
           />
-          <div className="flex flex-col justify-center w-full items-center gap-1 sticky top-11">
+          <div className="flex flex-col justify-center w-full items-center gap-2 sticky top-11">
             <Button
               title="Punch Out"
               variant="success"
@@ -62,9 +63,7 @@ export const MarkTime = () => {
               className={`${!isDisabled ? "cursor-not-allowed" : "cursor-pointer"} w-full`}
               onClick={handlePunchOut}
             />
-            <div>
-              {error && <span className="text-sm font-medium text-destructive">You have not Completed 9 hours</span>}
-            </div>
+            <Errors name={error} errorDescription="You have not Completed 9 hours"  className="text-sm font-medium"/>
           </div>
           <div className="overflow-y-scroll overflow-x-clip space-y-2 w-full mt-4">
             {punchData.punchData.map((item: any, index: number) => (

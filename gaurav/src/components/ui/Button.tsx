@@ -1,4 +1,5 @@
 import React from "react";
+import Errors from "./Errors";
 
 //add typescript types
 //add tailwind color config custom
@@ -78,15 +79,15 @@ function Button({
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
   return (
-      <button
-        onClick={onClick}
-        className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
-        type={type}
-        disabled={disabled}
-      >
-        <span>{iconName}</span>
-        {title}
-      </button>
+    <button
+      onClick={onClick}
+      className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
+      type={type}
+      disabled={disabled}
+    >
+      <span>{iconName}</span>
+      {title}
+    </button>
   );
 }
 export default Button;
