@@ -1,11 +1,12 @@
 import ShipGlobal from "@/assets/shipGlobal.png";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
-import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut } from "lucide-react";
+import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut, ChevronRight } from "lucide-react";
 
 const DashboardLayout = () => {
   const [isSidebarHovered, setIsSidebarHovered] = useState(false);
   const [pinCliped, setPinCliped] = useState(false);
+  const [openSection, setOpenSection] = useState<string | null>(null);
 
   const handleMouseEnter = () => {
     if (!pinCliped) {
@@ -20,6 +21,9 @@ const DashboardLayout = () => {
 
   const togglePin = () => {
     setPinCliped(!pinCliped);
+  };
+  const toggleSection = (section: string) => {
+    setOpenSection(openSection === section ? null : section);
   };
 
   return (
@@ -58,19 +62,27 @@ const DashboardLayout = () => {
         <span className="absolute top-0 right-0 m-2">
           {!pinCliped ? (
             <Pin
-              className={`h-4 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
+              className={`h-4 cursor-pointer transition-opacity duration-200  ${
+                isSidebarHovered ? "opacity-50" : "opacity-0"
+              }`}
               onClick={togglePin}
             />
           ) : (
             <PinOff
-              className={`h-4 cursor-pointer ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
+              className={`h-4 cursor-pointer transition-opacity duration-200  ${
+                isSidebarHovered ? "opacity-50" : "opacity-0"
+              }`}
               onClick={togglePin}
             />
           )}
         </span>
-        <ul className="flex flex-col mt-8 mx-4 text-center items-center gap-y-5">
-          <Link to="edit-account" className="w-full">
-            <div className="flex space-x-4 items-center p-2 border-b rounded-md">
+        <ul className="flex flex-col mt-8 mx-4 text-center items-center gap-y-5 ">
+          {/* this div is for account setting */}
+          <div className="w-full">
+            <div
+              className="flex space-x-4 items-center p-2 border-b rounded-md"
+              onClick={() => toggleSection("account")}
+            >
               <UserCog className="text-gray-500 flex-shrink-0" />
               <h4
                 className={`text-gray-500 font-normal overflow-hidden transition-all duration-300 ease-in-out ${
@@ -79,8 +91,29 @@ const DashboardLayout = () => {
               >
                 Account
               </h4>
+              <div>
+                <ChevronRight
+                  className={`h-4 cursor-pointer transition-opacity duration-200 ${
+                    openSection === "account" ? "rotate-90" : ""
+                  } ${isSidebarHovered ? "opacity-50" : "opacity-0"}`}
+                />
+              </div>
             </div>
-          </Link>
+            {openSection === "account" && (
+              <div
+                className={`mt-2 p-2 ml-6 transition-opacity duration-200 rounded-md border-b ${
+                  isSidebarHovered ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <ul className="">
+                  <Link to="edit-account">
+                    <li className="text-gray-500 font-normal text-sm">Profile Setting</li>
+                  </Link>
+                </ul>
+              </div>
+            )}
+          </div>
+
           <Link to="log-out" className="w-full">
             <div className="flex space-x-4 items-center p-2 border-b rounded-md">
               <LogOut className="text-gray-500 flex-shrink-0" />
