@@ -62,9 +62,8 @@ const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
     try {
       const response = await apiClient.post("/auth/login", formData);
       const data = await response.data;
-
       if (data.data.token_details.token) {
-        localStorage.setItem("jwtToken", data.token);
+        localStorage.setItem("jwtToken", data.data.token_details.token);
         navigate("/dashboard");
       } else {
         alert("failed");

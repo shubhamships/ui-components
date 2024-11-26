@@ -85,7 +85,7 @@ const DashboardLayout = () => {
             >
               <UserCog className="text-gray-500 flex-shrink-0" />
               <h4
-                className={`text-gray-500 font-normal overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`text-gray-500 font-normal overflow-hidden transition-all duration-300 ease-in-out cursor-pointer ${
                   isSidebarHovered ? "opacity-100 visible" : "opacity-0 invisible"
                 } text-m`}
               >
