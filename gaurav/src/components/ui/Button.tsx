@@ -68,7 +68,7 @@ function Button({ title, type = "button", variant = "default", size = "default",
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
   return (
-    <div>
+    <div className="">
       <button
         onClick={onClick}
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
