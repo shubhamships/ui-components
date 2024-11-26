@@ -1,60 +1,60 @@
-import PopupColors from "./components/PopupColors";
+import LoginCard from "./pages/LoginCard";
 
 const Root = () => {
   const BlueColorPalette = {
-    bgColor: "bg-gradient-to-br from-[#4335A7] via-white to-[#4335A7]",
-    glassBgColor: "bg-white/20",
+    bgColor: "bg-popup-image1",
     textColor: "text-blue-900",
     inputBgColor: "bg-white/60",
-    buttonBgColor: "bg-white/10 text-blue-900",
+    buttonBgColor: "bg-white/20 text-blue-900",
     spanColor: "text-blue-950",
-    popupBgColor: "bg-gradient-to-br from-white to-[#4335A7]",
-    popupButton: "bg-[#4335A7] text-white",
+    popupBgColor: "bg-gradient-to-br from-white to-blue-500",
+    popupButton: "bg-blue-950 text-white",
     inputBorder: "focus:ring-blue-800 border border-blue-600",
+    placeholder: "placeholder:text-slate-900",
   };
 
-  const LightBlueColorPalette = {
-    bgColor: "bg-gradient-to-br from-[#80C4E9] via-blue-100 to-white",
-    glassBgColor: "bg-white/30",
-    textColor: "text-blue-950",
-    inputBgColor: "bg-white/50",
-    buttonBgColor: "bg-white/30 text-blue-950",
-    spanColor: "text-blue-700",
-    popupBgColor: "bg-gradient-to-br from-[#80C4E9] to-white",
-    popupButton: "bg-[#80C4E9] text-white",
-    inputBorder: "focus:ring-blue-400 border border-blue-300",
+  const PurpleColorPalette = {
+    bgColor: "bg-popup-image2",
+    textColor: "text-slate-900",
+    inputBgColor: "bg-white/10",
+    buttonBgColor: "bg-white/10 text-slate-950",
+    spanColor: "text-black",
+    popupBgColor: "bg-gradient-to-br from-purple-300 via-blue-200 to-pink-400",
+    popupButton: "bg-slate-800 text-white",
+    inputBorder: "focus:ring-blue-500 border border-blue-300",
+    placeholder: "placeholder:text-slate-900",
   };
 
-  const OrangeColorPalette = {
-    bgColor: "bg-gradient-to-br from-[#FF7F3E] via-orange-300 to-white",
-    glassBgColor: "bg-white/20",
+  const GreenColorPalette = {
+    bgColor: "bg-popup-image3",
     textColor: "text-white",
-    inputBgColor: "bg-orange-200/40",
-    buttonBgColor: "bg-white/10 text-orange-800",
-    spanColor: "text-orange-800",
-    popupBgColor: "bg-gradient-to-br from-[#FF7F3E] to-white",
-    popupButton: "bg-[#FF7F3E] text-white",
-    inputBorder: "focus:ring-orange-500 border border-orange-400",
+    inputBgColor: "bg-green-100/50",
+    buttonBgColor: "bg-white/10 text-green-950",
+    spanColor: "text-green-950",
+    popupBgColor: "bg-gradient-to-br from-green-700 via green-300 to-white",
+    popupButton: "bg-green-950 text-white",
+    inputBorder: "focus:ring-green-500 border border-green-400",
+    placeholder: "placeholder:text-slate-900",
   };
 
-  const PinkColorPalette = {
-    bgColor: "bg-gradient-to-br from-pink-200 to-white",
-    glassBgColor: "bg-white/40",
-    textColor: "text-pink-700",
-    inputBgColor: "bg-white/30",
-    buttonBgColor: "bg-pink-200/20 text-pink-700",
-    spanColor: "text-pink-900",
-    popupBgColor: "bg-gradient-to-br from-white to-pink-200",
-    popupButton: "bg-pink-200 text-pink-600",
-    inputBorder: "focus:ring-pink-400 border border-pink-200",
+  const BlackColorPalette = {
+    bgColor: "bg-popup-image4",
+    textColor: "text-white",
+    inputBgColor: "bg-black/20",
+    buttonBgColor: "bg-black/10 text-white",
+    spanColor: "text-pink-700",
+    popupBgColor: "bg-gradient-to-br from-pink-500 via-blue-300 via-40% to-white",
+    popupButton: "bg-pink-300 text-pink-900",
+    inputBorder: "focus:ring-slate-700 border border-slate-600",
+    placeholder: "placeholder:text-white",
   };
 
   return (
     <div>
-      <PopupColors colors={BlueColorPalette} />
-      <PopupColors colors={LightBlueColorPalette} />
-      <PopupColors colors={OrangeColorPalette} />
-      <PopupColors colors={PinkColorPalette} />
+      <LoginCard {...BlueColorPalette} />
+      <LoginCard {...PurpleColorPalette} />
+      <LoginCard {...GreenColorPalette} />
+      <LoginCard {...BlackColorPalette} />
     </div>
   );
 };
