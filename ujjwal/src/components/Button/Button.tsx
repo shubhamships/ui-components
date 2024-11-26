@@ -33,6 +33,7 @@ interface IButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   iconName?: React.ReactNode;
   disabled?: any;
+  children?: any;
 }
 const buttonColors = {
   default:
@@ -66,6 +67,7 @@ function Button({
   className,
   onClick,
   iconName,
+  children,
 }: IButtonProps) {
   const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none whitespace-nowrap";
   const sizeClasses = buttonSize[size] || buttonSize.default;
@@ -77,9 +79,11 @@ function Button({
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}
         type={type}
         disabled={disabled}
+        
       >
         <span>{iconName}</span>
         {title}
+        {children}
       </button>
     </div>
   );

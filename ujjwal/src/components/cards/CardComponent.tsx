@@ -18,6 +18,7 @@ const cardDimension = {
 const cardTheme = {
   defaultDark: "border-gray-200 shadow bg-gray-800 border-gray-700",
   defaultLight: "border-gray-200 shadow bg-white text-black",
+  Light: "border-gray-200 shadow bg-gray-50 text-black",
 };
 
 interface CardProps {
