@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
+import { NavItem } from "./NavItem";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,24 +8,16 @@ export const Navbar = () => {
   return (
     <div>
       <nav className="">
-        <ul className="flex flex-row justify-end items-center space-x-4 m-6 mb-1 text-white font-semibold text-md ">
+        <ul className="hidden md:flex flex-row justify-end items-center gap-4 space-x-4 m-6 mb-1 text-white font-semibold text-md ">
+          <NavItem href="#" children={"Home"}/>
+          <NavItem href="#" children={"About"}/>
+          <NavItem href="#" children={"Books"}/>
+          <NavItem href="#" children={"Podcasts"}/>
+          <NavItem href="#" children={"Videos"}/>
+          <NavItem href="#" children={"Contact"}/>
+
           <li>
-            <a href="#" className="hover:border-b-2 hover:border-yellow-400 hover:transition-all hover:ease-in-out">Connect</a>
-          </li>
-          <li>
-            <a href="#" className="hover:border-b-2 hover:border-yellow-400 hover:transition-all hover:ease-in-out">Blog</a>
-          </li>
-          <li>
-            <a href="#" className="hover:border-b-2 hover:border-yellow-400 hover:transition-all hover:ease-in-out">Apps</a>
-          </li>
-          <li>
-            <a href="#" className="hover:border-b-2 hover:border-yellow-400 hover:transition-all hover:ease-in-out">Tools</a>
-          </li>
-          <li>
-            <a href="#" className="hover:border-b-2 hover:border-yellow-400 hover:transition-all hover:ease-in-out">About</a>
-          </li>
-          <li>
-            <button className="bg-amber-400 border-amber-400 text-white rounded p-2 m hover:bg-amber-600">
+            <button className="bg-amber-400 border-amber-400 text-white rounded px-2 py-1 m hover:bg-amber-600">
               Join us
             </button>
           </li>
@@ -72,7 +65,14 @@ export const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <ul className="absolute lg:hidden md:hidden top-16 left-0 w-full bg-white p-4 space-y-4 text-black text-lg font-semibold">
+          <ul
+            className={`absolute transition-all duration-500 ease-in-out lg:hidden md:hidden top-16 left-0 w-full bg-white p-4 space-y-4 text-black text-lg font-semibold 
+            ${
+              isMenuOpen
+                ? "mt-2 opacity-100 bg-black/30 text-white backdrop-blur-lg translate-y-0 scale-100 shadow-lg"
+                : "opacity-0 translate-y-4 scale-95 shadow-none"
+            }`}
+          >
             <li className="flex justify-between">
               <a href="#" className="block">
                 Connect
