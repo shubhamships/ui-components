@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import { NavItem } from "./NavItem";
+import Button from "./Button";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,9 +17,10 @@ export const Navbar = () => {
           <NavItem href="#">Videos</NavItem>
           <NavItem href="#">Contact</NavItem>
           <li>
-            <button className="bg-amber-400 border-amber-400 text-white rounded px-2 py-1 hover:bg-amber-600">
-              Join us
-            </button>
+            <Button
+              text="Join us"
+              className="bg-amber-400 border-amber-400 text-white rounded px-2 py-1 hover:bg-amber-600"
+            />
           </li>
         </ul>
 
@@ -29,9 +31,7 @@ export const Navbar = () => {
           >
             <Menu className="text-white" />
           </button>
-          <button className="bg-amber-400 border-amber-400 text-white rounded p-2 mx-4 hover:bg-amber-600">
-            Join us
-          </button>
+          <Button text="Join us" className="bg-amber-400 border-amber-400 text-white p-2 mx-4 hover:bg-amber-600" />
         </div>
 
         {isMenuOpen && (
