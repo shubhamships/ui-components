@@ -24,14 +24,20 @@ export const InstallPWA = () => {
     setShowInstall(false);
   });
   return showInstall ? (
-    <div className="fixed bottom-4 right-4">
-      <Button title="Install App" variant="default" size="sm" onClick={installApp} className="" />
+    <div className="fixed top-4 w-full px-4">
+      <Button
+        title="Install App"
+        variant="default"
+        size="default"
+        onClick={installApp}
+        className="w-full hover:bg-none"
+      />
       <Button
         title="x"
         variant="destructive"
         size="icon"
         onClick={() => setShowInstall(false)}
-        className="absolute text-xs -top-1 -right-1 h-4 w-4"
+        className=" absolute text-sm -top-1 right-3 h-4 w-4"
       />
     </div>
   ) : null;
