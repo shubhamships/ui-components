@@ -5,6 +5,10 @@ export default {
     extend: {
       backgroundImage: {
         "login-image": "url('./src/assets/bg.jpg')",
+        "popup-image1": "url('./src/assets/popup11.jpg')",
+        "popup-image2": "url('./src/assets/popup12.png')",
+        "popup-image3": "url('./src/assets/popup3.jpg')",
+        "popup-image4": "url('./src/assets/popup42.png')",
       },
       fontFamily: { sans: ["Poppins", "sans-serif"], poppins: ["Poppins", "sans-serif"] },
     },
