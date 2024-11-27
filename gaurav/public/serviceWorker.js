@@ -3,7 +3,7 @@ const urlsToCache = [
     '/',
     '/index.html',
     '/manifest.json',
-    '/vite.svg'
+    '/hexagon.png',
 ];
 self.addEventListener('install', (event) => {
     event.waitUntil(
