@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Menu } from "lucide-react";
 import { NavItem } from "./NavItem";
 
 export const Navbar = () => {
@@ -9,12 +9,12 @@ export const Navbar = () => {
     <div>
       <nav className="">
         <ul className="hidden md:flex flex-row justify-end items-center gap-4 space-x-4 m-6 mb-1 text-white font-semibold text-md ">
-          <NavItem href="#" children={"Home"}/>
-          <NavItem href="#" children={"About"}/>
-          <NavItem href="#" children={"Books"}/>
-          <NavItem href="#" children={"Podcasts"}/>
-          <NavItem href="#" children={"Videos"}/>
-          <NavItem href="#" children={"Contact"}/>
+          <NavItem href="#" children={"Home"} />
+          <NavItem href="#" children={"About"} />
+          <NavItem href="#" children={"Books"} />
+          <NavItem href="#" children={"Podcasts"} />
+          <NavItem href="#" children={"Videos"} />
+          <NavItem href="#" children={"Contact"} />
 
           <li>
             <button className="bg-amber-400 border-amber-400 text-white rounded px-2 py-1 m hover:bg-amber-600">
@@ -28,36 +28,7 @@ export const Navbar = () => {
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="relative w-8 h-8 flex flex-col justify-between items-center"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6 text-white transition-all duration-300 ease-in-out"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16"
-                className={`transition-all duration-500 ease-in-out`}
-              />
-
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 12h16"
-                className={`transition-all duration-500 ease-in-out`}
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 18h16"
-                className={`transition-all duration-500 ease-in-out`}
-              />
-            </svg>
+            <Menu className="text-white"/>
           </button>
           <button className="bg-amber-400 border-amber-400 text-white rounded p-2 mx-4 hover:bg-amber-600">
             Join us
@@ -79,26 +50,11 @@ export const Navbar = () => {
               </a>
               <X onClick={() => setIsMenuOpen(false)} />
             </li>
-            <li>
-              <a href="#" className="block">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block">
-                Apps
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block">
-                Tools
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block">
-                About
-              </a>
-            </li>
+            <NavItem href="#" children={"About"} />
+            <NavItem href="#" children={"Books"} />
+            <NavItem href="#" children={"Podcasts"} />
+            <NavItem href="#" children={"Videos"} />
+            <NavItem href="#" children={"Contact"} />
           </ul>
         )}
       </nav>
