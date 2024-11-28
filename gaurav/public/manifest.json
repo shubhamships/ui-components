@@ -1,11 +1,11 @@
 {
-  "short_name": "ButtonUI",
-  "name": "Install ButtonUI Lite",
+  "short_name": "TimeManagement",
+  "name": "Install TimeManagement App",
   "icons": [
     {
-      "src": "./hexagon.png",
+      "src": "/clock.svg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/svg+xml"
     }
   ],
   "start_url": ".",

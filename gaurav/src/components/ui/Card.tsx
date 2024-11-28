@@ -29,7 +29,7 @@ const cardVariants = {
 
 //TODO: remove default margins
 const cardSize = {
-  default: "mt-1",
+  default: "p-2",
   sm: "p-4",
   lg: "p-8",
   
