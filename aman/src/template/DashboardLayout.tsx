@@ -197,7 +197,7 @@ const DashboardLayout = () => {
         </ul>
       </nav>
       <div
-        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 ${
+        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 max-md:mb-2 ${
           isSidebarHovered ? "ml-56" : "ml-16"
         } ${mobileView ? "" : "ml-0"}`}
         style={{ height: "calc(100vh - 56px)" }}

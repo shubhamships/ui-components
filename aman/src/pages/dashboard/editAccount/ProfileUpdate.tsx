@@ -10,7 +10,7 @@ const ProfileUpdate = () => {
         <p className="text-gray-400 mb-6">Update your photo and personal details here.</p>
 
         {/* making of actual form */}
-        <div className="md:grid grid-cols-2 gap-8 mx-4">
+        <div className="grid md:grid-cols-2 gap-8">
           <FormInput type="text" name="vbnm" lableTitle="First Name" inputvarient="lg" />
           <FormInput type="text" name="vbnm" lableTitle="Last Name" inputvarient="lg" />
           <FormInput type="email" name="vbnm" lableTitle="Email Address" inputvarient="lg" />

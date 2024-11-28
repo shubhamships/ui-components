@@ -2,9 +2,16 @@ import Button from "@/components/Button";
 import PasswordFormInput from "@/components/PasswordFormInput";
 
 const ChangePassword = () => {
+
+  // const handleSubmit =async(e:any)=>{
+  //     e.preventDefault();
+  //   try{
+      
+  //   }
+  // }
   return (
     <div>
-      <form action="" className="md:grid grid-cols-2 gap-8">
+      <form  className="md:grid grid-cols-2 gap-8">
         <PasswordFormInput lableTitle="Old Password" inputvarient="lg" />
         <PasswordFormInput lableTitle="New Password" inputvarient="lg" />
         <PasswordFormInput lableTitle="Confirm Password" inputvarient="lg" />

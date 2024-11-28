@@ -14,7 +14,7 @@ interface InputProps {
 const inputSize = {
   default: "",
   m: "border-gray-300 border flex h-10 w-full rounded-md px-3 py-2 text-sm",
-  lg: "border border-gray-200 rounded-md p-4 w-full",
+  lg: "border border-gray-200 rounded-lg p-4 w-full",
 };
 const labelSize = {
   default: "",
@@ -31,7 +31,6 @@ function FormInput({
   labelvarient = "default",
   inputvarient = "default",
 }: InputProps) {
-  
   const labelSizeClass = labelSize[labelvarient];
   const inputSizeClass = inputSize[inputvarient];
 
