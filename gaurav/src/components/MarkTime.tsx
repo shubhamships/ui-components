@@ -9,15 +9,25 @@ export const MarkTime = () => {
   const [error, setError] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
+  // const [fieldDisAbled, setFieldDisAbled] = useState("PUNCHIN");
   const dispatch = useDispatch();
   const data = useSelector((state: any) => state.data.punchInDate);
   const punchData = useSelector((state: any) => state.data);
+  const type = punchData.punchData[punchData.punchData.length - 1]?.type;
 
-  console.log(data, "fsdfsd");
+  console.log(punchData.punchData.id, "fsdfsd");
+
+
+  // on punch in - save time in punchintim and type in
+  // on punch out - save time in punchouttime and type out
+
   const handlePunchIn = () => {
     try {
       // save data in iso string or epoch time
-      dispatch(punchIn(new Date().toISOString()));
+      if (punchData.punchData.length === 0 ||
+        type  === "OUT") {
+        dispatch(punchIn(new Date().toISOString()));
+      }
       setIsDisabled(true);
     } catch (error) {
       console.log("error", error);
@@ -27,22 +37,28 @@ export const MarkTime = () => {
     const time = new Date();
     const punchOutTime = time.getTime();
     const punchInTime = new Date(data).getTime(); // - epoch time in ms
-    const totalTime = (punchOutTime - punchInTime) / (1000 * 60 * 60);
+    const totalTime = (punchOutTime - punchInTime) / 100;
     console.log(totalTime);
-    console.log(new Date(data).getTime(), "asssssssbchdcjjsdhjdsh", punchOutTime - punchInTime);
+    console.log(new Date(data).getTime(), "total time in ms", punchOutTime - punchInTime);
     if (totalTime < 9) {
       setError(true);
       setIsCompleted(false);
       console.log("You have not completed 9 hours");
     } else {
       console.log("success");
-      dispatch(punchOut(new Date().toISOString()));
+      if(punchData.punchData.length > 0 && type === "IN"){
+        dispatch(punchOut(new Date().toISOString()));
+      }
       setError(false);
       setIsCompleted(true);
       setIsDisabled(false);
     }
   };
-  console.log("isCompleted : ",isCompleted + " |" +  "isDisabled : " + isDisabled + " |"  +  " error : " + error );
+  console.log(punchData.punchData.id, "Data type")
+
+  console.log("id", punchData.punchData.id);
+  console.log(punchData.punchData, "punchData");
+  console.log("isCompleted : ", isCompleted + " |" + "isDisabled : " + isDisabled + " |" + " error : " + error);
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
@@ -51,8 +67,11 @@ export const MarkTime = () => {
           <Button
             title="Punch In"
             disabled={isDisabled}
-            className={` ${isDisabled ? "cursor-not-allowed" : "cursor-pointer"} w-full sticky top-0`}
+            className={` ${
+              isDisabled? "cursor-not-allowed" : "cursor-pointer"
+            } w-full sticky top-0`}
             type=""
+            // disabled={fieldDisAbled==='PUNCHIN'}
             onClick={handlePunchIn}
           />
           <div className="flex flex-col justify-center w-full items-center gap-2 sticky top-11">
@@ -60,26 +79,33 @@ export const MarkTime = () => {
               title="Punch Out"
               variant="success"
               disabled={!isDisabled}
-              className={`${!isDisabled ? "cursor-not-allowed" : "cursor-pointer"} w-full`}
+              className={`${
+                !isDisabled? "cursor-not-allowed" : "cursor-pointer"
+              } w-full`}
               onClick={handlePunchOut}
             />
-            <Errors name={error} errorDescription="You have not Completed 9 hours"  className="text-sm font-medium"/>
+            <Errors name={error} errorDescription={`Time elapsed `} className="text-sm font-medium" />
           </div>
-          <div className="overflow-y-scroll overflow-x-clip space-y-2 w-full mt-4">
-            {punchData.punchData.map((item: any, index: number) => (
+          <div className="scroll-auto overflow-x-clip space-y-2 w-full mt-4">
+            {punchData.punchData.map((item: any, index: number) =>
+             (
               <Card
                 className={`flex justify-center items-center h-14 w-ful gap-2 text-sm font-semibold  whitespace-nowrap border-none
-                ${ index % 2 !== 0 ? "bg-green-50" : "bg-sky-50"}
+                ${item.type === "OUT" ? "bg-green-100" : "bg-blue-100"}
                 `}
                 variant="default"
                 key={index}
               >
                 <div className="flex justify-around items-center gap-4">
                   <div className={`text-sm tracking-wide `}>
-                    {index % 2 !== 0? (
-                      <div className="text-sm text-success">Punch Out TIme {new Date(item.time).toLocaleTimeString()}</div>
+                    {item.type === "OUT" ? (
+                      <div className="text-sm text-success">
+                        Punch Out TIme {new Date(item.time).toLocaleTimeString()} {index}
+                      </div>
                     ) : (
-                      <div className="text-sm text-primary">Punch In Time {new Date(item.time).toLocaleTimeString()}</div>
+                      <div className="text-sm text-primary">
+                        Punch In Time {new Date(item.time).toLocaleTimeString() } {index}
+                      </div>
                     )}
                   </div>
                 </div>
