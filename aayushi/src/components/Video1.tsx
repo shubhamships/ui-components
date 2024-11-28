@@ -1,4 +1,7 @@
-<video
+
+export const Video1 = () => {
+  return (
+    <video
     autoPlay
     loop
     muted
@@ -17,3 +20,5 @@
       type="video/webm"
     />
   </video>
+  )
+}

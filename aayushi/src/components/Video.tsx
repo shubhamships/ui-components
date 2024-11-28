@@ -1,4 +1,8 @@
-<video
+
+
+export const Video = () => {
+  return (
+    <video
           id="3d7cd374-364f-a498-fb2e-e286fb890fc0-video"
           autoPlay
           loop
@@ -18,3 +22,5 @@
             type="video/webm"
           />
         </video>
+  )
+}
