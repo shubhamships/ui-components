@@ -22,9 +22,9 @@ interface ICardProps {
   className: string;
 }
 const cardVariants = {
-  default: "bg-white border border-gray-200",
-  primary: "bg-blue-50 border border-blue-200",
-  secondary: "bg-gray-50 border border-gray-200",
+  default: "bg-white border border-gray-200 w-full",
+  primary: "bg-blue-50 border border-blue-200 w-full",
+  secondary: "bg-gray-50 border border-gray-200 w-full",
 };
 
 //TODO: remove default margins

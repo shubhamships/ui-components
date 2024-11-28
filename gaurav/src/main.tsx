@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import "./index.css";
+import { Provider } from "react-redux";
+import store, { persistor } from "./app/store.ts";
+import { PersistGate } from "redux-persist/integration/react";
+import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import Button from "./components/ui/Button.tsx";
 import { InstallPWA } from "./components/InstallPWA.tsx";
-
 
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-    <InstallPWA />
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <App />
+        <InstallPWA />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
 );
 
