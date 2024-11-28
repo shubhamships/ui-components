@@ -1,7 +1,8 @@
 import ShipGlobal from "@/assets/shipGlobal.png";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
-import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut, ChevronRight, Dot, Circle } from "lucide-react";
+import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut, ChevronRight, Dot, Circle, Menu } from "lucide-react";
+import { useMediaQuery } from "usehooks-ts";
 
 const DashboardLayout = () => {
   const [isSidebarHovered, setIsSidebarHovered] = useState(false);
@@ -9,6 +10,7 @@ const DashboardLayout = () => {
   const [openSection, setOpenSection] = useState<string | null>(null);
   const [active, setActive] = useState("");
   const vendorDetail = JSON.parse(localStorage.getItem("vendorDetail") || "{}");
+  const mobileView = useMediaQuery("(min-width: 550px)");
 
   const handleMouseEnter = () => {
     if (!pinCliped) {
@@ -31,12 +33,12 @@ const DashboardLayout = () => {
     toggleSection("account");
     handleDivClick("Div1");
   };
-  const handleDivClick = (id) => {
+  const handleDivClick = (id: string) => {
     setActive(id);
   };
 
   return (
-    <div className=" overflow-auto">
+    <div className="overflow-auto">
       <header className="flex fixed top-0 left-0 z-10 w-full border-b border-b-gray-200 max-h-14 bg-white">
         <div className="flex flex-row items-center justify-start">
           <img src={ShipGlobal} className="h-full p-3 ml-1" alt="logo" />
@@ -63,10 +65,11 @@ const DashboardLayout = () => {
           </div>
         </div>
       </header>
+
       <nav
-        className={`fixed h-screen left-0 z-10 bg-white border-r border-r-gray-200 top-14  transition-all duration-300 ease-in-out ${
+        className={`fixed h-screen left-0 z-10 bg-white border-r border-r-gray-200 top-14 transition-all duration-300 ease-in-out ${
           isSidebarHovered ? "w-56" : "w-16"
-        }`}
+        } ${mobileView ? "" : "hidden"}`}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -160,10 +163,43 @@ const DashboardLayout = () => {
           </Link>
         </ul>
       </nav>
-      <div
-        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100  ${
-          isSidebarHovered ? "ml-56" : "ml-16"
+
+      <nav
+        className={`fixed bottom-0 h-14 w-full left-0 z-10 bg-white border-t border-t-gray-200 ${
+          mobileView ? "hidden" : ""
         }`}
+      >
+        <ul className="flex flex-row m-4 gap-x-4">
+          {/* this div is for account setting */}
+
+          <Menu />
+          <div className="flex flex-col items-center -mt-1">
+            <UserCog className="text-gray-700 flex-shrink-0 size-5" />
+            <Link to="edit-account">
+              <h4
+                className={`text-gray-700 font-normal overflow-hidden transition-all duration-300 ease-in-out cursor-pointer text-sm max-w-28`}
+              >
+                Account
+              </h4>
+            </Link>
+          </div>
+
+          <Link to="log-out">
+            <div className="flex flex-col items-center -mt-1">
+              <LogOut className="text-gray-700 size-5" />
+              <h4
+                className={`text-gray-700 overflow-hidden font-normal transition-all duration-300 ease-in-out text-sm max-w-28`}
+              >
+                Logout
+              </h4>
+            </div>
+          </Link>
+        </ul>
+      </nav>
+      <div
+        className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 ${
+          isSidebarHovered ? "ml-56" : "ml-16"
+        } ${mobileView ? "" : "ml-0"}`}
         style={{ height: "calc(100vh - 56px)" }}
       >
         <Outlet />

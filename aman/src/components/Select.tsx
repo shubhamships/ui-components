@@ -7,14 +7,15 @@ interface Option {
 interface Props {
   options: Option[];
   placeholder: string;
+  labelTitle: string;
 }
 
 function Select(props: Props) {
-  const { options, placeholder } = props;
+  const { options, placeholder, labelTitle } = props;
   return (
     <div className="relative">
-      <label htmlFor="" className="text-sm font-normal">
-        Country
+      <label htmlFor="" className="font-normal">
+        {labelTitle}
       </label>
       <select className="border mt-1 rounded-md w-full p-4 focus:outline appearance-none" defaultValue="Choose One">
         <option value="" disabled>
