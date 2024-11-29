@@ -38,7 +38,7 @@ const Login = ({ handleTypeChange, handleDataChange, handleDataSubmit, formData,
       if (data.data.token_details.token) {
         localStorage.setItem("jwtToken", data.data.token_details.token);
         console.log(data.data.token_details.token);
-        navigate("/front");
+        navigate("/dashboard");
       }
     } catch (error) {
       setWrongError(true);
