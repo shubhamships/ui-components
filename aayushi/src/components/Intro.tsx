@@ -18,7 +18,8 @@ export const Intro = () => {
       <div className="underline decoration-1 flex flex-row space-x-60  font-semibold justify-center mt-16">
         <Link
           to="#"
-          className="flex items-center space-x-0 text-red-600 text-xl opacity-45 hover:text-red-600 hover:opacity-100"
+          className="flex items-center space-x-0 
+          "
         >
           <span>View Case Studies</span>
           <ArrowDown />
