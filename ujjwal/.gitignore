@@ -25,3 +25,6 @@ dist-ssr
 *.sw?
 .env.development
 .vite
+
+package-lock.json
+src/Components/HocComponent/
