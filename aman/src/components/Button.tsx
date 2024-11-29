@@ -27,7 +27,7 @@ const buttonSize = {
   default: "h-9 px-4 py-2 font-medium rounded-md",
   xs: "h-6 px-3 py-1 text-xs font-semibold rounded-md",
   sm: "h-8 rounded-md px-4 py-2 text-sm font-medium rounded-md",
-  lg: "h-10 rounded-md px-6 py-3 text-lg font-medium rounded-md ",
+  lg: "h-10 rounded-md px-6 py-3 text-lg font-medium rounded-md",
   xl: "h-11 px-8 py-4 rounded-md w-full max-w-sm text-lg font-medium rounded-md",
   icon: "h-10 w-10 p-1 rounded-full",
 };
@@ -45,7 +45,7 @@ function Button({
   const sizeClasses = buttonSize[size] || buttonSize.default;
   const variantClasses = buttonColors[variant] || buttonColors.default;
   return (
-    <div className="">
+    <div>
       <button
         onClick={onClick}
         className={`${variantClasses} ${baseClasses} ${sizeClasses} ${className || ""}`}

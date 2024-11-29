@@ -1,7 +1,7 @@
 import ShipGlobal from "@/assets/shipGlobal.png";
 import { Link, Outlet } from "react-router-dom";
 import { useState } from "react";
-import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut, ChevronRight, Dot, Circle, Menu } from "lucide-react";
+import { Pin, PinOff, UserCog, Bell, UserRoundPen, LogOut, ChevronRight, Circle, Menu } from "lucide-react";
 import { useMediaQuery } from "usehooks-ts";
 
 const DashboardLayout = () => {
@@ -198,8 +198,8 @@ const DashboardLayout = () => {
       </nav>
       <div
         className={`relative mt-14 overflow-auto transition-all duration-300 ease-in-out bg-gray-100 max-md:mb-2 ${
-          isSidebarHovered ? "ml-56" : "ml-16"
-        } ${mobileView ? "" : "ml-0"}`}
+          mobileView ? (isSidebarHovered ? "ml-56" : "ml-16") : "ml-0"
+        } `}
         style={{ height: "calc(100vh - 56px)" }}
       >
         <Outlet />

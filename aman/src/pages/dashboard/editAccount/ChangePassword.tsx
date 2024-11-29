@@ -72,7 +72,7 @@ const ChangePassword = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <div></div>
-        <div className="flex gap-x-4">
+        <div className="flex flex-wrap gap-x-4">
           <Button type="submit" title="Change Password" size="lg" className="mt-5" />
           <Button title="Forgot Password" size="lg" variant="destructive" className="mt-5" />
         </div>

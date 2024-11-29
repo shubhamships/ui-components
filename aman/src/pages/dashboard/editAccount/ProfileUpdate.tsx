@@ -40,7 +40,7 @@ const ProfileUpdate = () => {
           />
           <FormInput type="text" name="vbnm" lableTitle="Company Name" inputvarient="lg" />
           <FormInput type="url" name="vbnm" lableTitle="Company Website" inputvarient="lg" />
-          <div className="flex gap-x-7 mt-4 lg:mt-0">
+          <div className="flex flex-wrap gap-x-7 mt-4 lg:mt-0">
             <Button title="Cancel" size="lg" variant="destructive" />
             <Button title="Update Profile" size="lg" />
           </div>
