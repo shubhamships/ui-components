@@ -1,18 +1,24 @@
 import Button from "./ui/Button";
 import Card from "./ui/Card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
 
 export const MarkTime = () => {
   const [error, setError] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
-  const [punchInDisabled, setPunchInDisabled] = useState(false);
-  const [punchOutDisabled, setPunchOutDisabled] = useState(true);
+  const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
+  const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
   const [punchData, setPunchData] = useState<{ id: number; time: string; type: string }[]>(() => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
   const [totalHours, setTotalHours] = useState<number>(0);
+  useEffect(() => {
+    const storedButtonData = localStorage.getItem("buttonPunchInData");
+    const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
+    setPunchInDisabled(storedButtonData ? JSON.parse(storedButtonData) : false);
+    setPunchOutDisabled(storedButtonData1 ? JSON.parse(storedButtonData1) : true);
+  }, []);
 
   const handlePunchIn = () => {
     try {
@@ -26,18 +32,17 @@ export const MarkTime = () => {
           },
         ];
         setPunchData(newPunchInData);
+
         localStorage.setItem("punchData", JSON.stringify(newPunchInData));
-        setPunchInDisabled(true);
-        setPunchOutDisabled(false);
       }
+      setPunchInDisabled(true);
+      setPunchOutDisabled(false);
+      localStorage.setItem("buttonPunchInData", JSON.stringify(true));
+      localStorage.setItem("buttonPunchOutData", JSON.stringify(false));
     } catch (error) {
       console.log("error", error);
     }
   };
-
-  // useEffect(() => {
-  //   // save disabled props in local storage
-  // },[location.pathname])
 
   console.log(punchData);
   const handlePunchOut = () => {
@@ -71,30 +76,31 @@ export const MarkTime = () => {
         setPunchData(newPunchOutData);
         localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
       }
-
       setError(false);
       setIsCompleted(true);
       setPunchInDisabled(false);
       setPunchOutDisabled(true);
+      localStorage.setItem("buttonPunchInData", JSON.stringify(false));
+      localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
   };
   console.log(
     "isCompleted : ",
     isCompleted + " |" + "punchInDisabled : " + punchInDisabled + " |" + " error : " + error,
   );
+  console.log(punchInDisabled, punchOutDisabled);
+
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
-        <h1 className="text-3xl font-semibold text-primary m-4">TimeLog</h1>
+        <h1 className="text-3xl font-semibold text-primary m-4">Time Log</h1>
         <Card className="relative flex flex-col items-center h-full min-w-80 max-w-96 py-8 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <Button
             title="Punch In"
             disabled={punchInDisabled}
             className={` ${
-              punchInDisabled ? "cursor-not-allowed bg-opacity-75 hover:bg-opacity-75" : "cursor-pointer"
+              punchInDisabled ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60 " : "cursor-pointer"
             } w-full sticky top-0`}
-            type=""
-            // disabled={fieldDisAbled==='PUNCHIN'}
             onClick={handlePunchIn}
           />
           <div className="flex flex-col justify-center w-full items-center gap-2 sticky top-11">
@@ -103,7 +109,7 @@ export const MarkTime = () => {
               variant="success"
               disabled={punchOutDisabled}
               className={`${
-                punchOutDisabled ? "cursor-not-allowed bg-opacity-75 hover:bg-opacity-75" : "cursor-pointer"
+                punchOutDisabled ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
               } w-full`}
               onClick={handlePunchOut}
             />
@@ -116,8 +122,8 @@ export const MarkTime = () => {
           <div className="scroll-auto overflow-x-clip space-y-2 w-full mt-4">
             {punchData.map((item: any, index: number) => (
               <Card
-                className={`flex justify-center items-center h-14 w-ful gap-2 text-sm font-semibold whitespace-nowrap border-none
-                ${item.type === "OUT" ? "bg-blue-50" : "bg-green-50"}
+                className={`flex justify-center items-center h-14 w-full gap-2 text-sm font-semibold whitespace-nowrap 
+                ${item.type === "OUT" ? "border border-green-500" : "border border-blue-500"}
                 `}
                 variant="default"
                 key={index}
