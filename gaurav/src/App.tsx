@@ -1,14 +1,9 @@
 import React from "react";
-import { ButtonUI } from "./components/ButtonUI";
+import { MarkTime } from "./components/MarkTime";
 function App() {
-  return (
-    <div className="font-sans flex justify-center items-center">
-      <div>
-        <ButtonUI />
-      </div>
-      </div>
-    );
-  }
-
+  return <div className="font-sans flex justify-center items-center">
+    <MarkTime />
+  </div>;
+}
 
 export default App;
