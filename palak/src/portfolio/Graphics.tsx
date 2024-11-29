@@ -7,12 +7,11 @@ import gif4 from "../assets/gif4.gif";
 import gif6 from "../assets/gif6.gif";
 import gallery3 from "../assets/gallery3.png";
 import Carousel from "../components/Carousel";
-import { Link } from "react-router-dom";
-import CardA from "../components/CardA";
+import OtherProjects from "./OtherProjects";
 const Graphics = () => {
   const imgArray = [gif1, gif2, gif3, gif4, gif5];
   const gifArray = [
-    { image: gif5, link: "/project1" },
+    { image: gif5, link: "#" },
     { image: gallery3, link: "#" },
     { image: gif6, link: "#" },
   ];
@@ -36,19 +35,7 @@ const Graphics = () => {
             <Carousel images={carouselImages} />
           </div>
         </div>
-        <h1 className="text-xl font-semibold text-gray-600 pt-20 md:pt-28 border-b-2 border-purple-900">
-          OTHER PROJECTS
-        </h1>
-        <div className="grid grid-cols-3 gap-3 mt-10 cursor-pointer md:pb-32">
-          {gifArray &&
-            gifArray.map(({ image, link }) => {
-              return (
-                <Link to={link}>
-                  <CardA image={image} className="md:h-72 mt-10 h-48" />
-                </Link>
-              );
-            })}
-        </div>
+        <OtherProjects array={gifArray} />
       </div>
       <div className="mt-32">
         <Footer />

@@ -15,7 +15,7 @@ const OtherProjects = ({ array }: OtherProjectsProps) => {
             return (
               <Link to={link}>
                 <div className="">
-                  <CardA image={image} className="md:h-72 mt-10 h-48" />
+                  <CardA image={image} className="md:h-72 mt-10 h-48 hover:contrast-75" />
                 </div>
               </Link>
             );
