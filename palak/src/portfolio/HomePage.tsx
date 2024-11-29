@@ -43,7 +43,7 @@ const HomePage = () => {
               imgArray={[gallery1, gallery2, gallery3, gallery4]}
             />
           </Link>
-          <Link to="#">
+          <Link to="/graphics">
             <Card
               className="bg-customBlue"
               heading="MOTION GRAPHICS"

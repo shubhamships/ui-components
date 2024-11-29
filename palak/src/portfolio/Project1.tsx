@@ -1,49 +1,123 @@
-import zura1 from "../assets/zura1.png";
+// import zura1 from "../assets/zura1.png";
 import Footer from "../components/Footer";
-import PathLink from "../components/PathLink";
-import { Link } from "react-router-dom";
+import overview1 from "../assets/overview1.png";
+import overview3 from "../assets/overview3.png";
+import gif5 from "../assets/gif5.gif";
+import gif6 from "../assets/gif6.gif";
 import BrandOverview from "./BrandOverview";
+import ProjectOverview from "./ProjectOverview";
+import gallery2 from "../assets/gallery2.jpg";
+import gallery3 from "../assets/gallery3.png";
+import CaseStudy from "./CaseStudy";
+import m1 from "../assets/m1.png";
+import m2 from "../assets/m2.png";
+import m3 from "../assets/m3.png";
+import m4 from "../assets/m4.png";
+import m5 from "../assets/m5.png";
+import BrandMockups from "./BrandMockups";
+import apple from "../assets/apple.png";
+import spotify from "../assets/spotify.png";
+import OtherProjects from "./OtherProjects";
+import DemoVideo from "./DemoVideo";
+
 const Project1 = () => {
-  const brandArray = [
-    { text: "1. Brand Overview", link: "/project1" },
+  const array = [
+    { text: "1. Brand Overview", link: "#brandoverview" },
     { text: "2. Project Overview", link: "#" },
     { text: "3. Brand Mockup", link: "#" },
     { text: "4. UX Research", link: "" },
     { text: "5. UI Designs", link: "#" },
     { text: "6. Zura Demo Video", link: "#" },
   ];
+  const overviewArray = [
+    {
+      text: "CURRENT CHALLENGE",
+      description: "Zura need strong brand identity and individuality to stand apart amount its Competitors",
+    },
+    {
+      text: "TASK",
+      description:
+        "Create an mobile application that is user-centered, accessible and  incorporates Zura’s values and promotes creativity.",
+    },
+  ];
+  const taskArray = [
+    {
+      text: "CURRENT CHALLENGE",
+      description: "Zura need strong brand identity and individuality to stand apart amount its Competitors",
+    },
+    {
+      text: "TASK",
+      description:
+        "Create an mobile application that is user-centered, accessible and  incorporates Zura’s values and promotes creativity.",
+    },
+  ];
+  const competitiveAnalysisData = [
+    {
+      title: "APPLE MUSIC",
+      image: apple,
+      strengths: [
+        "Paid Subscribers can download music",
+        "Large music selection",
+        "Easy sync with iTunes",
+        "Easy access between Apple products",
+      ],
+      weaknesses: [
+        "Messy and inconsistent UI with Apple Brand",
+        "Inconsistency between Android and Apple version",
+        "No Free/Ad-Supported Tier",
+      ],
+    },
+    {
+      title: "SPOTIFY",
+      image: spotify,
+      strengths: [
+        "Number #1 music streaming application",
+        "Long-term free subscription",
+        "Clear, easy and consistent UI design",
+        "Accessible on multiple platforms on Both Apple and Android",
+        "High Quality streaming",
+      ],
+      weaknesses: [
+        "No lyrics Features",
+        "Price can add up",
+        "Prolonged ads for free account",
+        "Feature limitations for free account",
+      ],
+    },
+  ];
+  const imgArray = [overview1, gif5, overview3];
+  const mockupArray = [m1, m2, m3, m4, m5, overview1];
+  const gifArray = [
+    { image: gif6, link: "#" },
+    { image: gallery3, link: "#" },
+    { image: gallery2, link: "/illustrations" },
+  ];
+  const textArray = [
+    {
+      text: "PROJECT",
+      description: "Zura is a music/audio streaming mobile application to create an immersive artistic experience.",
+    },
+  ];
+
   return (
     <div>
+      <CaseStudy
+        name="ZURA"
+        name2="CASE STUDY"
+        description="​Zura was a passion project that represents my love of music. The project was initially inspired by one of my foster kitten that I had. He was full of curiosity, energy and spirit, but still so comforting and loving. So, I wanted to convey, curiosity, energy but ease, and comfort with this design."
+        array={array}
+      />
       <div className="px-6 md:px-40">
-        <div className="grid grid-cols-1 md:grid-cols-2 mt-20 md:gap-5">
-          <div className="grid grid-cols-1 md:w-96 md:justify-between">
-            <h1 className="text-3xl font-extrabold md:pt-28 md:text-5xl text-gray-600">
-              ZURA <br />
-              <span className="text-gray-600">CASE STUDY</span>
-            </h1>
-            <p className="text-xs leading-5 mt-5">
-              ​Zura was a passion project that represents my love of music. The project was initially inspired by one of
-              my foster kitten that I had. He was full of curiosity, energy and spirit, but still so comforting and
-              loving. So, I wanted to convey, curiosity, energy but ease, and comfort with this design.
-            </p>
-          </div>
+        <BrandOverview array={imgArray} textArray={textArray} />
 
-          <img src={zura1} className="mt-5 rounded-md" />
-        </div>
-        <p className="uppercase font-semibold text-xl mt-16 border-l-4 border-red-800 p-6 text-gray-800">
-          table of Content
-        </p>
-        {brandArray &&
-          brandArray.map(({ text, link }) => {
-            return (
-              <Link to={link}>
-                <PathLink text={text} />
-              </Link>
-            );
-          })}
-        <div className="">
-          <BrandOverview />
-        </div>
+        <ProjectOverview
+          overviewArray={overviewArray}
+          taskArray={taskArray}
+          competitiveAnalysisData={competitiveAnalysisData}
+        />
+        <BrandMockups array={mockupArray} />
+        <DemoVideo />
+        <OtherProjects array={gifArray} />
       </div>
       <div className="mt-32">
         <Footer />
