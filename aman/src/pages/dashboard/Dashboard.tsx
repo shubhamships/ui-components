@@ -124,7 +124,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div className="p-8 h-auto rounded-lg border-t border-red-600"></div>
+          <div className="p-8 h-auto rounded-lg"></div>
         </div>
       </div>
     </div>
