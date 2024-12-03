@@ -105,7 +105,7 @@ const DashboardLayout = () => {
               id="Div0"
               onClick={() => handleDivClick("Div0")}
             >
-              <Link to="dashboard" className="flex  gap-x-3">
+              <Link to="/dashboard" className="flex gap-x-3">
                 <LayoutDashboard className="text-gray-700 flex-shrink-0 size-5 " />
                 <h4
                   className={`text-gray-700 overflow-hidden font-normal transition-all duration-300 ease-in-out ${
