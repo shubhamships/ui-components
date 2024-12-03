@@ -1,6 +1,4 @@
 import React from "react";
-import Errors from "./Errors";
-
 //add typescript types
 //add tailwind color config custom
 //base class condition improvements
@@ -18,6 +16,7 @@ import Errors from "./Errors";
  * @param onClick: (event: React.MouseEvent<HTMLButtonElement>) => void (optional) - The function to be called when the button is clicked.
  * @param children: React.ReactNode (optional) - The children of the button element.
  * @param iconName: React.ReactNode (optional) - The icon to be displayed on the button element.
+ *
  *
  */
 /**
@@ -70,10 +69,10 @@ function Button({
   type = "button",
   variant = "default",
   size = "default",
-  disabled,
   className,
   onClick,
   iconName,
+  disabled,
 }: IButtonProps) {
   const baseClasses = "inline-flex justify-center items-center shadow-md focus:outline-none whitespace-nowrap";
   const sizeClasses = buttonSize[size] || buttonSize.default;
@@ -90,4 +89,5 @@ function Button({
     </button>
   );
 }
+
 export default Button;

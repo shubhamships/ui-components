@@ -1,14 +1,14 @@
 export const PUNCH_IN = "PUNCH_IN";
 export const PUNCH_OUT = "PUNCH_OUT";
-export const punchIn = (user: any) => {
+export const punchIn = (time: any) => {
   return {
     type: PUNCH_IN,
-    payload: user,
+    payload: time
   };
 };
-export const punchOut = (punchOutDate: any) => {
+export const punchOut = (time: any) => {
   return {
     type: PUNCH_OUT,
-    payload: punchOutDate,
+    payload: time
   };
 };

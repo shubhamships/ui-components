@@ -1,0 +1,15 @@
+{
+  "short_name": "Time Management",
+  "name": "Install TimeManagement App",
+  "icons": [
+    {
+      "src": "/clock.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#00bfff",
+  "background_color": "#ffffff"
+}
