@@ -16,6 +16,8 @@ export const MarkTime = () => {
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
     setPunchInDisabled(storedButtonData ? JSON.parse(storedButtonData) : false);
     setPunchOutDisabled(storedButtonData1 ? JSON.parse(storedButtonData1) : true);
+    const storedNetTime = localStorage.getItem("netTime");
+    setNetTime(storedNetTime ? JSON.parse(storedNetTime) : 0);
   }, []);
   const handlePunchIn = () => {
     try {
@@ -55,7 +57,10 @@ export const MarkTime = () => {
       ];
       setPunchData(newPunchOutData);
       localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
-      setNetTime((prev) => prev + (punchOutTime - punchInTime) / 1000); // time in ms
+
+      const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
+      setNetTime(newNetTime); // time in seconds
+      localStorage.setItem("netTime", JSON.stringify(newNetTime));
     }
     setIsCompleted(true);
     setPunchInDisabled(false);
@@ -63,45 +68,41 @@ export const MarkTime = () => {
     localStorage.setItem("buttonPunchInData", JSON.stringify(false));
     localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
   };
+  const reversedData = punchData.slice().reverse();
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
         <h1 className="text-3xl font-semibold text-primary m-4">Time Log</h1>
-        <Card className="relative flex flex-col items-center h-full min-w-80 max-w-96 py-8 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
-          <div className="text-sm font-semibold text-primary contrast-200 sticky">
-            {`Total time elapsed: ${
-              netTime < 60
-                ? netTime.toFixed(2) + " second"
-                : netTime < 3600
-                ? (netTime / 60).toFixed(2) + " minutes"
-                : (netTime / 3600).toFixed(2) + " hours"
-            } `}
+        <Card className="relative flex flex-col items-center h-full min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
+          <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
+            <div>Total time elapsed</div>
+            {`${Math.floor(netTime / 3600)} hours ${Math.floor((netTime % 3600) / 60)} minutes ${(netTime % 60).toFixed(
+              0,
+            )} seconds`}
           </div>
           <Button
             title="Punch In"
             disabled={punchInDisabled}
             className={` ${
               punchInDisabled ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60 " : "cursor-pointer"
-            } w-full sticky top-0`}
+            } w-full sticky top-8`}
             onClick={handlePunchIn}
           />
-          <div className="flex flex-col justify-center w-full items-center gap-2 sticky top-11">
-            <Button
-              title="Punch Out"
-              variant="success"
-              disabled={punchOutDisabled}
-              className={`${
-                punchOutDisabled ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
-              } w-full`}
-              onClick={handlePunchOut}
-            />
-          </div>
-          <div className="py-2 h-full">
-            <div className="scroll-auto overflow-x-clip space-y-2 w-full mt-4">
-              {punchData.map((item: any, index: number) => (
+          <Button
+            title="Punch Out"
+            variant="success"
+            disabled={punchOutDisabled}
+            className={`${
+              punchOutDisabled ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
+            } w-full sticky-top-20`}
+            onClick={handlePunchOut}
+          />
+          <div className="py-2 h-full scroll-auto overflow-auto mt-4 overflow-x-clip">
+            <div className="space-y-2 w-full mt-4">
+              {reversedData.map((item: any, index: number) => (
                 <Card
                   className={`flex justify-center items-center px-14 h-14 w-full gap-2 text-sm font-semibold whitespace-nowrap
-                ${item.type === "OUT" ? "border border-green-500" : "border border-blue-400"}
+                ${item.type === "OUT" ? "border border-green-500" : "border border-primary"}
                 `}
                   variant="default"
                   key={index}
