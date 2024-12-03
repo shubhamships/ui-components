@@ -19,10 +19,10 @@ function App() {
       ),
 
       children: [
-        { path: "*", element: <h4 className="ml-24">Page not found</h4> },
-        { path: "dashboard", element: <Dashboard /> },
+        { path: "", element: <Dashboard /> },
         { path: "edit-account", element: <EditAccount /> },
         { path: "log-out", element: <Logout /> },
+        { path: "*", element: <h4 className="ml-24">Page not found</h4> },
       ],
     },
   ]);
