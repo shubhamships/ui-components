@@ -51,6 +51,7 @@ const ForgotPassword = ({ handleClick }: ForgotPasswordProps) => {
           <div className="flex flex-col space-y-1">
             <FormInput
               lableTitle="Email"
+              inputvarient="m"
               type="email"
               name="email"
               value={formData.email}

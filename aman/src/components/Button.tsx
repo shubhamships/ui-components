@@ -12,14 +12,14 @@ interface IButtonProps {
 const buttonColors = {
   default:
     "bg-blue-900 text-white border shadow hover:bg-blue-800 hover:opacity-90 hover:focus:ring-1 focus:ring-offset-2 focus:ring-offset-primary focus:ring-primary",
-  secondary: "bg-secondary text-black border shadow hover:opacity-75",
-  soft: "bg-soft text-primary opacity-75 border shadow hover:opacity-75 border-blue",
-  destructive: "bg-destructive text-white hover:opacity-75",
+  secondary: "bg-gray-600 text-black border shadow hover:opacity-75",
+  soft: "bg-gray-200 text-primary opacity-75 border shadow hover:opacity-75 border-blue",
+  destructive: "bg-red-600 text-white hover:opacity-75",
   success: "bg-green-500 text-white hover:opacity-75",
   outline: "border bg-white text-black hover:text-black-100 ",
-  ghost: "bg-grey-400 text-black border-none shadow-none text-gray-600 hover:bg-gray-100",
+  ghost: "bg-gray-400 text-black border-none shadow-none text-gray-600 hover:bg-gray-100",
   link: "hover:bg-btn-primary-hover text-primary border hover:underline border-none shadow-none",
-  disabled: "bg-grey-400 text-black border border-gray p-3 block hover:hidden cursor-not-allowed",
+  disabled: "bg-gray-400 text-black border border-gray p-3 block hover:hidden cursor-not-allowed",
   dark: "bg-black text-white hover:bg-black-500",
   withIcon: " text-black/75 border shadow hover:opacity-75",
 };

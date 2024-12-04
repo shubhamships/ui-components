@@ -62,9 +62,11 @@ const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
     try {
       const response = await apiClient.post("/auth/login", formData);
       const data = await response.data;
+      console.log(data);
 
       if (data.data.token_details.token) {
-        localStorage.setItem("jwtToken", data.token);
+        localStorage.setItem("jwtToken", data.data.token_details.token);
+        localStorage.setItem("vendorDetail", JSON.stringify(data.data.vendor_details));
         navigate("/dashboard");
       } else {
         alert("failed");
@@ -84,6 +86,8 @@ const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
           <div className="flex flex-col space-y-1">
             <FormInput
               lableTitle="Email"
+              labelvarient="m"
+              inputvarient="m"
               type="email"
               name="email"
               value={formData.email}
@@ -95,6 +99,7 @@ const Login = ({ handleClick, isLoading, setIsLoading }: Loginprops) => {
           <div className="space-y-1 mt-4">
             <PasswordFormInput
               lableTitle="Password"
+              inputvarient="m"
               value={formData.password}
               onChange={handleChange}
               className="pr-52"

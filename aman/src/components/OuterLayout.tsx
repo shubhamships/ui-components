@@ -2,7 +2,6 @@ import Background from "../assets/background.jpg";
 import ShipGlobal from "@/assets/shipGlobal.png";
 import { Link } from "react-router-dom";
 
-//TODO - create dashboard layout based on this
 const OuterLayout = ({ children }: { children: any }) => {
   return (
     <div className="bg-cover h-screen" style={{ backgroundImage: `url(${Background})` }}>
