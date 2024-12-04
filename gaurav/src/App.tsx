@@ -1,9 +1,28 @@
-import React from "react";
 import { MarkTime } from "./components/MarkTime";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Root } from "./routes/Root";
 function App() {
-  return <div className="font-sans flex justify-center items-center">
-    <MarkTime />
-  </div>;
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root />,
+      children: [
+        {
+          path: "timelog",
+          element: <MarkTime />,
+        },
+        {
+          path: "login",
+          element: <div>Login</div>,
+        },
+      ],
+    },
+  ]);
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
