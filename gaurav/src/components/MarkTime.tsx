@@ -1,10 +1,11 @@
 import Button from "./ui/Button";
 import Card from "./ui/Card";
 import { useState, useEffect } from "react";
+import Errors from "./ui/Errors";
 
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [error, setIsError] = useState(false);
   const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
   const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
   const [punchData, setPunchData] = useState<{ id: number; time: string; type: string }[]>(() => {
@@ -45,30 +46,35 @@ export const MarkTime = () => {
     const time = new Date();
     const punchOutTime = time.getTime();
     const punchInTime = new Date(punchData[punchData.length - 1].time).getTime();
-    console.log("success");
-    if (punchData.length === 0 || punchData[punchData.length - 1].type === "IN") {
-      const newPunchOutData = [
-        ...punchData,
-        {
-          id: punchData.length,
-          time: new Date().toISOString(),
-          type: "OUT",
-        },
-      ];
-      setPunchData(newPunchOutData);
-      localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
+    if ((punchOutTime - punchInTime) / 1000 < 120) {
+      setIsError(true);
+    } else {
+      console.log("success");
+      if (punchData.length === 0 || punchData[punchData.length - 1].type === "IN") {
+        const newPunchOutData = [
+          ...punchData,
+          {
+            id: punchData.length,
+            time: new Date().toISOString(),
+            type: "OUT",
+          },
+        ];
+        setPunchData(newPunchOutData);
+        localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
+        const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
 
-      const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
-      setNetTime(newNetTime); // time in seconds
-      localStorage.setItem("netTime", JSON.stringify(newNetTime));
+        setNetTime(newNetTime); // time in seconds
+        localStorage.setItem("netTime", JSON.stringify(newNetTime));
+        setIsError(false);
+      }
+      setPunchInDisabled(false);
+      setPunchOutDisabled(true);
+      localStorage.setItem("buttonPunchInData", JSON.stringify(false));
+      localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
-    setIsCompleted(true);
-    setPunchInDisabled(false);
-    setPunchOutDisabled(true);
-    localStorage.setItem("buttonPunchInData", JSON.stringify(false));
-    localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
   };
   const reversedData = punchData.slice().reverse();
+  console.log(error, "error" + "" + netTime, "netTime");
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
@@ -97,6 +103,7 @@ export const MarkTime = () => {
             } w-full sticky-top-20`}
             onClick={handlePunchOut}
           />
+          <Errors name={error} errorDescription="Punch Out must be 2 minutes after Punch In" className="text-xs tracking-tighter" />
           <div className="py-2 h-full scroll-auto overflow-auto mt-4 overflow-x-clip">
             <div className="space-y-2 w-full mt-4">
               {reversedData.map((item: any, index: number) => (
