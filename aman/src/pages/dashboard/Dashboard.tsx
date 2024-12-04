@@ -109,20 +109,6 @@ const Dashboard = () => {
             <div className="h-auto rounded-lg overflow-hidden ml-5">
               <BasicPie />
             </div>
-            <div className="p-4 h-auto rounded-lg absolute right-2 mt-10">
-              <div className="flex justify-between gap-x-3">
-                <div className="font-semibold text-xl ">100</div>
-                <div className="mt-1 text-sm text-gray-500">All Order</div>
-              </div>
-              <div className="flex justify-between gap-x-3">
-                <div className="font-semibold text-xl">10</div>
-                <div className="mt-1 text-sm text-gray-500">Packed Order</div>
-              </div>
-              <div className="flex justify-between gap-x-3">
-                <div className="font-semibold text-xl ">5</div>
-                <div className="mt-1 text-sm text-gray-500">Dispatch Order</div>
-              </div>
-            </div>
           </div>
           <div className="p-8 h-auto rounded-lg"></div>
         </div>
