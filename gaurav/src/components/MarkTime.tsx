@@ -2,6 +2,8 @@ import Button from "./ui/Button";
 import Card from "./ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
@@ -12,6 +14,7 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   useEffect(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
@@ -62,7 +65,6 @@ export const MarkTime = () => {
         setPunchData(newPunchOutData);
         localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
         const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
-
         setNetTime(newNetTime); // time in seconds
         localStorage.setItem("netTime", JSON.stringify(newNetTime));
         setIsError(false);
@@ -73,12 +75,18 @@ export const MarkTime = () => {
       localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
   };
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date);
+  };
+
   const reversedData = punchData.slice().reverse();
   console.log(error, "error" + "" + netTime, "netTime");
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
+        <Calendar onChange={() => handleDateChange} value={selectedDate} defaultView="month" />
         <h1 className="text-3xl font-semibold text-primary m-4">Time Log</h1>
+        <div className="border-blue-500"></div>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
             <div>Total time elapsed</div>
@@ -103,12 +111,16 @@ export const MarkTime = () => {
             } w-full sticky-top-20`}
             onClick={handlePunchOut}
           />
-          <Errors name={error} errorDescription="Punch Out must be 2 minutes after Punch In" className="text-xs tracking-tighter" />
+          <Errors
+            name={error}
+            errorDescription="Punch Out must be 2 minutes after Punch In"
+            className="text-xs tracking-tighter"
+          />
           <div className="py-2 h-full scroll-auto overflow-auto mt-4 overflow-x-clip">
             <div className="space-y-2 w-full mt-4">
               {reversedData.map((item: any, index: number) => (
                 <Card
-                  className={`flex justify-center items-center px-14 h-14 w-full gap-2 text-sm font-semibold whitespace-nowrap
+                  className={`flex justify-center items-center px-14 h-14 w-full gap-2 text-sm font-semibold whitespace-nowrap transition ease-in duration-200
                 ${item.type === "OUT" ? "border border-green-500" : "border border-primary"}
                 `}
                   variant="default"
