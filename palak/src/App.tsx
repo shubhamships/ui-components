@@ -6,6 +6,7 @@ import Illustrations from "./portfolio/Illustrations";
 import Project1 from "./portfolio/Project1";
 // import BrandOverview from "./portfolio/BrandOverview";
 import Graphics from "./portfolio/Graphics";
+import Contact from "./portfolio/Contact";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
   {
     path: "/graphics",
     element: <Graphics />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
   },
 ]);
 

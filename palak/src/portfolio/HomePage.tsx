@@ -35,7 +35,7 @@ const HomePage = () => {
       <div className="px-6 md:px-40">
         <h1 className="text-3xl font-extrabold text-gray-600 pt-10 border-b-2 border-purple-900">GALLERY</h1>
         <div className="grid grid-cols-1 w-full md:grid-cols-2 gap-5">
-          <Link to="/illustrations">
+          <Link to="/contact">
             <Card
               className="bg-customPurple"
               heading="ILLUSTRATIONS"
