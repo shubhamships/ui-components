@@ -1,4 +1,4 @@
-import { Clock, House, SquareUser } from "lucide-react";
+import { Calendar, Clock, House, } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 export const Root = () => {
   return (
@@ -6,7 +6,7 @@ export const Root = () => {
       <div className="flex justify-center items-center fixed bottom-0 w-full">
         <ul className="flex justify-between md:justify-center items-center bg-primary gap-6 p-2 px-4 w-full">
           <MenuLink name="Home" route="/" iconName={<House className="w-5 h-5 text-white" />} />
-          <MenuLink name="Profile" route="login" iconName={<SquareUser className="w-5 h-5 text-white" />} />
+          <MenuLink name="Log" route="login" iconName={<Calendar className="w-5 h-5 text-white" />} />
           <MenuLink name="Timelog" route="timelog" iconName={<Clock className="w-5 h-5 text-white" />} />
         </ul>
       </div>

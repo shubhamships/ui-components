@@ -1,6 +1,7 @@
 import { MarkTime } from "./components/MarkTime";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root } from "./routes/Root";
+import { Log } from "./components/Log";
 function App() {
   const router = createBrowserRouter([
     {
@@ -13,7 +14,7 @@ function App() {
         },
         {
           path: "login",
-          element: <div>Login</div>,
+          element: <Log />,
         },
       ],
     },

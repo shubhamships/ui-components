@@ -1,8 +1,7 @@
-import Button from "./ui/Button";
+import Button from "./ui/personal/Button";
 import Card from "./ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
-import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
 export const MarkTime = () => {
@@ -84,7 +83,6 @@ export const MarkTime = () => {
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
-        <Calendar onChange={() => handleDateChange} value={selectedDate} defaultView="month" />
         <h1 className="text-3xl font-semibold text-primary m-4">Time Log</h1>
         <div className="border-blue-500"></div>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
