@@ -1,8 +1,8 @@
-import HomePage from "./portfolio/HomePage";
+import Home from "./animation/Home";
 const Root = () => {
   return (
     <div>
-      <HomePage />
+      <Home />
     </div>
   );
 };

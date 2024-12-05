@@ -1,12 +1,13 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import Dashboard from "./pages/Dashboard";
-// import HomePage from "./portfolio/HomePage";
 import Illustrations from "./portfolio/Illustrations";
 import Project1 from "./portfolio/Project1";
-// import BrandOverview from "./portfolio/BrandOverview";
+
 import Graphics from "./portfolio/Graphics";
 import Contact from "./portfolio/Contact";
+import Page2 from "./animation/Page2";
+import Page3 from "./animation/Page3";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
   {
     path: "/contact",
     element: <Contact />,
+  },
+  {
+    path: "/page2",
+    element: <Page2 />,
+  },
+  {
+    path: "/page3",
+    element: <Page3 />,
   },
 ]);
 
