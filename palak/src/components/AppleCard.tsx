@@ -1,15 +1,16 @@
 import { FaRegCreditCard } from "react-icons/fa";
 import { motion } from "framer-motion";
-interface ApppleCardProps {
+interface AppleCardProps {
   title: string;
   description: string;
+  className?: string;
 }
-const AppleCard = ({ title, description }: ApppleCardProps) => {
+const AppleCard = ({ title, description, className }: AppleCardProps) => {
   return (
     <motion.div
-      className="w-96 h-72 bg-gray-50 p-10 rounded-2xl cursor-pointer 
+      className={`w-96 h-72 bg-gray-50 p-10 rounded-2xl cursor-pointer 
       mx-auto
-      my-auto"
+      my-auto ${className}`}
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: false, amount: 0.2 }}

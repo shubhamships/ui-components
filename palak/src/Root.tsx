@@ -1,8 +1,13 @@
-import Home from "./animation/Home";
+// import Home from "./animation/Home";
+
+import Hover from "./animation/Hover";
+
+// import Toggle from "./animation/Toggle";
 const Root = () => {
   return (
     <div>
-      <Home />
+      {/* <Toggle /> */}
+      <Hover />
     </div>
   );
 };
