@@ -8,7 +8,7 @@ const Page2 = () => {
   const pageVariants = {
     hidden: { opacity: 0, x: 500 },
     visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -500 },
+    exit: { x: -500 },
   };
 
   return (
@@ -32,6 +32,7 @@ const Page2 = () => {
       </ul>
       <motion.div
         className="px-10 bg-gray-100 w-full py-32"
+        key="page2"
         initial="hidden"
         animate="visible"
         exit="exit"

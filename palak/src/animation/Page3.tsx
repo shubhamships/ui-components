@@ -32,6 +32,7 @@ const Page3 = () => {
       </ul>
       <motion.div
         className="px-10 bg-gray-100 w-full py-32"
+        key="page3"
         initial="hidden"
         animate="visible"
         exit="exit"

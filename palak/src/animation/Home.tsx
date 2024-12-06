@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   const pageVariants = {
+    // initial: { x: 300 },
     hidden: { opacity: 0, x: 500 },
     visible: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -500 },
+    exit: { x: -500 },
   };
 
   return (
@@ -25,14 +26,14 @@ const Home = () => {
           </li>
         </Link>
         <Link to="/page3">
-        <li className="cursor-pointer">
-          <CiDeliveryTruck className="h-8 w-10" />
-        </li>
+          <li className="cursor-pointer">
+            <CiDeliveryTruck className="h-8 w-10" />
+          </li>
         </Link>
-       
       </ul>
       <motion.div
         className="grid grid-cols-3 gap-10 items-center justify-center px-10 bg-red-400"
+        key="page"
         initial="hidden"
         animate="visible"
         exit="exit"

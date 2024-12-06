@@ -3,7 +3,7 @@ import Root from "./Root";
 import Dashboard from "./pages/Dashboard";
 import Illustrations from "./portfolio/Illustrations";
 import Project1 from "./portfolio/Project1";
-
+import { AnimatePresence } from "framer-motion";
 import Graphics from "./portfolio/Graphics";
 import Contact from "./portfolio/Contact";
 import Page2 from "./animation/Page2";
@@ -45,7 +45,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AnimatePresence mode="wait">
+      <RouterProvider router={router} />
+    </AnimatePresence>
+  );
 }
 
 export default App;
