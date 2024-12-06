@@ -6,6 +6,7 @@ import "react-calendar/dist/Calendar.css";
 
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
+  const [totalTime, setTotalTime] = useState<{time:number, date: string}[]>([]);
   const [error, setIsError] = useState(false);
   const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
   const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
@@ -13,7 +14,6 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   useEffect(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
@@ -66,6 +66,15 @@ export const MarkTime = () => {
         const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
         setNetTime(newNetTime); // time in seconds
         localStorage.setItem("netTime", JSON.stringify(newNetTime));
+        const newTotalTime = [
+          ...totalTime,
+          {
+            time: newNetTime,
+            date: new Date().toDateString(),
+          },
+        ];
+        setTotalTime(newTotalTime);
+        localStorage.setItem("totalTime", JSON.stringify(newTotalTime));
         setIsError(false);
       }
       setPunchInDisabled(false);
@@ -73,9 +82,6 @@ export const MarkTime = () => {
       localStorage.setItem("buttonPunchInData", JSON.stringify(false));
       localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
-  };
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
   };
 
   const reversedData = punchData.slice().reverse();
