@@ -34,7 +34,7 @@ function Calendar({
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2",
+        row: "flex w-full mt-2 gap-1",
         cell: cn(
           "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
@@ -43,7 +43,7 @@ function Calendar({
         ),
         day: cn(
           buttonVariants({ variant: "outline" }),
-          `h-10 w-10 font-normal aria-selected:opacity-100 hover:bg-white bg-white`,
+          `h-10 w-10 md:h-12 md:w-16 font-normal aria-selected:opacity-100 hover:bg-white bg-white`,
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
@@ -68,12 +68,23 @@ function Calendar({
               {...props}
               className={cn(
                 "flex justify-center items-center h-full w-full",
-                isPresent ? "bg-green-500 p-4 rounded-sm text-white" : "",
-                isSelected ? "bg-blue-600 p-4 rounded-sm text-white" : "",
+                isPresent ? "bg-green-500 p-4 md:bg-white md:text-black md:px-7 md:py-5 rounded-sm text-white" : "",
+                isSelected ? "bg-blue-600 p-4 md:px-7 md:py-5 rounded-sm text-white" : "",
               )}
               onClick={() => onDayClick(props.date)}
             >
-              {props.date.getDate()}
+              <div className="flex flex-col justify-between items-center w-full">
+                <div>
+                  {isPresent ? (
+                    <div className="text-xs font-bold px-1 -mt-1 w-full mx-5 items-center hidden md:block">
+                      <span className="text-green-500 border-green-500 bg-green-100 px-1 rounded-sm">PI</span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {props.date.getDate()}
+              </div>
             </div>
           );
         },

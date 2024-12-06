@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Calendar } from "./ui/calendar";
 import Card from "./ui/Card";
 import { se } from "date-fns/locale";
+import { HeadRow } from "react-day-picker";
 
 export const Log = () => {
   const [punchData, setPunchData] = useState<any[]>([]);
@@ -41,7 +42,8 @@ export const Log = () => {
           mode="single"
           onDayClick={handleOnChange}
           classNames={{
-            cell: "p-1",
+            // cell: "md: w-16 h-12",
+            head_row: "flex gap-3 md:gap-10 justify-center items-center",
             
             // day_today: "bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-accent-foreground",
           }}
