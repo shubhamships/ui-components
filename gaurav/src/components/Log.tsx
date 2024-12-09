@@ -26,12 +26,12 @@ export const Log = () => {
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
   );
   const filteredTime = totalTime.filter((time) => new Date(time.date).toDateString() === selectedDate.toDateString());
-
   const punchDates = punchData.map((data) => new Date(data.time).toDateString());
-
+  const lastLog = punchData[punchData.length - 1];
   //   console.log(selectedDate, "wggwg");
   //   console.log(filteredPunchData, "filteredPunchData");
   // console.log(totalTime[totalTime.length - 1].time, "totalTIme");
+
   console.log(punchDates, "filteredTime");
 
   return (
@@ -44,7 +44,6 @@ export const Log = () => {
           classNames={{
             // cell: "md: w-16 h-12",
             head_row: "flex gap-3 md:gap-10 justify-center items-center",
-            
             // day_today: "bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-accent-foreground",
           }}
           punchDates={punchDates}
@@ -60,7 +59,7 @@ export const Log = () => {
                   {new Date(log.time).toLocaleTimeString()}
                 </Card>
               ) : null}
-              {punchData.length > 1 && index === punchData.length - 1 ? (
+              {log.type === "OUT" && index === punchData.length - 1 ? (
                 <Card className="mt-2 text-sm font-medium text-green-700 border-green-500 bg-</Card>green-50 flex justify-around items-center">
                   <div>PunchOut Time</div>
                   {new Date(log.time).toLocaleTimeString()}
@@ -68,6 +67,12 @@ export const Log = () => {
               ) : null}
             </div>
           ))}
+          {lastLog && lastLog.type === "IN" && (
+            <Card className="mt-2 text-sm font-medium text-green-700 border-green-500 bg-</Card>green-50 flex justify-around items-center">
+              <div>PunchOut Time</div>
+              <div>Waiting for punchOut</div>
+            </Card>
+          )}
           <div>
             {filteredTime.map((data, index) => (
               <div key={index}>
