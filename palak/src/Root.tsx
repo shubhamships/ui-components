@@ -1,18 +1,7 @@
-// import Home from "./animation/Home";
+import MainPage from "./components/MainPage";
 
-import LoginPage from "./animation/LoginPage";
-
-// import Hover from "./animation/Hover";
-
-// import Toggle from "./animation/Toggle";
 const Root = () => {
-  return (
-    <div>
-      {/* <Toggle /> */}
-      {/* <Hover /> */}
-      <LoginPage />
-    </div>
-  );
+  return <MainPage />;
 };
 
 export default Root;

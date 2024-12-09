@@ -8,6 +8,13 @@ import Graphics from "./portfolio/Graphics";
 import Contact from "./portfolio/Contact";
 import Page2 from "./animation/Page2";
 import Page3 from "./animation/Page3";
+import InteriorPage from "./animation/InteriorPage";
+import InteriorPage2 from "./animation/InteriorPage2";
+import InteriorPage3 from "./animation/InteriorPage3";
+import Home from "./animation/Home";
+import Toggle from "./animation/Toggle";
+import LoginPage from "./animation/LoginPage";
+import DashBoard from "./animation/DashBoard";
 
 const router = createBrowserRouter([
   {
@@ -35,12 +42,40 @@ const router = createBrowserRouter([
     element: <Contact />,
   },
   {
+    path: "/home",
+    element: <Home />,
+  },
+  {
     path: "/page2",
     element: <Page2 />,
   },
   {
     path: "/page3",
     element: <Page3 />,
+  },
+  {
+    path: "/toggle",
+    element: <Toggle />,
+  },
+  {
+    path: "/Interiorpage",
+    element: <InteriorPage />,
+  },
+  {
+    path: "/InteriorPage2",
+    element: <InteriorPage2 />,
+  },
+  {
+    path: "/InteriorPage3",
+    element: <InteriorPage3 />,
+  },
+  {
+    path: "/Loginpage",
+    element: <LoginPage />,
+  },
+  {
+    path: "/dash",
+    element: <DashBoard />,
   },
 ]);
 

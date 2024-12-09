@@ -3,7 +3,7 @@ import { Label } from "../components/Label";
 import Required from "../components/Required";
 import { Input } from "../components/Input";
 import Button from "../components/Button";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { MdOutlineCancel } from "react-icons/md";
 
 const LoginPage = () => {
@@ -87,20 +87,22 @@ const LoginPage = () => {
         </form>
       </motion.div>
 
-      {isSubmitted && (
-        <motion.div
-          className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <div className="bg-white p-10 rounded-lg shadow-lg text-center">
-            <h1 className="text-2xl font-bold text-green-500">Thank You!</h1>
-            <p className="text-lg mt-4">Your form has been submitted successfully.</p>
-          </div>
-        </motion.div>
-      )}
+      <AnimatePresence>
+        {isSubmitted && (
+          <motion.div
+            className="fixed inset-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <div className="bg-white p-10 rounded-lg shadow-lg text-center">
+              <h1 className="text-2xl font-bold text-green-500">Thank You!</h1>
+              <p className="text-lg mt-4">Your form has been submitted successfully.</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
