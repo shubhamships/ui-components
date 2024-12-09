@@ -11,7 +11,7 @@ export const NavItem = ({ href, children, className }: NavItemProps) => {
     <li className="group flex items-center">
       <Link
         to={href}
-        className={`flex items-center text-base text-violet-900 text-opacity-70 hover:text-opacity-70 ${className}`}
+        className={`flex items-center text-base text-white text-opacity-70 hover:text-opacity-70 ${className}`}
       >
         {children}
       </Link>

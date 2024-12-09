@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavItem } from "./NavItem";
-import { Menu, LayoutDashboard, Box, Users } from "lucide-react";
+import { Menu, LayoutDashboard, Film, Users } from "lucide-react";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,52 +10,70 @@ export const Navbar = () => {
   };
 
   return (
-    <div className="relative cursor-pointer bg-gray-100 pb-40 h-full">
-      <div className="flex justify-between">
-        <ul className="hidden lg:flex flex-col space-y-12 ml-6 mt-7 font-bold">
-          <NavItem href="/" className="transition-all duration-300 ease-in-out hover:scale-110 hover:text-violet-500">
-            <LayoutDashboard />
-            <span className="ml-4 opacity-0 translate-x-4 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0">
-              Dashboard
-            </span>
-          </NavItem>
-          <NavItem href="/about" className="transition-all duration-300 ease-in-out hover:scale-110 hover:text-violet-500">
-            <Box />
-            <span className="ml-4 opacity-0 translate-x-4 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0">
-              Orders
-            </span>
-          </NavItem>
-          <NavItem href="/contact" className="transition-all duration-300 ease-in-out hover:scale-110 hover:text-violet-500">
-            <Users />
-            <span className="ml-4 opacity-0 translate-x-4 transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:translate-x-0">
-              Customers
-            </span>
-          </NavItem>
-        </ul>
+    <div className="relative cursor-pointer pb-40 h-full bg-black">
+      <div className="flex justify-between items-center px-6 py-4">
+      <ul className="hidden lg:flex flex-col space-y-8 font-semibold text-white">
+  <NavItem
+    href="/"
+    className="relative group transition-all duration-300 ease-in-out hover:scale-110"
+  >
+    <LayoutDashboard className="text-2xl" />
+    <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out transform group-hover:translate-x-4 translate-x-0">
+      Dashboard
+    </span>
+  </NavItem>
+
+  <NavItem
+    href="#"
+    className="relative group transition-all duration-300 ease-in-out hover:scale-110"
+  >
+    <Film className="text-2xl" />
+    <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out transform group-hover:translate-x-4 translate-x-0">
+      Movies
+    </span>
+  </NavItem>
+
+  <NavItem
+    href="#"
+    className="relative group transition-all duration-300 ease-in-out hover:scale-110"
+  >
+    <Users className="text-2xl" />
+    <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out transform group-hover:translate-x-4 translate-x-0">
+      Customers
+    </span>
+  </NavItem>
+</ul>
+
+
+        <div className="lg:hidden flex items-center cursor-pointer text-white" onClick={toggleMenu}>
+          <Menu className="text-3xl" />
+        </div>
       </div>
 
       <div
-        className="lg:hidden flex items-center cursor-pointer absolute top-12 left-4 z-50"
-        onClick={toggleMenu}
-      >
-        <Menu />
-      </div>
-
-      <div
-        className={`fixed top-0 left-0 bg-white/10 backdrop-blur-lg transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 bg-black bg-opacity-90 backdrop-blur-lg transition-transform duration-300 ease-in-out ${
           isOpen ? "transform translate-x-0" : "transform -translate-x-full"
-        } lg:hidden w-2/3 md:w-1/2 z-40`}
+        } lg:hidden w-3/4 md:w-1/2 z-50 p-6`}
       >
-        <ul className="mt-4 flex flex-col items-center justify-start m-2 h-full space-y-8 font-bold">
-          <div className="hover:bg-gray-200 hover:px-4">
-            <NavItem href="/">Dashboard</NavItem>
-          </div>
-          <div className="hover:bg-gray-200 hover:px-4">
-            <NavItem href="/about">Orders</NavItem>
-          </div>
-          <div className="hover:bg-gray-200 hover:px-4">
-            <NavItem href="/contact">Customers</NavItem>
-          </div>
+        <ul className="flex flex-col items-start space-y-8 text-white font-semibold">
+          <NavItem
+            href="/"
+            className="relative hover:bg-gray-800 hover:px-4 py-2 w-full transition-all duration-300 ease-in-out"
+          >
+            Dashboard
+          </NavItem>
+          <NavItem
+            href="/about"
+            className="relative hover:bg-gray-800 hover:px-4 py-2 w-full transition-all duration-300 ease-in-out"
+          >
+            Movies
+          </NavItem>
+          <NavItem
+            href="/contact"
+            className="relative hover:bg-gray-800 hover:px-4 py-2 w-full transition-all duration-300 ease-in-out"
+          >
+            Customers
+          </NavItem>
         </ul>
       </div>
     </div>
