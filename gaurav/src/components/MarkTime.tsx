@@ -2,11 +2,11 @@ import Button from "./ui/personal/Button";
 import Card from "./ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
-import "react-calendar/dist/Calendar.css";
-
+import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
-  const [totalTime, setTotalTime] = useState<{time:number, date: string}[]>([]);
+  const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>([]);
   const [error, setIsError] = useState(false);
   const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
   const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
@@ -14,6 +14,9 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
   useEffect(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
@@ -83,8 +86,11 @@ export const MarkTime = () => {
       localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
   };
-
-  const reversedData = punchData.slice().reverse();
+  const filteredPunchData = punchData.filter(
+    (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
+  );
+  console.log(filteredPunchData, "filteredPunchData");
+  const reversedData = filteredPunchData.slice().reverse();
   console.log(error, "error" + "" + netTime, "netTime");
   return (
     <>
