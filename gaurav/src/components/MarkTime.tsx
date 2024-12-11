@@ -28,9 +28,11 @@ export const MarkTime = () => {
     setNetTime(storedNetTime ? JSON.parse(storedNetTime) : 0);
   }, []);
 
+  const lastPunchData = punchData[punchData.length - 1];             // last punch data
+
   const handlePunchIn = () => {
     try {
-      if (punchData.length === 0 || punchData[punchData.length - 1].type === "OUT") {
+      if (punchData.length === 0 || lastPunchData.type === "OUT") {
         const newPunchInData = [
           ...punchData,
           {
@@ -54,12 +56,12 @@ export const MarkTime = () => {
   const handlePunchOut = () => {
     const time = new Date();
     const punchOutTime = time.getTime();
-    const punchInTime = new Date(punchData[punchData.length - 1].time).getTime();
+    const punchInTime = new Date(lastPunchData.time).getTime();
     if ((punchOutTime - punchInTime) / 1000 < 120) {
       setIsError(true);
     } else {
       console.log("success");
-      if (punchData.length === 0 || punchData[punchData.length - 1].type === "IN") {
+      if (punchData.length === 0 || lastPunchData.type === "IN") {
         const newPunchOutData = [
           ...punchData,
           {

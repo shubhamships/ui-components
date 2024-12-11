@@ -5,16 +5,15 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: "/",
   server: {
     headers: {
-      'Service-Worker-Allowed': '/'
-    }
+      "Service-Worker-Allowed": "/",
+    },
   },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      '@shadcn': '/node_modules/@shadcn',
     },
   },
 });
