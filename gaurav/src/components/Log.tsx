@@ -6,7 +6,9 @@ import Button from "./ui/personal/Button";
 
 export const Log = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
+
   const [showLogData, setShowLogData] = useState<boolean>(false);
   const [punchData, setPunchData] = useState<any[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
@@ -17,38 +19,37 @@ export const Log = () => {
     const data = JSON.parse(localStorage.getItem("totalTime") || "[]");
     return data;
   });
+
+  // Fetching data from local storage
   useEffect(() => {
     const punchData = JSON.parse(localStorage.getItem("punchData") || "[]");
     const newTotalTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
     setPunchData(punchData);
     setTotalTime(newTotalTime);
   }, []);
-  const navigate = useNavigate();
   console.log(punchData, "punchDatahaa");
-  // console.log(punchData[punchData.length - 1].time, "totalTime");
+
+  // Handling the date change
   const handleOnChange = (date: Date) => {
     setSelectedDate(date);
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("date", date.toISOString().split("T")[0]);
     setShowLogData(false);
   };
+
+  // Handling the click event
   const handleOnClick = (date: Date) => {
     setShowLogData(!showLogData);
     navigate(`/timelog?date=${date.toISOString().split("T")[0]}`);
   };
+
+  // Filtering the data based on the selected date
   const filteredPunchData = punchData.filter(
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
   );
-  // const reversedData = filteredPunchData.slice().reverse();
-  // console.log(filteredPunchData, "filteredPunchData");
   const filteredTime = totalTime.filter((time) => new Date(time.date).toDateString() === selectedDate.toDateString());
   const punchDates = punchData.map((data) => new Date(data.time).toDateString());
   const lastLog = filteredPunchData[filteredPunchData.length - 1];
-  //   console.log(selectedDate, "wggwg");
-  //   console.log(filteredPunchData, "filteredPunchData");
-  // console.log(totalTime[totalTime.length - 1].time, "totalTIme");
-
-  console.log(punchDates, "filteredTime");
 
   return (
     <div className="flex justify-center bg-slate-100 h-screen">
@@ -58,9 +59,7 @@ export const Log = () => {
           mode="single"
           onDayClick={handleOnChange}
           classNames={{
-            // cell: "md: w-16 h-12",
             head_row: "flex gap-3 md:gap-10 mt-2 justify-center items-center",
-            // day_today: "bg-blue-600 text-white hover:bg-blue-500 hover:text-white text-accent-foreground",
           }}
           punchDates={punchDates}
           selectedDate={selectedDate}

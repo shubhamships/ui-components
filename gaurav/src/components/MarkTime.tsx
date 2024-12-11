@@ -3,8 +3,11 @@ import Card from "./ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "./ui/Errors";
 import { useLocation } from "react-router-dom";
-// import { useLocation } from "react-router-dom";
 export const MarkTime = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
+
   const [netTime, setNetTime] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>([]);
   const [error, setIsError] = useState(false);
@@ -14,9 +17,8 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   });
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
+
+  // Fetching data from local storage
   useEffect(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
     const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
@@ -25,6 +27,7 @@ export const MarkTime = () => {
     const storedNetTime = localStorage.getItem("netTime");
     setNetTime(storedNetTime ? JSON.parse(storedNetTime) : 0);
   }, []);
+
   const handlePunchIn = () => {
     try {
       if (punchData.length === 0 || punchData[punchData.length - 1].type === "OUT") {
@@ -47,6 +50,7 @@ export const MarkTime = () => {
       console.log("error", error);
     }
   };
+
   const handlePunchOut = () => {
     const time = new Date();
     const punchOutTime = time.getTime();
@@ -86,12 +90,14 @@ export const MarkTime = () => {
       localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
   };
+
   const filteredPunchData = punchData.filter(
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
   );
   console.log(filteredPunchData, "filteredPunchData");
   const reversedData = filteredPunchData.slice().reverse();
   console.log(error, "error" + "" + netTime, "netTime");
+
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
