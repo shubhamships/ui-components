@@ -1,4 +1,4 @@
-import Button from "./ui/Button";
+import Button from "./ui/personal/Button";
 import Card from "./ui/Card";
 import { BrainCircuit, Inbox, Layers3, Mail, Send } from "lucide-react";
 
