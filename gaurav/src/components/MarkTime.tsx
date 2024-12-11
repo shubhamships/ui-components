@@ -11,8 +11,10 @@ export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
   const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>([]);
   const [error, setIsError] = useState(false);
-  const [punchInDisabled, setPunchInDisabled] = useState<boolean>();
-  const [punchOutDisabled, setPunchOutDisabled] = useState<boolean>();
+  const [isPunchedIn, setIsPunchedIn] = useState<boolean>(() => {
+    const storedButtonData = localStorage.getItem("buttonPunchInData");
+    return storedButtonData ? JSON.parse(storedButtonData) : false;
+  });
   const [punchData, setPunchData] = useState<{ id: number; time: string; type: string }[]>(() => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
@@ -20,15 +22,11 @@ export const MarkTime = () => {
 
   // Fetching data from local storage
   useEffect(() => {
-    const storedButtonData = localStorage.getItem("buttonPunchInData");
-    const storedButtonData1 = localStorage.getItem("buttonPunchOutData");
-    setPunchInDisabled(storedButtonData ? JSON.parse(storedButtonData) : false);
-    setPunchOutDisabled(storedButtonData1 ? JSON.parse(storedButtonData1) : true);
     const storedNetTime = localStorage.getItem("netTime");
     setNetTime(storedNetTime ? JSON.parse(storedNetTime) : 0);
   }, []);
 
-  const lastPunchData = punchData[punchData.length - 1];             // last punch data
+  const lastPunchData = punchData[punchData.length - 1]; // last punch data
 
   const handlePunchIn = () => {
     try {
@@ -44,8 +42,7 @@ export const MarkTime = () => {
         setPunchData(newPunchInData);
         localStorage.setItem("punchData", JSON.stringify(newPunchInData));
       }
-      setPunchInDisabled(true);
-      setPunchOutDisabled(false);
+      setIsPunchedIn(true);
       localStorage.setItem("buttonPunchInData", JSON.stringify(true));
       localStorage.setItem("buttonPunchOutData", JSON.stringify(false));
     } catch (error) {
@@ -86,8 +83,7 @@ export const MarkTime = () => {
         localStorage.setItem("totalTime", JSON.stringify(newTotalTime));
         setIsError(false);
       }
-      setPunchInDisabled(false);
-      setPunchOutDisabled(true);
+      setIsPunchedIn(false);
       localStorage.setItem("buttonPunchInData", JSON.stringify(false));
       localStorage.setItem("buttonPunchOutData", JSON.stringify(true));
     }
@@ -114,18 +110,18 @@ export const MarkTime = () => {
           </div>
           <Button
             title="Punch In"
-            disabled={punchInDisabled}
+            disabled={isPunchedIn}
             className={` ${
-              punchInDisabled ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60 " : "cursor-pointer"
+              isPunchedIn ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60 " : "cursor-pointer"
             } w-full sticky top-8`}
             onClick={handlePunchIn}
           />
           <Button
             title="Punch Out"
             variant="success"
-            disabled={punchOutDisabled}
+            disabled={!isPunchedIn}
             className={`${
-              punchOutDisabled ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
+              !isPunchedIn ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
             } w-full sticky-top-20`}
             onClick={handlePunchOut}
           />

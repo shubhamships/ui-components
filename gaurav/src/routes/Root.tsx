@@ -14,7 +14,7 @@ export const Root = () => {
           <Button
             title="Mark your Attandence"
             variant="secondary"
-            className="bg-purple-600 text-white w-full px-4 rounded-lg shadow-lg hover:bg-purple-700 transition duration-300"
+            className="bg-purple-700 text-white w-full px-4 rounded-lg shadow-lg hover:bg-purple-700 transition duration-300"
             iconName={<IdCard className="mx-2" />}
             onClick={handleClick}
           />
