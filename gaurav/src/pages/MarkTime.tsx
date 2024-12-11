@@ -1,8 +1,9 @@
-import Button from "./ui/personal/Button";
-import Card from "./ui/Card";
+import Card from "../components/ui/Card";
 import { useState, useEffect } from "react";
-import Errors from "./ui/Errors";
+import Errors from "../components/ui/Errors";
 import { useLocation } from "react-router-dom";
+import { RenderCards } from "../components/RenderCards";
+import { PunchButton } from "../components/PunchButton";
 export const MarkTime = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -92,10 +93,7 @@ export const MarkTime = () => {
   const filteredPunchData = punchData.filter(
     (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
   );
-  console.log(filteredPunchData, "filteredPunchData");
   const reversedData = filteredPunchData.slice().reverse();
-  console.log(error, "error" + "" + netTime, "netTime");
-
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
@@ -108,23 +106,8 @@ export const MarkTime = () => {
               0,
             )} seconds`}
           </div>
-          <Button
-            title="Punch In"
-            disabled={isPunchedIn}
-            className={` ${
-              isPunchedIn ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60 " : "cursor-pointer"
-            } w-full sticky top-8`}
-            onClick={handlePunchIn}
-          />
-          <Button
-            title="Punch Out"
-            variant="success"
-            disabled={!isPunchedIn}
-            className={`${
-              !isPunchedIn ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
-            } w-full sticky-top-20`}
-            onClick={handlePunchOut}
-          />
+          <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
+          <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
           <Errors
             name={error}
             errorDescription="Punch Out must be 2 minutes after Punch In"
@@ -132,29 +115,7 @@ export const MarkTime = () => {
           />
           <div className="py-2 h-full scroll-auto overflow-auto mt-4 overflow-x-clip">
             <div className="space-y-2 w-full mt-4">
-              {reversedData.map((item: any, index: number) => (
-                <Card
-                  className={`flex justify-center items-center px-14 h-14 w-full gap-2 text-sm font-semibold whitespace-nowrap transition ease-in duration-200
-                ${item.type === "OUT" ? "border border-green-500" : "border border-primary"}
-                `}
-                  variant="default"
-                  key={index}
-                >
-                  <div className="flex justify-around items-center gap-4">
-                    <div className={`text-sm tracking-wide `}>
-                      {item.type === "OUT" ? (
-                        <div className="text-sm text-success">
-                          Punch Out TIme {new Date(item.time).toLocaleTimeString()}
-                        </div>
-                      ) : (
-                        <div className="text-sm text-primary">
-                          Punch In Time {new Date(item.time).toLocaleTimeString()}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              ))}
+              <RenderCards reversedData={reversedData} />
             </div>
           </div>
         </Card>

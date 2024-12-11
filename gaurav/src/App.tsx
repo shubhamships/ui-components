@@ -1,8 +1,8 @@
-import { MarkTime } from "./components/MarkTime";
+import { MarkTime } from "./pages/MarkTime";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { Calendar, Clock, House } from "lucide-react";
 import { Root } from "./routes/Root";
-import { Log } from "./components/Log";
+import { Log } from "./pages/Log";
 function App() {
   const styleClass = "w-5 h-5 text-gray-500";
   return (

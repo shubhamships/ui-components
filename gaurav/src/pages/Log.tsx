@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Calendar } from "./ui/calendar";
-import Card from "./ui/Card";
+import { Calendar } from "../components/ui/calendar";
+import Card from "../components/ui/Card";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "./ui/personal/Button";
+import Button from "../components/ui/personal/Button";
 
 export const Log = () => {
   const location = useLocation();
@@ -27,7 +27,6 @@ export const Log = () => {
     setPunchData(punchData);
     setTotalTime(newTotalTime);
   }, []);
-  console.log(punchData, "punchDatahaa");
 
   // Handling the date change
   const handleOnChange = (date: Date) => {
