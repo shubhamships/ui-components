@@ -102,8 +102,8 @@ export const MarkTime = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-slate-50">
-        <h1 className="text-3xl font-semibold text-primary m-4">Time Log</h1>
+      <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
+        <h1 className="text-4xl font-bold text-gray-800 m-4">Time Log</h1>
         <div className="border-blue-500"></div>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">

@@ -52,10 +52,10 @@ export const Log = () => {
   const lastLog = filteredPunchData[filteredPunchData.length - 1];
 
   return (
-    <div className="flex justify-center bg-slate-100 h-screen">
-      <div>
+    <div className="flex justify-center bg-gradient-to-b from-purple-200 to-blue-100 h-screen">
+      <div className="">
         <Calendar
-          className="border shadow-lg bg-blue-50 rounded-lg mx-2 mt-12"
+          className="border shadow-lg bg-blue-50 rounded-lg mx-5 mt-12"
           mode="single"
           onDayClick={handleOnChange}
           classNames={{
@@ -64,12 +64,12 @@ export const Log = () => {
           punchDates={punchDates}
           selectedDate={selectedDate}
         />
-        <div className="mt-4">
-          <h2 className="font-bold text-primary pb-2">Log Data</h2>
+        <div className="mt-4 bg-slate-50 p-4 rounded mx-4">
+          <h2 className="font-bold text-gray-800 pb-2">Log Data</h2>
           {filteredPunchData.map((log, index) => (
             <div key={index}>
               {index === 0 ? (
-                <Card className="text-primary text-sm font-medium border-blue-700 bg-blue-200 bg-opacity-25 flex justify-around items-center">
+                <Card className="text-primary text-sm font-medium border-primary bg-white bg-opacity-25 flex justify-around items-center">
                   <div>PunchIn Time</div>
                   {new Date(log.time).toLocaleTimeString()}
                 </Card>
@@ -102,14 +102,15 @@ export const Log = () => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="flex flex-col justify-center items-center mt-5">
-          <Button
-            variant="default"
-            title={showLogData ? "Hide Details" : "Show Details"}
-            className="px-28"
-            onClick={() => handleOnClick(selectedDate)}
-          />
+
+          <div className="flex flex-col justify-center items-center mt-5 w-full">
+            <Button
+              variant="default"
+              title={showLogData ? "Hide Details" : "Show Details"}
+              className="px-28 w-full"
+              onClick={() => handleOnClick(selectedDate)}
+            />
+          </div>
         </div>
       </div>
     </div>
