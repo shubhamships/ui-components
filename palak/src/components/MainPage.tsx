@@ -17,6 +17,9 @@ const MainPage = () => {
       <Link to="/dash">
         <li className="cursor-pointer text-white">DashBoard</li>
       </Link>
+      {/* <Link to="/popup">
+        <li className="cursor-pointer text-white">Popup</li>
+      </Link> */}
     </ul>
   );
 };

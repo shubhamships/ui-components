@@ -8,6 +8,7 @@ import Graphics from "./portfolio/Graphics";
 import Contact from "./portfolio/Contact";
 import Page2 from "./animation/Page2";
 import Page3 from "./animation/Page3";
+import Page4 from "./animation/Page4";
 import InteriorPage from "./animation/InteriorPage";
 import InteriorPage2 from "./animation/InteriorPage2";
 import InteriorPage3 from "./animation/InteriorPage3";
@@ -15,6 +16,7 @@ import Home from "./animation/Home";
 import Toggle from "./animation/Toggle";
 import LoginPage from "./animation/LoginPage";
 import DashBoard from "./animation/DashBoard";
+import ViewOrder from "./animation/ViewOrder";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
     element: <Page3 />,
   },
   {
+    path: "/page4",
+    element: <Page4 />,
+  },
+  {
     path: "/toggle",
     element: <Toggle />,
   },
@@ -76,6 +82,10 @@ const router = createBrowserRouter([
   {
     path: "/dash",
     element: <DashBoard />,
+  },
+  {
+    path: "/Vieworder",
+    element: <ViewOrder />,
   },
 ]);
 

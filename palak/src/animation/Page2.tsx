@@ -3,6 +3,7 @@ import { IoCubeOutline, IoPeopleOutline } from "react-icons/io5";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+
 import { useState } from "react";
 
 const Page2 = () => {
@@ -92,6 +93,12 @@ const Page2 = () => {
             >
               Continue
             </button>
+            <Link to="/Vieworder">
+              <button className="bg-blue-600 rounded-md py-3 px-5 text-white mt-10 ml-10">View</button>
+            </Link>
+            <Link to="/page4">
+              <button className="bg-blue-600 rounded-md py-3 px-5 text-white mt-10 ml-10">Checkout</button>
+            </Link>
           </div>
           {/* <AnimatePresence> */}
           {isOpen && (

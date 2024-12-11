@@ -108,7 +108,7 @@ const Page3 = () => {
               animate="visible"
               exit="exit"
             >
-              <p className="text-lg font-semibold">Add New Cutomer</p>
+              <p className="text-lg font-semibold">Add New Customer</p>
               <hr />
               <div className="grid grid-cols-3 p-2 mt-2 gap-3">
                 <div>
