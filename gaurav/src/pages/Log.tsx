@@ -4,6 +4,10 @@ import Card from "../components/ui/Card";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/ui/personal/Button";
 
+interface Itime {
+  time: number;
+  date: string;
+}
 export const Log = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -11,29 +15,40 @@ export const Log = () => {
 
   const [showLogData, setShowLogData] = useState<boolean>(false);
   const [punchData, setPunchData] = useState<any[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date>(() => {
+
+  // helper functions
+  const getSelectedDate = () => {
     const dateData = queryParams.get("date");
     return dateData ? new Date(dateData) : new Date();
-  });
-  const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>(() => {
-    const data = JSON.parse(localStorage.getItem("totalTime") || "[]");
-    return data;
-  });
+  };
+  const getTotalTime = () => {
+    const time = JSON.parse(localStorage.getItem("totalTime") || "[]");
+    return time;
+  };
 
+  const [selectedDate, setSelectedDate] = useState<Date>(getSelectedDate); // selected date
+  const [totalTime, setTotalTime] = useState<Itime[]>(getTotalTime); // total time
+
+  const getPunchData = JSON.parse(localStorage.getItem("punchData") || "[]");
+  const getTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
+  
   // Fetching data from local storage
   useEffect(() => {
-    const punchData = JSON.parse(localStorage.getItem("punchData") || "[]");
-    const newTotalTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
+    const punchData = getPunchData;
+    const newTotalTime = getTime;
     setPunchData(punchData);
     setTotalTime(newTotalTime);
   }, []);
 
+  const splitLogic = (date: Date) => {
+    return date.toISOString().split("T")[0];
+  };
   // Handling the date change
   const handleOnChange = (date: Date) => {
     const newDate = new Date(date.toLocaleDateString());
     setSelectedDate(newDate);
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("date", date.toISOString().split("T")[0]);
+    searchParams.set("date", splitLogic(date)); // splitLogic function is used to split the date
     setShowLogData(false);
   };
 
@@ -43,8 +58,8 @@ export const Log = () => {
     const newDate = new Date(date.toLocaleDateString());
     newDate.setDate(newDate.getDate() + 1);
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("date", date.toISOString().split("T")[0]);
-    navigate(`/timelog?date=${newDate.toISOString().split("T")[0]}`);
+    searchParams.set("date", splitLogic(date));
+    navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
   console.log(selectedDate, "selectedDate");
   // Filtering the data based on the selected date
