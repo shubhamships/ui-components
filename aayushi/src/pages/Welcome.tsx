@@ -30,10 +30,8 @@ const Welcome = () => {
     timers.push(setTimeout(() => setCircle2Visible(false), 9000));
 
     timers.push(setTimeout(() => setCircle3Visible(true), 5000));
-    timers.push(setTimeout(() => setCircle3Visible(false), 10000));
 
     timers.push(setTimeout(() => setCircle4Visible(true), 7000));
-    timers.push(setTimeout(() => setCircle4Visible(false), 11000));
 
     return () => timers.forEach((timer) => clearTimeout(timer));
   }, []);
@@ -43,14 +41,6 @@ const Welcome = () => {
     animate: { opacity: 1, scale: 1, transition: { duration: 2, ease: "easeOut" } },
     exit: { opacity: 0, scale: 0, transition: { duration: 1, ease: "easeIn" } },
   };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCirclesVisible((prev) => !prev);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="h-screen w-full relative flex justify-center items-center overflow-hidden">
@@ -121,7 +111,7 @@ const Welcome = () => {
         {circle3Visible && (
           <motion.div
             className="absolute rounded-full bg-orange-300 filter blur-lg"
-            style={{ width: "210px", height: "200px", top: "30%", left: "30%" }}
+            style={{ width: "210px", height: "200px", top: "30%", left: "50%" }}
             variants={circleVariants}
             key="circle7"
           />
