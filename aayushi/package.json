@@ -10,10 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+<<<<<<< HEAD
     "framer-motion": "^11.13.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.2"
+=======
+    "axios": "^1.7.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-loading-icons": "^1.1.0",
+    "react-router-dom": "^6.28.0",
+    "zod": "^3.23.8"
+>>>>>>> login-aayushi-ui
   },
   "devDependencies": {
     "@eslint/js": "^9.11.1",
@@ -29,8 +38,8 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5.6.3",
     "vite": "^5.4.8"
   }
