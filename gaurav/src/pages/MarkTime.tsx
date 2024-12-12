@@ -2,8 +2,8 @@ import Card from "../components/ui/Card";
 import { useState, useEffect } from "react";
 import Errors from "../components/ui/Errors";
 import { useLocation } from "react-router-dom";
-import { RenderCards } from "../components/RenderCards";
-import { PunchButton } from "../components/PunchButton";
+import { PunchButton } from "@/components/PunchButton";
+import { RenderCards } from "@/components/RenderCards";
 
 interface ITime {
   time: number;
@@ -36,6 +36,12 @@ export const MarkTime = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   };
+
+  const isToday = (date: Date): boolean => {
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
+  };
+  console.log(isToday(selectedDate), "Today Date");
   const [totalTime, setTotalTime] = useState<ITime[]>(getTotalTime); // total time
   const [isPunchedIn, setIsPunchedIn] = useState<boolean>(getButtonPunchData); // button punch data
   const [punchData, setPunchData] = useState<IPunchData[]>(getPunchData); // punch data
@@ -128,7 +134,7 @@ export const MarkTime = () => {
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
         <h1 className="text-4xl font-bold text-gray-800 m-4">Time Log</h1>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
-          <div className="text-sm font-semibold text-gray-800 border-2 border-transparent rounded-md px-2 shadow-sm bg-gradient-to-r from-purple-200 to-blue-100">
+          <div className="text-sm font-semibold text-gray-800 rounded-md px-2 shadow-sm bg-gradient-to-r from-purple-200 to-blue-100">
             Date: <span>{selectedDate.toDateString()}</span>
           </div>
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
@@ -137,8 +143,12 @@ export const MarkTime = () => {
               totalPunchTime % 60
             ).toFixed(0)} seconds`}
           </div>
-          <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
-          <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
+
+          <div className={`${isToday(selectedDate) ? "block" : "hidden"} w-full`}>
+            <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
+            <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
+          </div>
+
           <Errors
             name={error}
             errorDescription="Punch Out must be 2 minutes after Punch In"

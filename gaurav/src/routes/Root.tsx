@@ -9,7 +9,7 @@ export const Root = () => {
   return (
     <>
       <div className="flex justify-center items-center">
-      <div className="bg-gradient-to-b from-purple-200 to-blue-100 pb-20 px-4 pt-10 overflow-hidden h-screen max-w-md">
+      <div className="bg-gradient-to-b from-purple-200 to-blue-100 pb-20 px-4 pt-10 overflow-hidden max-w-md">
         <h1 className="text-center text-5xl font-bold p-4 pt-8 text-gray-800">Welcome to the TimeLog</h1>
         <div className="flex justify-center items-center h-96 mb-32">
           <Button
