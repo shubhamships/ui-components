@@ -1,11 +1,12 @@
-import { Link } from "react-router-dom";
+// import { CreateOrders } from "./pages/CreateOrders";
+
+import Welcome from "./pages/Welcome";
 
 const Root = () => {
   return (
     <div>
-      <Link to="/carousel">
-        <img src="src/assets/user1.png" alt="User 1" className="mx-28"/>
-      </Link>
+     {/* <CreateOrders/> */}
+     <Welcome/>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
-import { Carousel } from "./components/UserCarousel";
+
 
 
 const router = createBrowserRouter([
@@ -9,10 +9,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Root/>,
   },
-  {
-    path:"/carousel",
-    element: <Carousel/>,
-  },
+  
 
   
 ]);
