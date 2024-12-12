@@ -30,7 +30,8 @@ export const Log = () => {
 
   // Handling the date change
   const handleOnChange = (date: Date) => {
-    setSelectedDate(date);
+    const newDate = new Date(date.toLocaleDateString());
+    setSelectedDate(newDate);
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("date", date.toISOString().split("T")[0]);
     setShowLogData(false);
@@ -39,14 +40,21 @@ export const Log = () => {
   // Handling the click event
   const handleOnClick = (date: Date) => {
     setShowLogData(!showLogData);
-    navigate(`/timelog?date=${date.toISOString().split("T")[0]}`);
+    const newDate = new Date(date.toLocaleDateString());
+    newDate.setDate(newDate.getDate() + 1);
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("date", date.toISOString().split("T")[0]);
+    navigate(`/timelog?date=${newDate.toISOString().split("T")[0]}`);
   };
-
+  console.log(selectedDate, "selectedDate");
   // Filtering the data based on the selected date
-  const filteredPunchData = punchData.filter(
-    (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
-  );
-  const filteredTime = totalTime.filter((time) => new Date(time.date).toDateString() === selectedDate.toDateString());
+  const filteredPunchData = punchData.filter((log) => {
+    return new Date(log.time).getDate() === selectedDate.getDate();
+  });
+  console.log(filteredPunchData, "filteredPunchData");
+  const filteredTime = totalTime.filter((time) => {
+    return new Date(time.date).getDate() === selectedDate.getDate();
+  });
   const punchDates = punchData.map((data) => new Date(data.time).toDateString());
   const lastLog = filteredPunchData[filteredPunchData.length - 1];
 

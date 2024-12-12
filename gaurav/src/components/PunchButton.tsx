@@ -15,7 +15,7 @@ export const PunchButton = ({
       title={title}
       disabled={disabled}
       className={`${
-        disabled ? "cursor-not-allowed bg-opacity-60 hover:opacity-60" : "cursor-pointer"
+        disabled ? "cursor-not-allowed bg-opacity-60 hover:bg-opacity-60" : "cursor-pointer"
       } w-full sticky-top-20`}
       onClick={onClick}
     />

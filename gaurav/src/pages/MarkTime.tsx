@@ -8,9 +8,11 @@ export const MarkTime = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const selectedDate = new Date(queryParams.get("date") || new Date().toISOString().split("T")[0]);
-
   const [netTime, setNetTime] = useState<number>(0);
-  const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>([]);
+  const [totalTime, setTotalTime] = useState<{ time: number; date: string }[]>(() => {
+    const storedTotalTime = localStorage.getItem("totalTime");
+    return storedTotalTime ? JSON.parse(storedTotalTime) : [];
+  });
   const [error, setIsError] = useState(false);
   const [isPunchedIn, setIsPunchedIn] = useState<boolean>(() => {
     const storedButtonData = localStorage.getItem("buttonPunchInData");
@@ -90,21 +92,30 @@ export const MarkTime = () => {
     }
   };
 
-  const filteredPunchData = punchData.filter(
-    (log) => new Date(log.time).toDateString() === selectedDate.toDateString(),
-  );
+  const filteredPunchData = punchData.filter((log) => {
+    const logDate = new Date(log.time);
+
+    return (
+      logDate.getFullYear() === selectedDate.getFullYear() &&
+      logDate.getMonth() === selectedDate.getMonth() &&
+      logDate.getDate() === selectedDate.getDate()
+    );
+  });
+  const filteredTime = totalTime.filter((time) => {
+    return new Date(time.date).getDate() === selectedDate.getDate();
+  });
+  const totalPunchTime = filteredTime.length > 0 ? filteredTime[filteredTime.length - 1].time : 0;
   const reversedData = filteredPunchData.slice().reverse();
   return (
     <>
       <div className="flex flex-col items-center h-screen w-full p-4 pt-11 bg-gradient-to-b from-purple-200 to-blue-100">
         <h1 className="text-4xl font-bold text-gray-800 m-4">Time Log</h1>
-        <div className="border-blue-500"></div>
         <Card className="relative flex flex-col items-center h-full mb-11 min-w-80 max-w-96 py-4 px-8 gap-2 bg-gray-50 shadow-sm overflow-auto">
           <div className="text-sm font-semibold text-primary text-center contrast-200 sticky top-0">
             <div>Total time elapsed</div>
-            {`${Math.floor(netTime / 3600)} hours ${Math.floor((netTime % 3600) / 60)} minutes ${(netTime % 60).toFixed(
-              0,
-            )} seconds`}
+            {`${Math.floor(totalPunchTime / 3600)} hours ${Math.floor((totalPunchTime % 3600) / 60)} minutes ${(
+              totalPunchTime % 60
+            ).toFixed(0)} seconds`}
           </div>
           <PunchButton title="Punch In" disabled={isPunchedIn} onClick={handlePunchIn} />
           <PunchButton title="Punch Out" disabled={!isPunchedIn} onClick={handlePunchOut} />
