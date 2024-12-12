@@ -22,21 +22,22 @@ export const MarkTime = () => {
   const [netTime, setNetTime] = useState<number>(0);
   const [error, setIsError] = useState(false);
 
-    // helper functions
+  // helper functions
   const getTotalTime = () => {
     const storedTotalTime = localStorage.getItem("totalTime");
     return storedTotalTime ? JSON.parse(storedTotalTime) : [];
   };
-  const getPunchButtonData = () => {
-    const storedPunchData = localStorage.getItem("buttonpunchData");
-    return storedPunchData ? JSON.parse(storedPunchData) : [];
+  const getButtonPunchData = () => {
+    const storedButtonData = localStorage.getItem("buttonPunchInData");
+    return storedButtonData ? JSON.parse(storedButtonData) : false;
   };
+
   const getPunchData = () => {
     const storedData = localStorage.getItem("punchData");
     return storedData ? JSON.parse(storedData) : [];
   };
   const [totalTime, setTotalTime] = useState<ITime[]>(getTotalTime); // total time
-  const [isPunchedIn, setIsPunchedIn] = useState<boolean>(getPunchButtonData); // punch in state
+  const [isPunchedIn, setIsPunchedIn] = useState<boolean>(getButtonPunchData); // button punch data
   const [punchData, setPunchData] = useState<IPunchData[]>(getPunchData); // punch data
 
   // Fetching data from local storage
