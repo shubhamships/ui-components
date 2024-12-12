@@ -4,6 +4,11 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useEffect, useState } from "react";
+import { IoChevronForward } from "react-icons/io5";
+import { BsPerson } from "react-icons/bs";
+import { CiLocationOn } from "react-icons/ci";
+import { GoChevronDown } from "react-icons/go";
+import { GoChevronUp } from "react-icons/go";
 
 const ViewOrder = () => {
   const navbarVariants = {
@@ -27,6 +32,11 @@ const ViewOrder = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isData, setIsData] = useState<any>([]);
   const [orderDetails, setOrderDetails] = useState(null);
+  const [isOpen, setIsOpen] = useState(true);
+
+  const handleChevronClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -73,10 +83,9 @@ const ViewOrder = () => {
         <img src={logo} className="w-32 h-10 m-3" />
         <div className="rounded-full bg-orange-400 p-2 m-3 text-white">SJ</div>
       </motion.div>
-
       <div className="flex h-screen">
         <motion.ul
-          className="flex flex-col gap-10 px-5 items-center justify-center shadow-lg w-20 min-h-screen sticky top-0 bg-white"
+          className="flex flex-col gap-10 items-center justify-center shadow-lg w-20 min-h-screen fixed bg-white"
           variants={sidebarVariants}
           initial="hidden"
           animate="visible"
@@ -95,12 +104,33 @@ const ViewOrder = () => {
             </motion.li>
           ))}
         </motion.ul>
-        <div className="flex flex-col gap-7 bg-gray-100 h-screen w-full px-5 pt-5">
+        <div className="flex flex-col gap-4 bg-gray-50 min-h-max w-full pl-24 pt-5 pb-32">
           <p className="text-lg font-semibold">View Order</p>
-          <div className="flex"></div>
+          <div className="flex justify-between items-center gap-1">
+            <div className="flex">
+              <Link to="#" className="text-gray-400 hover:text-black text-sm">
+                Orders
+              </Link>
+              <IoChevronForward className="text-gray-500 mt-0.5" />
+              <Link to="#" className="text-gray-400 hover:text-black text-sm">
+                All Orders
+              </Link>
+              <IoChevronForward className="text-gray-500 mt-0.5" />
+              <Link to="#" className="text-gray-400 hover:text-black text-sm">
+                View Order
+              </Link>
+              <IoChevronForward className="text-gray-500 mt-0.5" />
+              <Link to="#" className="text-black text-sm">
+                SG32412041838251
+              </Link>
+            </div>
+            <button className="text-blue-800 px-3 py-2 border border-blue-800 bg-white rounded-md text-xs mr-5">
+              Back
+            </button>
+          </div>
           {isLoading ? (
             <motion.div
-              className="w-full sm:w-2/3 bg-white rounded-md grid lg:grid-cols-2 grid-cols-1 gap-5 p-4"
+              className="w-full bg-white rounded-md grid lg:grid-cols-2 grid-cols-1 gap-5 p-4"
               initial={{ opacity: 0.5 }}
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ repeat: Infinity }}
@@ -110,7 +140,7 @@ const ViewOrder = () => {
                   <div className="w-10 h-10 rounded-full bg-gray-100"></div>
                   <div className="h-5 w-24 bg-gray-100 rounded-md"></div>
                 </div>
-                <div className="h-4 w-3/4 bg-gray-100 rounded-md mt-4"></div>
+                <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-4"></div>
                 <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-2 mb-4"></div>
               </div>
               <div className="px-5 pt-5">
@@ -118,32 +148,36 @@ const ViewOrder = () => {
                   <div className="w-10 h-10 rounded-full bg-gray-100"></div>
                   <div className="h-5 w-24 bg-gray-100 rounded-md"></div>
                 </div>
-                <div className="h-4 w-3/4 bg-gray-100 rounded-md mt-4"></div>
+                <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-4"></div>
                 <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-2 mb-4"></div>
               </div>
             </motion.div>
           ) : (
             <motion.div
-              className="w-full sm:w-2/3 bg-white rounded-md grid lg:grid-cols-2 grid-cols-1 gap-5 p-4"
+              className="md:w-2/3 w-11/12 bg-white rounded-md grid lg:grid-cols-2 grid-cols-1 gap-5 p-3"
               animate={{ opacity: 1 }}
               transition={{ duration: 1, ease: "easeInOut" }}
             >
               {orderDetails ? (
                 <>
-                  <div className="px-5 pt-5">
-                    <div className="flex items-center gap-x-5">
-                      <div className="w-10 h-10 rounded-full bg-red-100"></div>
-                      <p className="font-bold">Customer Details</p>
+                  <div className="p-3">
+                    <div className="flex items-center gap-x-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-50">
+                        <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
+                      </div>
+                      <p className="font-semibold">Customer Details</p>
                     </div>
                     <p className="pl-16 text-sm text-gray-400 font-semibold">
                       {isData.data.address_nickname} {isData.data.pickup_mobile}
                     </p>
                     <p className="pl-16 text-sm text-gray-400">{isData.data.billing_address}</p>
                   </div>
-                  <div className="px-5 pt-5">
-                    <div className="flex items-center gap-x-5">
-                      <div className="w-10 h-10 rounded-full bg-red-100"></div>
-                      <p className="font-bold">Delivery Address</p>
+                  <div className="p-3">
+                    <div className="flex items-center gap-x-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-50">
+                        <CiLocationOn className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
+                      </div>
+                      <p className="font-semibold">Delivery Address</p>
                     </div>
                     <p className="pl-16 text-sm text-gray-400 font-semibold">
                       {isData.data.customer_billing_firstname} {isData.data.customer_billing_lastname}{" "}
@@ -171,6 +205,154 @@ const ViewOrder = () => {
               )}
             </motion.div>
           )}
+          {/* Order Details */}
+          <div className="md:w-2/3 w-11/12 bg-white rounded-md p-3">
+            <div className="flex justify-between p-3">
+              <div className="flex items-center gap-x-3">
+                <div className="w-10 h-10 rounded-full bg-blue-50">
+                  <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
+                </div>
+                <p className="font-semibold text-sm">Order Details</p>
+              </div>
+              {isOpen ? (
+                <GoChevronUp className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
+              ) : (
+                <GoChevronDown className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
+              )}
+            </div>
+            <div className="grid gap-5 lg:grid-cols-3 grid-cols-1">
+              <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                <div className="flex p-3 gap-x-3">
+                  <div className="w-10 h-10 rounded-lg bg-green-100">
+                    <BsPerson className="w-5 h-5 text-green-800 m-2.5" />
+                  </div>
+                  <div className="flex flex-col gap-y-1">
+                    <p className="text-sm font-semibold">Billed Weight</p>
+                    <p className="text-gray-400 text-xs">1 kg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                <div className="flex p-3 gap-x-3">
+                  <div className="w-10 h-10 rounded-lg bg-orange-50">
+                    <BsPerson className="w-5 h-5 text-orange-600 m-2.5" />
+                  </div>
+                  <div className="flex flex-col gap-y-1">
+                    <p className="text-sm font-semibold">Billed Weight</p>
+                    <p className="text-gray-400 text-xs">1 kg</p>
+                  </div>
+                </div>
+              </div>
+              <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                <div className="flex p-3 gap-x-3">
+                  <div className="w-10 h-10 rounded-lg bg-red-100">
+                    <BsPerson className="w-5 h-5 text-red-800 m-2.5" />
+                  </div>
+                  <div className="flex flex-col gap-y-1">
+                    <p className="text-sm font-semibold">Billed Weight</p>
+                    <p className="text-gray-400 text-xs">1 kg</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {!isOpen && (
+              <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+                <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                  <div className="flex p-3 gap-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-blue-100">
+                      <BsPerson className="w-5 h-5 text-blue-800 m-2.5" />
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      <p className="text-sm font-semibold">Billed Weight</p>
+                      <p className="text-gray-400 text-xs">1 kg</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                  <div className="flex p-3 gap-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-yellow-100">
+                      <BsPerson className="w-5 h-5 text-yellow-800 m-2.5" />
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      <p className="text-sm font-semibold">Billed Weight</p>
+                      <p className="text-gray-400 text-xs">1 kg</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                  <div className="flex p-3 gap-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-purple-100">
+                      <BsPerson className="w-5 h-5 text-purple-800 m-2.5" />
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      <p className="text-sm font-semibold">Billed Weight</p>
+                      <p className="text-gray-400 text-xs">1 kg</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                  <div className="flex p-3 gap-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-pink-100">
+                      <BsPerson className="w-5 h-5 text-pink-800 m-2.5" />
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      <p className="text-sm font-semibold">Billed Weight</p>
+                      <p className="text-gray-400 text-xs">1 kg</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Billed Details */}
+          <div className="md:w-4/6 w-11/12 bg-white rounded-md p-3">
+            <div className="flex items-center gap-x-3">
+              <div className="w-10 h-10 rounded-full bg-blue-50">
+                <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
+              </div>
+              <p className="font-semibold text-sm">Billed Details</p>
+            </div>
+            <table className="md:w-full">
+              <thead>
+                <tr className="grid grid-cols-7 py-2 border rounded-lg mt-4 text-slate-500 bg-slate-50">
+                  <th className="text-sm font-normal align-middle">Sr No.</th>
+                  <th className="text-sm font-normal">Product Name</th>
+                  <th className="text-sm font-normal align-middle">SKU</th>
+                  <th className="text-sm font-normal align-middle">HSN</th>
+                  <th className="text-sm font-normal align-middle">Qty</th>
+                  <th className="text-sm font-normal align-middle">Unit Price</th>
+                  <th className="text-sm font-normal align-middle">Total</th>
+                </tr>
+              </thead>
+              <tbody className="text-center">
+                <tr className="grid grid-cols-7 py-4 mt-2   border rounded-lg mb-4">
+                  <td className="text-sm align-middle">1</td>
+                  <td className="text-sm col-span-2 align-middle text-left pl-8">Bat</td>
+                  <td className="text-sm align-middle">123456</td>
+                  <td className="text-sm align-middle">1</td>
+                  <td className="text-sm align-middle">1.00 INR</td>
+                  <td className="text-sm align-middle">1.00 INR</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {/* Summary */}
+          <div className="md:w-2/3 w-11/12 bg-red-50 rounded-md">
+            <p className="text-sm text-orange-400 font-semibold p-5">Summary</p>
+            <hr className="text-orange-300" />
+            <div className="flex justify-between py-2 px-5">
+              <p className="text-xs">Logistic Fee</p>
+              <p className="text-xs">Rs. 474.00</p>
+            </div>
+            <div className="flex justify-between py-2 px-5">
+              <p className="text-xs">GST</p>
+              <p className="text-xs">Rs. 85.32</p>
+            </div>
+            <div className="flex justify-between py-2 bg-red-100 rounded-lg px-5">
+              <p className="text-sm font-semibold">Sub Total</p>
+              <p className="text-sm font-semibold">Rs. 559.32</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
