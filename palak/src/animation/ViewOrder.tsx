@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { IoCubeOutline, IoPeopleOutline } from "react-icons/io5";
-import { CiDeliveryTruck } from "react-icons/ci";
+
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
+
 import { useEffect, useState } from "react";
 import { IoChevronForward } from "react-icons/io5";
 import { BsPerson } from "react-icons/bs";
@@ -10,26 +9,10 @@ import { CiLocationOn } from "react-icons/ci";
 import { GoChevronDown } from "react-icons/go";
 import { GoChevronUp } from "react-icons/go";
 import { GoCheckCircle } from "react-icons/go";
+import NavbarFranchise from "../components/NavbarFranchise";
+import Sidebar from "../components/Sidebar";
 
 const ViewOrder = () => {
-  const navbarVariants = {
-    hidden: { opacity: 0, y: -50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
-  const sidebarVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 0.5 } },
-  };
-
-  const sidebarIconVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: () => ({
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.4, delay: 0.7 },
-    }),
-  };
   const [isLoading, setIsLoading] = useState(true);
   const [isData, setIsData] = useState<any>([]);
   const [orderDetails, setOrderDetails] = useState(null);
@@ -75,36 +58,9 @@ const ViewOrder = () => {
   }, []);
   return (
     <div>
-      <motion.div
-        className="flex justify-between shadow-sm px-5 sticky top-0 bg-white z-10"
-        variants={navbarVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <img src={logo} className="w-32 h-10 m-3" />
-        <div className="rounded-full bg-orange-400 p-2 m-3 text-white">SJ</div>
-      </motion.div>
+      <NavbarFranchise />
+      <Sidebar />
       <div className="flex h-screen">
-        <motion.ul
-          className="flex flex-col gap-10 items-center justify-center shadow-lg w-20 min-h-screen fixed bg-white"
-          variants={sidebarVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {[IoCubeOutline, IoPeopleOutline, CiDeliveryTruck].map((Icon, index) => (
-            <motion.li
-              className="cursor-pointer"
-              key={index}
-              variants={sidebarIconVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              <Link to={index === 0 ? "/dash" : `/page${index + 1}`}>
-                <Icon className="h-8 w-10" />
-              </Link>
-            </motion.li>
-          ))}
-        </motion.ul>
         <div className="flex flex-col gap-4 bg-gray-50 min-h-max w-full pl-24 pt-5 pb-10">
           <p className="text-lg font-semibold">View Order</p>
           <div className="flex justify-between items-center gap-1">
@@ -210,193 +166,285 @@ const ViewOrder = () => {
                 </motion.div>
               )}
               {/* Order Details */}
-              <div className="bg-white rounded-md p-3 mb-5">
-                <div className="flex justify-between p-3">
+              {isLoading ? (
+                <motion.div
+                  className="w-full bg-white rounded-md grid gap-5 p-4"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ repeat: Infinity }}
+                >
+                  <div className="h-5 w-1/3 bg-gray-100 rounded-md"></div>
+                  <div className="h-4 w-1/2 bg-gray-100 rounded-md mt-2"></div>
+                  <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-2 mb-4"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md mt-2"></div>
+                </motion.div>
+              ) : (
+                <div className="bg-white rounded-md p-3 mb-5">
+                  <div className="flex justify-between p-3">
+                    <div className="flex items-center gap-x-3">
+                      <div className="w-10 h-10 rounded-full bg-blue-50">
+                        <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
+                      </div>
+                      <p className="font-semibold text-sm">Order Details</p>
+                    </div>
+                    {isOpen ? (
+                      <GoChevronUp className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
+                    ) : (
+                      <GoChevronDown className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
+                    )}
+                  </div>
+                  <div className="grid gap-5 lg:grid-cols-3 grid-cols-1">
+                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                      <div className="flex p-3 gap-x-3">
+                        <div className="w-10 h-10 rounded-lg bg-green-100">
+                          <BsPerson className="w-5 h-5 text-green-800 m-2.5" />
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                          <p className="text-sm font-semibold">Billed Weight</p>
+                          <p className="text-gray-400 text-xs">1 kg</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                      <div className="flex p-3 gap-x-3">
+                        <div className="w-10 h-10 rounded-lg bg-orange-50">
+                          <BsPerson className="w-5 h-5 text-orange-600 m-2.5" />
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                          <p className="text-sm font-semibold">Billed Weight</p>
+                          <p className="text-gray-400 text-xs">1 kg</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                      <div className="flex p-3 gap-x-3">
+                        <div className="w-10 h-10 rounded-lg bg-red-100">
+                          <BsPerson className="w-5 h-5 text-red-800 m-2.5" />
+                        </div>
+                        <div className="flex flex-col gap-y-1">
+                          <p className="text-sm font-semibold">Billed Weight</p>
+                          <p className="text-gray-400 text-xs">1 kg</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {!isOpen && (
+                    <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
+                      <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                        <div className="flex p-3 gap-x-3">
+                          <div className="w-10 h-10 rounded-lg bg-blue-100">
+                            <BsPerson className="w-5 h-5 text-blue-800 m-2.5" />
+                          </div>
+                          <div className="flex flex-col gap-y-1">
+                            <p className="text-sm font-semibold">Billed Weight</p>
+                            <p className="text-gray-400 text-xs">1 kg</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                        <div className="flex p-3 gap-x-3">
+                          <div className="w-10 h-10 rounded-lg bg-yellow-100">
+                            <BsPerson className="w-5 h-5 text-yellow-800 m-2.5" />
+                          </div>
+                          <div className="flex flex-col gap-y-1">
+                            <p className="text-sm font-semibold">Billed Weight</p>
+                            <p className="text-gray-400 text-xs">1 kg</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                        <div className="flex p-3 gap-x-3">
+                          <div className="w-10 h-10 rounded-lg bg-purple-100">
+                            <BsPerson className="w-5 h-5 text-purple-800 m-2.5" />
+                          </div>
+                          <div className="flex flex-col gap-y-1">
+                            <p className="text-sm font-semibold">Billed Weight</p>
+                            <p className="text-gray-400 text-xs">1 kg</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border border-gray-100 w-full max-h-max rounded-lg">
+                        <div className="flex p-3 gap-x-3">
+                          <div className="w-10 h-10 rounded-lg bg-pink-100">
+                            <BsPerson className="w-5 h-5 text-pink-800 m-2.5" />
+                          </div>
+                          <div className="flex flex-col gap-y-1">
+                            <p className="text-sm font-semibold">Billed Weight</p>
+                            <p className="text-gray-400 text-xs">1 kg</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Billed Details */}
+              {isLoading ? (
+                <motion.div
+                  className="w-full bg-white rounded-md p-4"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ repeat: Infinity }}
+                >
+                  <div className="h-5 w-1/3 bg-gray-100 rounded-md"></div>
+                  <div className="h-4 w-1/2 bg-gray-100 rounded-md mt-2"></div>
+                  <div className="h-4 w-2/3 bg-gray-100 rounded-md mt-2 mb-4"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md mt-2"></div>
+                </motion.div>
+              ) : (
+                <div className="bg-white rounded-md p-3">
                   <div className="flex items-center gap-x-3">
                     <div className="w-10 h-10 rounded-full bg-blue-50">
                       <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
                     </div>
-                    <p className="font-semibold text-sm">Order Details</p>
+                    <p className="font-semibold text-sm">Billed Details</p>
                   </div>
-                  {isOpen ? (
-                    <GoChevronUp className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
-                  ) : (
-                    <GoChevronDown className="h-6 w-8 mt-1 cursor-pointer" onClick={handleChevronClick} />
-                  )}
+                  <table className="md:w-full">
+                    <thead>
+                      <tr className="grid grid-cols-7 py-2 border rounded-lg mt-4 text-slate-500 bg-slate-50">
+                        <th className="text-sm font-normal align-middle">Sr No.</th>
+                        <th className="text-sm font-normal">Product Name</th>
+                        <th className="text-sm font-normal align-middle">SKU</th>
+                        <th className="text-sm font-normal align-middle">HSN</th>
+                        <th className="text-sm font-normal align-middle">Qty</th>
+                        <th className="text-sm font-normal align-middle">Unit Price</th>
+                        <th className="text-sm font-normal align-middle">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-center">
+                      <tr className="grid grid-cols-7 py-4 mt-2 border rounded-lg mb-4">
+                        <td className="text-sm align-middle">1</td>
+                        <td className="text-sm col-span-2 align-middle text-left pl-8">Bat</td>
+                        <td className="text-sm align-middle">123456</td>
+                        <td className="text-sm align-middle">1</td>
+                        <td className="text-sm align-middle">1.00 INR</td>
+                        <td className="text-sm align-middle">1.00 INR</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div className="grid gap-5 lg:grid-cols-3 grid-cols-1">
-                  <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                    <div className="flex p-3 gap-x-3">
-                      <div className="w-10 h-10 rounded-lg bg-green-100">
-                        <BsPerson className="w-5 h-5 text-green-800 m-2.5" />
-                      </div>
-                      <div className="flex flex-col gap-y-1">
-                        <p className="text-sm font-semibold">Billed Weight</p>
-                        <p className="text-gray-400 text-xs">1 kg</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                    <div className="flex p-3 gap-x-3">
-                      <div className="w-10 h-10 rounded-lg bg-orange-50">
-                        <BsPerson className="w-5 h-5 text-orange-600 m-2.5" />
-                      </div>
-                      <div className="flex flex-col gap-y-1">
-                        <p className="text-sm font-semibold">Billed Weight</p>
-                        <p className="text-gray-400 text-xs">1 kg</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                    <div className="flex p-3 gap-x-3">
-                      <div className="w-10 h-10 rounded-lg bg-red-100">
-                        <BsPerson className="w-5 h-5 text-red-800 m-2.5" />
-                      </div>
-                      <div className="flex flex-col gap-y-1">
-                        <p className="text-sm font-semibold">Billed Weight</p>
-                        <p className="text-gray-400 text-xs">1 kg</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {!isOpen && (
-                  <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
-                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                      <div className="flex p-3 gap-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-blue-100">
-                          <BsPerson className="w-5 h-5 text-blue-800 m-2.5" />
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          <p className="text-sm font-semibold">Billed Weight</p>
-                          <p className="text-gray-400 text-xs">1 kg</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                      <div className="flex p-3 gap-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-yellow-100">
-                          <BsPerson className="w-5 h-5 text-yellow-800 m-2.5" />
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          <p className="text-sm font-semibold">Billed Weight</p>
-                          <p className="text-gray-400 text-xs">1 kg</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                      <div className="flex p-3 gap-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-purple-100">
-                          <BsPerson className="w-5 h-5 text-purple-800 m-2.5" />
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          <p className="text-sm font-semibold">Billed Weight</p>
-                          <p className="text-gray-400 text-xs">1 kg</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="border border-gray-100 w-full max-h-max rounded-lg">
-                      <div className="flex p-3 gap-x-3">
-                        <div className="w-10 h-10 rounded-lg bg-pink-100">
-                          <BsPerson className="w-5 h-5 text-pink-800 m-2.5" />
-                        </div>
-                        <div className="flex flex-col gap-y-1">
-                          <p className="text-sm font-semibold">Billed Weight</p>
-                          <p className="text-gray-400 text-xs">1 kg</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* Billed Details */}
-              <div className="bg-white rounded-md p-3">
-                <div className="flex items-center gap-x-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-50">
-                    <BsPerson className="w-5 h-5 rounded-full text-blue-800 m-2.5" />
-                  </div>
-                  <p className="font-semibold text-sm">Billed Details</p>
-                </div>
-                <table className="md:w-full">
-                  <thead>
-                    <tr className="grid grid-cols-7 py-2 border rounded-lg mt-4 text-slate-500 bg-slate-50">
-                      <th className="text-sm font-normal align-middle">Sr No.</th>
-                      <th className="text-sm font-normal">Product Name</th>
-                      <th className="text-sm font-normal align-middle">SKU</th>
-                      <th className="text-sm font-normal align-middle">HSN</th>
-                      <th className="text-sm font-normal align-middle">Qty</th>
-                      <th className="text-sm font-normal align-middle">Unit Price</th>
-                      <th className="text-sm font-normal align-middle">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-center">
-                    <tr className="grid grid-cols-7 py-4 mt-2   border rounded-lg mb-4">
-                      <td className="text-sm align-middle">1</td>
-                      <td className="text-sm col-span-2 align-middle text-left pl-8">Bat</td>
-                      <td className="text-sm align-middle">123456</td>
-                      <td className="text-sm align-middle">1</td>
-                      <td className="text-sm align-middle">1.00 INR</td>
-                      <td className="text-sm align-middle">1.00 INR</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+              )}
             </div>
             <div className="w-11/12">
               {/* Summary */}
-              <div className="bg-red-50 rounded-md mb-5">
-                <p className="text-sm text-orange-400 font-semibold p-5">Summary</p>
-                <hr className="text-orange-300" />
-                <div className="flex justify-between py-2 px-5">
-                  <p className="text-xs">Logistic Fee</p>
-                  <p className="text-xs">Rs. 474.00</p>
+              {isLoading ? (
+                <motion.div
+                  className="bg-white rounded-md p-4 mb-5"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ repeat: Infinity }}
+                >
+                  <div className="h-5 w-1/3 bg-gray-100 rounded-md mb-3"></div>
+                  <div className="h-4 w-1/2 bg-gray-100 rounded-md mb-2"></div>
+                  <div className="h-4 w-2/3 bg-gray-100 rounded-md mb-2"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md"></div>
+                  <div className="h-10 w-full bg-gray-100 rounded-md mt-2"></div>
+                </motion.div>
+              ) : (
+                <div className="bg-red-50 rounded-md mb-5">
+                  <p className="text-sm text-orange-400 font-semibold p-5">Summary</p>
+                  <hr className="text-orange-300" />
+                  <div className="flex justify-between py-2 px-5">
+                    <p className="text-xs">Logistic Fee</p>
+                    <p className="text-xs">Rs. 474.00</p>
+                  </div>
+                  <div className="flex justify-between py-2 px-5">
+                    <p className="text-xs">GST</p>
+                    <p className="text-xs">Rs. 85.32</p>
+                  </div>
+                  <div className="flex justify-between py-2 bg-red-100 rounded-lg px-5">
+                    <p className="text-sm font-semibold">Sub Total</p>
+                    <p className="text-sm font-semibold">Rs. 559.32</p>
+                  </div>
                 </div>
-                <div className="flex justify-between py-2 px-5">
-                  <p className="text-xs">GST</p>
-                  <p className="text-xs">Rs. 85.32</p>
-                </div>
-                <div className="flex justify-between py-2 bg-red-100 rounded-lg px-5">
-                  <p className="text-sm font-semibold">Sub Total</p>
-                  <p className="text-sm font-semibold">Rs. 559.32</p>
-                </div>
-              </div>
+              )}
+
               {/* Activity */}
-              <div className="bg-white rounded-md p-5">
-                <p className="font-semibold mb-3">Activity</p>
-                <div className="flex flex-col">
-                  <div className="flex gap-3">
-                    <GoCheckCircle className="text-green-400 h-6 w-6" />
-                    <p className="font-semibold text-sm pt-0.5">Shipment Created & Awaiting Payment</p>
+              {isLoading ? (
+                <motion.div
+                  className="bg-white rounded-md p-5"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ repeat: Infinity }}
+                >
+                  <p className="font-semibold mb-3"></p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="bg-gray-100 text-gray-100 h-6 w-6 rounded-lg" />
+                      <p className="h-6 w-full rounded-lg bg-gray-100"></p>
+                    </div>
+                    <div className="border-l-2 border-dashed h-10 m-2"></div>
                   </div>
-                  <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex gap-3">
-                    <GoCheckCircle className="text-green-400 h-6 w-6" />
-                    <p className="font-semibold text-sm pt-0.5">Payment Recieved</p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="bg-gray-100 text-gray-100 h-6 w-6 rounded-lg" />
+                      <p className="h-6 w-full rounded-lg bg-gray-100"></p>
+                    </div>
+                    <div className="border-l-2 border-dashed h-10 m-2"></div>
                   </div>
-                  <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex gap-3">
-                    <GoCheckCircle className="text-green-400 h-6 w-6" />
-                    <p className="font-semibold text-sm pt-0.5">Label Printed & Order Packed</p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="bg-gray-100 text-gray-100 h-6 w-6 rounded-lg" />
+                      <p className="h-6 w-full rounded-lg bg-gray-100"></p>
+                    </div>
+                    <div className="border-l-2 border-dashed h-10 m-2"></div>
                   </div>
-                  <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex gap-3">
-                    <GoCheckCircle className="text-gray-400 h-6 w-6" />
-                    <p className="font-semibold text-sm pt-0.5">Awaiting for Pickup</p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="bg-gray-100 text-gray-100 h-6 w-6 rounded-lg" />
+                      <p className="h-6 w-full rounded-lg bg-gray-100"></p>
+                    </div>
+                    <div className="border-l-2 border-dashed h-10 m-2"></div>
                   </div>
-                  <div className="border-l-2 border-dashed border-l-gray-400 h-10 m-2"></div>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex gap-3">
-                    <GoCheckCircle className="text-gray-400 h-6 w-6" />
-                    <p className="font-semibold text-sm pt-0.5">Processed</p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="bg-gray-100 text-gray-100 h-6 w-6 rounded-lg" />
+                      <p className="h-6 w-full rounded-lg bg-gray-100"></p>
+                    </div>
+                  </div>
+                </motion.div>
+              ) : (
+                <div className="bg-white rounded-md p-5">
+                  <p className="font-semibold mb-3">Activity</p>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="text-green-400 h-6 w-6" />
+                      <p className="font-semibold text-sm pt-0.5">Shipment Created & Awaiting Payment</p>
+                    </div>
+                    <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="text-green-400 h-6 w-6" />
+                      <p className="font-semibold text-sm pt-0.5">Payment Recieved</p>
+                    </div>
+                    <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="text-green-400 h-6 w-6" />
+                      <p className="font-semibold text-sm pt-0.5">Label Printed & Order Packed</p>
+                    </div>
+                    <div className="border-l-2 border-dashed border-l-green-400 h-10 m-2"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="text-gray-400 h-6 w-6" />
+                      <p className="font-semibold text-sm pt-0.5">Awaiting for Pickup</p>
+                    </div>
+                    <div className="border-l-2 border-dashed border-l-gray-400 h-10 m-2"></div>
+                  </div>
+                  <div className="flex flex-col">
+                    <div className="flex gap-3">
+                      <GoCheckCircle className="text-gray-400 h-6 w-6" />
+                      <p className="font-semibold text-sm pt-0.5">Processed</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
