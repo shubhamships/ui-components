@@ -32,9 +32,9 @@ function Calendar({
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-1",
-        head_row: "flex",
+        head_row: "flex mt-2",
         head_cell: "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
-        row: "flex w-full mt-2 gap-1",
+        row: "flex w-full gap-1",
         cell: cn(
           "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
@@ -68,8 +68,8 @@ function Calendar({
               {...props}
               className={cn(
                 "flex justify-center items-center h-full w-full",
-                isPresent ? "bg-green-500 p-4 md:bg-white md:text-black md:px-7 md:py-5 rounded-sm text-white" : "",
-                isSelected ? "bg-blue-600 p-4 md:px-7 md:py-5 rounded-sm text-white" : "",
+                isPresent ? "bg-green-500 p-5 md:bg-white md:text-black md:px-7 md:py-4 rounded-sm text-white" : "",
+                isSelected ? "bg-blue-600 p-5 md:px-7 md:py-5 rounded-sm text-white" : "",
               )}
               onClick={() => onDayClick(props.date)}
             >
