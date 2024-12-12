@@ -31,7 +31,7 @@ export const Log = () => {
 
   const getPunchData = JSON.parse(localStorage.getItem("punchData") || "[]");
   const getTime = JSON.parse(localStorage.getItem("totalTime") || "[]");
-  
+
   // Fetching data from local storage
   useEffect(() => {
     const punchData = getPunchData;
@@ -57,10 +57,9 @@ export const Log = () => {
     setShowLogData(!showLogData);
     const newDate = new Date(date.toLocaleDateString());
     newDate.setDate(newDate.getDate() + 1);
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set("date", splitLogic(date));
     navigate(`/timelog?date=${splitLogic(newDate)}`);
   };
+
   console.log(selectedDate, "selectedDate");
   // Filtering the data based on the selected date
   const filteredPunchData = punchData.filter((log) => {
@@ -73,6 +72,7 @@ export const Log = () => {
   const punchDates = punchData.map((data) => new Date(data.time).toDateString());
   const lastLog = filteredPunchData[filteredPunchData.length - 1];
 
+  console.log(lastLog, "lastLog");
   return (
     <div className="flex justify-center bg-gradient-to-b from-purple-200 to-blue-100 h-screen">
       <div className="">
@@ -113,14 +113,14 @@ export const Log = () => {
           <div>
             {filteredTime.map((data, index) => (
               <div key={index}>
-                {index === totalTime.length - 1 ? (
+                {index === totalTime.length - 1 && (
                   <Card className="flex justify-around items-center mt-5 border p-2 rounded-md text-sm font-medium text-purple-500 border-purple-500 bg-purple-50">
                     <div>Total Time:</div>
                     {`${Math.floor(data.time / 3600)} hours ${Math.floor((data.time % 3600) / 60)} minutes ${(
                       data.time % 60
                     ).toFixed(0)} seconds`}
                   </Card>
-                ) : null}
+                )}
               </div>
             ))}
           </div>
