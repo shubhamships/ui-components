@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Welcome from "./Welcome";
 
 export const Blank = () => {
   const navigate = useNavigate();
@@ -9,8 +10,8 @@ export const Blank = () => {
     setTimeout(() => {
       setLoading(false);
       navigate("/back-to-login");
-    }, 2000);
+    }, 3000);
   }, [navigate]);
 
-  return <div>{loading && <div>Loading...</div>}</div>;
+  return <div>{loading && <div><Welcome/></div>}</div>;
 };

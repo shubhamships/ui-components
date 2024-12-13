@@ -1,6 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from "react";
-
+import {Carousel} from "../pages/Carousel"
 import BGImage from "../assets/bg.jpg"
 import Logo from "../assets/logo.png"
 
@@ -20,11 +19,13 @@ export const BackGround = ({ type }:BackGroundProps) => {
             <img src={Logo} className="h-12" />
           </div>
         </a>
-        <div className="flex flex-col items-center justify-center">
-          <div className="rounded-lg shadow-lg m-4 p-3 w-full max-w-md mb-18 lg:mb-32 h-128 bg-white">
+        <div className="flex justify-center">
+        <div className="rounded-l-lg shadow-lg my-4 w-full max-w-md mb-18 lg:mb-32 h-128 bg-white"><Carousel/></div>
+          <div className="rounded-r-lg shadow-lg my-4 p-3 w-full max-w-md mb-18 lg:mb-32 h-128 bg-white">
             {/* //dynamic component */}
             {type && React.createElement(type)}
           </div>
+          
         </div>
       </div>
     </div>

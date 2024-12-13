@@ -21,7 +21,7 @@ const Welcome = () => {
   }, [index]);
 
   useEffect(() => {
-    const timers = [];
+    const timers:any = [];
 
     timers.push(setTimeout(() => setCirclesVisible(true), 100));
     timers.push(setTimeout(() => setCirclesVisible(false), 5000));
@@ -33,7 +33,7 @@ const Welcome = () => {
 
     timers.push(setTimeout(() => setCircle4Visible(true), 7000));
 
-    return () => timers.forEach((timer) => clearTimeout(timer));
+    return () => timers.forEach((timer:any) => clearTimeout(timer));
   }, []);
 
   const circleVariants = {
