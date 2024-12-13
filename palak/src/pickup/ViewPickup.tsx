@@ -50,22 +50,22 @@ const ViewPickup = () => {
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ repeat: Infinity }}
           >
-            <ShimmerLine className="h-7 w-80" />
-            <ShimmerLine className="h-7 w-80 mt-1" />
+            <ShimmerLine className="h-7 w-99 my-4 ml-8" />
 
-            <div className="w-11/12 bg-white md:w-full border-2 rounded-xl border-gray-100 max-h-max mt-4">
-              <div className="px-5 py-4">
-                <ShimmerLine className="mt-1 h-16 w-full " />
+            <div className="w-11/12 bg-white md:w-full border-2 border-gray-100 max-h-max mt-4">
+              <div className="px-7 pt-4">
+                <ShimmerLine className="mt-1 h-12  w-full " />
               </div>
 
-              <div className="bg-white max-h-max rounded-t-none rounded-xl py-4 px-7">
-                <ShimmerLine className="w-72 h-10" />
-                <ShimmerLine className="w-72 h-10 mt-6" />
+              <div className="bg-white max-h-max none px-7 pt-5 pb-5">
+                <ShimmerLine className="w-1/3 h-8" />
+
+                <ShimmerLine className="w-1/3 h-8 mt-5" />
               </div>
             </div>
-            <div className="bg-white w-full mt-3 p-3 rounded-lg">
-              <ShimmerLine className="mt-1 h-16 w-full mb-2" />
-              <ShimmerLine className="mt-1 h-16 w-full " />
+            <div className="bg-white w-full mt-3 px-7 py-5">
+              <ShimmerLine className="h-12  w-full" />
+              <ShimmerLine className="w-full h-40 mt-3" />
             </div>
           </motion.div>
         ) : (

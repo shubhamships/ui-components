@@ -16,6 +16,9 @@ export default {
         customBlue: "#74838c",
         footer: "#771444",
       },
+      spacing: {
+        99: "24.75rem",
+      },
     },
   },
   plugins: [],
