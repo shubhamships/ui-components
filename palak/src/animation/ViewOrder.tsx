@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import NavbarFranchise from "../components/NavbarFranchise";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
@@ -11,8 +10,7 @@ import Activity from "./Activity";
 
 const ViewOrder = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isData, setIsData] = useState<any>([]);
-  const [orderDetails, setOrderDetails] = useState(null);
+  const [details, setDetails] = useState<any>([]);
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -31,15 +29,10 @@ const ViewOrder = () => {
         });
 
         const data = await response.json();
-        setIsData(data);
-        console.log("data", data);
-        console.log("isdata", data.data.address);
-
-        setOrderDetails(data);
+        setDetails(data);
       } catch (error: any) {
         console.log("error");
         console.error(error.message);
-        setOrderDetails(null);
       } finally {
         setIsLoading(false);
       }
@@ -53,15 +46,15 @@ const ViewOrder = () => {
       <Sidebar />
       <div className="flex h-screen">
         <div className="flex flex-col gap-4 bg-gray-50 min-h-max w-full pl-24 pt-5 pb-10">
-          <Header />
-          <div className="grid grid-cols-1 md:grid-cols-[70%_30%]">
+          <Header isLoading={isLoading} />
+          <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr]">
             <div className="w-11/12">
-              <CustomerDetails isLoading={isLoading} isData={isData} orderDetails={orderDetails} />
-              <OrderDetails isLoading={isLoading} />
-              <BillingDetails isLoading={isLoading} />
+              <CustomerDetails isLoading={isLoading} details={details} />
+              <OrderDetails isLoading={isLoading} details={details} />
+              <BillingDetails isLoading={isLoading} details={details} />
             </div>
-            <div className="w-11/12 mt-5">
-              <Summary isLoading={isLoading} />
+            <div className="w-11/12">
+              <Summary isLoading={isLoading} details={details} />
               <Activity isLoading={isLoading} />
             </div>
           </div>

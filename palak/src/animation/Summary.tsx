@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 interface SummaryProps {
   isLoading: boolean;
+  details: any;
 }
-const Summary = ({ isLoading }: SummaryProps) => {
+const Summary = ({ isLoading, details }: SummaryProps) => {
   return (
     <div>
       {isLoading ? (
@@ -13,9 +14,8 @@ const Summary = ({ isLoading }: SummaryProps) => {
           transition={{ repeat: Infinity }}
         >
           <div className="h-5 w-1/3 bg-gray-100 rounded-md mb-3"></div>
-          <div className="h-4 w-1/2 bg-gray-100 rounded-md mb-2"></div>
-          <div className="h-4 w-2/3 bg-gray-100 rounded-md mb-2"></div>
-          <div className="h-10 w-full bg-gray-100 rounded-md"></div>
+          <div className="h-8 w-full bg-gray-100 rounded-md"></div>
+          <div className="h-8 w-full bg-gray-100 rounded-md mt-2"></div>
           <div className="h-10 w-full bg-gray-100 rounded-md mt-2"></div>
         </motion.div>
       ) : (
@@ -32,7 +32,7 @@ const Summary = ({ isLoading }: SummaryProps) => {
           </div>
           <div className="flex justify-between py-2 bg-red-100 rounded-lg px-5">
             <p className="text-sm font-semibold">Sub Total</p>
-            <p className="text-sm font-semibold">Rs. 559.32</p>
+            <p className="text-sm font-semibold">{`Rs. ${details.data.total}`}</p>
           </div>
         </div>
       )}
