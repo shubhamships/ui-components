@@ -56,19 +56,14 @@ const ViewPickup = () => {
             <div className="w-11/12 bg-white md:w-full border-2 rounded-xl border-gray-100 max-h-max mt-4">
               <div className="px-5 py-4">
                 <ShimmerLine className="mt-1 h-16 w-full " />
-                {/* <ShimmerLine className="h-28 md:h-6 w-full" /> */}
               </div>
 
               <div className="bg-white max-h-max rounded-t-none rounded-xl py-4 px-7">
-                {/* <div className="border border-gray-100 rounded-xl w-full max-h-max px-8 py-3 md:max-w-max"> */}
                 <ShimmerLine className="w-72 h-10" />
                 <ShimmerLine className="w-72 h-10 mt-6" />
-                {/* </div> */}
               </div>
             </div>
             <div className="bg-white w-full mt-3 p-3 rounded-lg">
-              {/* <ShimmerLine className="w-80 h-6 mb-2" />
-              <ShimmerLine className="w-full h-32" /> */}
               <ShimmerLine className="mt-1 h-16 w-full mb-2" />
               <ShimmerLine className="mt-1 h-16 w-full " />
             </div>
