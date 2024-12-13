@@ -56,7 +56,7 @@ const Welcome = () => {
       <motion.div className="absolute inset-0" initial="initial" animate="animate" exit="exit">
         {circlesVisible && (
           <motion.div
-            className="absolute rounded-full bg-purple-200 filter blur-lg"
+            className="absolute rounded-full bg-purple-200 filter blur-2xl"
             style={{ width: "220px", height: "150px", top: "40%", left: "50%" }}
             variants={circleVariants}
             key="circle1"
@@ -65,7 +65,7 @@ const Welcome = () => {
 
         {circlesVisible && (
           <motion.div
-            className="absolute rounded-full bg-orange-200 filter blur-lg"
+            className="absolute rounded-full bg-orange-200 filter blur-2xl"
             style={{ width: "180px", height: "180px", top: "40%", left: "40%" }}
             variants={circleVariants}
             key="circle2"
@@ -74,7 +74,7 @@ const Welcome = () => {
 
         {circlesVisible && (
           <motion.div
-            className="absolute rounded-full bg-yellow-300 filter blur-lg"
+            className="absolute rounded-full bg-yellow-300 filter blur-2xl"
             style={{ width: "220px", height: "220px", top: "40%", left: "30%" }}
             variants={circleVariants}
             key="circle3"
@@ -83,7 +83,7 @@ const Welcome = () => {
 
         {circlesVisible && (
           <motion.div
-            className="absolute rounded-full bg-blue-300 filter blur-lg"
+            className="absolute rounded-full bg-blue-300 filter blur-2xl"
             style={{ width: "250px", height: "250px", top: "30%", left: "40%" }}
             variants={circleVariants}
             key="circle4"
@@ -92,7 +92,7 @@ const Welcome = () => {
 
         {circle2Visible && (
           <motion.div
-            className="absolute rounded-full bg-yellow-300 filter blur-lg"
+            className="absolute rounded-full bg-yellow-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "25%", left: "40%" }}
             variants={circleVariants}
             key="circle5"
@@ -101,7 +101,7 @@ const Welcome = () => {
 
         {circle2Visible && (
           <motion.div
-            className="absolute rounded-full bg-purple-300 filter blur-lg"
+            className="absolute rounded-full bg-purple-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "45%", left: "30%" }}
             variants={circleVariants}
             key="circle6"
@@ -110,7 +110,7 @@ const Welcome = () => {
 
         {circle3Visible && (
           <motion.div
-            className="absolute rounded-full bg-orange-300 filter blur-lg"
+            className="absolute rounded-full bg-blue-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "30%", left: "50%" }}
             variants={circleVariants}
             key="circle7"
@@ -119,7 +119,7 @@ const Welcome = () => {
 
         {circle3Visible && (
           <motion.div
-            className="absolute rounded-full bg-yellow-300 filter blur-lg"
+            className="absolute rounded-full bg-purple-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "40%", left: "30%" }}
             variants={circleVariants}
             key="circle8"
@@ -128,7 +128,7 @@ const Welcome = () => {
 
         {circle4Visible && (
           <motion.div
-            className="absolute rounded-full bg-blue-300 filter blur-lg"
+            className="absolute rounded-full bg-blue-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "25%", left: "30%" }}
             variants={circleVariants}
             key="circle9"
@@ -137,7 +137,7 @@ const Welcome = () => {
 
         {circle4Visible && (
           <motion.div
-            className="absolute rounded-full bg-purple-300 filter blur-lg"
+            className="absolute rounded-full bg-purple-300 filter blur-2xl"
             style={{ width: "210px", height: "200px", top: "35%", left: "40%" }}
             variants={circleVariants}
             key="circle10"

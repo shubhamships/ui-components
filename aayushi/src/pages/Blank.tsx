@@ -10,7 +10,7 @@ export const Blank = () => {
     setTimeout(() => {
       setLoading(false);
       navigate("/back-to-login");
-    }, 3000);
+    }, 7000);
   }, [navigate]);
 
   return <div>{loading && <div><Welcome/></div>}</div>;
