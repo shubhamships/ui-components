@@ -17,6 +17,7 @@ import Toggle from "./animation/Toggle";
 import LoginPage from "./animation/LoginPage";
 import DashBoard from "./animation/DashBoard";
 import ViewOrder from "./animation/ViewOrder";
+import ViewPickup from "./pickup/ViewPickup";
 
 const router = createBrowserRouter([
   {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
   {
     path: "/Vieworder",
     element: <ViewOrder />,
+  },
+  {
+    path: "/Viewpickup",
+    element: <ViewPickup />,
   },
 ]);
 
