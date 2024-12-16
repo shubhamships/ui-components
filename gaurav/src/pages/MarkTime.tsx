@@ -95,7 +95,7 @@ export const MarkTime = () => {
         ];
         setPunchData(newPunchOutData);
         localStorage.setItem("punchData", JSON.stringify(newPunchOutData));
-        const newNetTime = (punchOutTime - punchInTime) / 1000 + netTime;
+        const newNetTime = (punchOutTime - punchInTime) / 1000;
         setNetTime(newNetTime); // time in seconds
         localStorage.setItem("netTime", JSON.stringify(newNetTime));
         const newTotalTime = [
@@ -117,17 +117,22 @@ export const MarkTime = () => {
 
   const filteredPunchData = punchData.filter((log) => {
     const logDate = new Date(log.time);
-
     return (
       logDate.getFullYear() === selectedDate.getFullYear() &&
       logDate.getMonth() === selectedDate.getMonth() &&
       logDate.getDate() === selectedDate.getDate()
     );
   });
+  const selectedDateString = selectedDate.toDateString();
+
   const filteredTime = totalTime.filter((time) => {
-    return new Date(time.date).getDate() === selectedDate.getDate();
+    const timeDateString = new Date(time.date).toDateString();
+    return timeDateString === selectedDateString;
   });
-  const totalPunchTime = filteredTime.length > 0 ? filteredTime[filteredTime.length - 1].time : 0;
+  const totalPunchTime = filteredTime.reduce((acc, curr) => acc + curr.time, 0);
+  
+  console.log(totalPunchTime, "totalPunchTime");
+  
   const reversedData = filteredPunchData.slice().reverse();
   return (
     <>
