@@ -129,7 +129,7 @@ export const LoginPage = () => {
 
               {showError && <p className="text-red-500 text-xs font-medium my-4">Wrong email or password. Try again</p>}
 
-              <div className="flex items-center justify-center mb-20">
+              <div className="flex items-center justify-center mb-2">
                 <Button loading={loading} type={"Submit"} />
               </div>
             </form>
