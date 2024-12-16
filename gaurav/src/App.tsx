@@ -1,25 +1,25 @@
-import { MarkTime } from "./pages/MarkTime";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import { Calendar, Clock, House } from "lucide-react";
 import { Root } from "./routes/Root";
-import { Log } from "./pages/Log";
+import Button from "./components/ui/personal/Button";
+import { SearchResults } from "./pages/recipe/SearchResults";
 function App() {
-  const styleClass = "w-5 h-5 text-gray-500";
+  const styleClass = "w-40 h-30 text-gray-500";
   return (
     <>
       <BrowserRouter>
-        <div className="flex justify-center items-center fixed bottom-0 w-full border z-20">
-          <ul className="flex justify-between md:justify-center items-center bg-white gap-6 p-2 px-8 w-full">
-            <MenuLink name="Home" route="/" iconName={<House className={styleClass} />} />
-            <MenuLink name="Log" route="login" iconName={<Calendar className={styleClass} />} />
-            <MenuLink name="Timelog" route="timelog" iconName={<Clock className={styleClass} />} />
+        <div className="flex justify-center items-center w-full z-20 ">
+          <ul className="flex justify-between items-center bg-[#083344] gap-6 p-2 px-8 w-full">
+            <MenuLink name="Recipe" route="/" className="text-white text-xl" />
+            <div className="flex justify-center items-center gap-2">
+              <MenuLink route="login" iconName={<Button title="login" variant="soft" className="text-white bg-transparent border-none shadow-none"  />} />
+              <MenuLink route="signup" iconName={<Button title="Sign Up" className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75" />} />
+            </div>
           </ul>
         </div>
         <div>
           <Routes>
             <Route path="/" element={<Root />} />
-            <Route path="login" element={<Log />} />
-            <Route path="timelog" element={<MarkTime />} />
+            <Route path="login" element={<SearchResults />} />
           </Routes>
         </div>
       </BrowserRouter>
@@ -33,7 +33,7 @@ const MenuLink = ({
   route,
   className,
 }: {
-  name: string;
+  name?: string;
   iconName?: React.ReactNode;
   route: string;
   className?: string;
