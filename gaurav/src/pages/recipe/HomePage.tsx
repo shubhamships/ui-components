@@ -36,8 +36,8 @@ export const HomePage = () => {
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await fetchRecipes(searchQuery);
-    setRecipes(result);
     navigate(`/searchresults?query=${searchQuery}`);
+    setRecipes(result);
   };
 
   const filteredRecipes = recipes.filter((recipe) =>
@@ -47,7 +47,7 @@ export const HomePage = () => {
   console.log(recipes, "Recipes");
   return (
     <>
-      <div className="bg-recipebg w-full">
+      <div className="bg-recipebg w-full min-h-screen">
         <div className="text-white text-4xl font-semibold mt-10 p-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
@@ -72,10 +72,7 @@ export const HomePage = () => {
           <div className="flex flex-col md:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
             {recipes.length > 0 &&
               recipes.slice(0, 3).map((recipe, index) => (
-                <div
-                  key={index}
-                  className="flex justify-center items-center hover:scale-105 duration-200"
-                >
+                <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
                   <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                     <div className="w-full">
                       <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
@@ -85,15 +82,17 @@ export const HomePage = () => {
                       <p className="text-white mt-1">
                         <span className="font-semibold">tags:</span> {recipe.strTags}
                       </p>
-                      <p className="text-white text-balance">
+                      <p className="text-white text-balance text-ellipsis">
                         <span className="font-semibold text-white">Instruction:</span>
-                        {recipe.strInstructions.split(". ").slice(0, 2).join(". ") + ' '}
+                        {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
                         <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
                       </p>
-                      <a href={recipe.strYoutube} className="text-sm text-white">
-                        <span className="w-2 h-2">
-                          <Play />
-                        </span>
+                      <a
+                        href={recipe.strYoutube}
+                        className="text-sm text-red-500 flex items-center justify-center w-20 bg-red-100 border border-red-500 shadow-md p-1 mt-2 rounded-md"
+                      >
+                        <span className="text-sm font-semibold">watch</span>
+                        <Play className="h-4 w-4" />
                       </a>
                     </div>
                   </div>
