@@ -30,3 +30,4 @@ ujjwal
 .env.development
 *-lock.json
 .vite
+*storybook.log
