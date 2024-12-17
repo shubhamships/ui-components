@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Play } from "lucide-react";
+import { Loader, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -15,6 +15,7 @@ interface IRecipeData {
 export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
+  const [timeout, setTime] = useState<boolean>(false);
 
   const fetchRecipeDetail = async (id?: string) => {
     try {
@@ -25,15 +26,22 @@ export const RecipeDetail = () => {
       console.log("Error", error);
     }
   };
-
   useEffect(() => {
+    setTimeout(() => {
+      setTime(false);
+    }, 1000);
     if (id) {
       fetchRecipeDetail(id);
     }
+    setTime(false);
   }, [id]);
   console.log(recipe);
   if (!recipe) {
-    return <div>Loading...</div>;
+    return (
+      <div className="h-screen bg-recipebg text-white cursor-wait flex items-center justify-center">
+        Loading <Loader className="animate-spin w-5 h-5 mx-2" />
+      </div>
+    );
   }
   const ingredients = [];
   for (let i = 1; i <= 20; i++) {
@@ -62,16 +70,18 @@ export const RecipeDetail = () => {
               <div className="text-xl font-bold text-recipeDetailColor">Cooking Instruction</div>
               {recipe.strInstructions}
             </div>
-            <div className="flex flex-col md:flex-row w-full items-center justify-center gap-10 mt-5">
-              <div className="text-white bg-recipeDetailsBg m-4 p-5 rounded-lg shadow-lg">
-                <div className="text-xl font-bold text-recipeDetailColor">Ingredients List</div>
-                <ul className="text-lg mt-2 pr-16 pb-4">
-                  {ingredients.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
-                </ul>
+            <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-10 mt-5">
+              <div className="text-white m-4 p-5 w-full">
+                <div className="bg-recipeDetailsBg px-2 mt-4 rounded-lg shadow-lg">
+                  <div className="text-xl font-bold text-recipeDetailColor">Ingredients List</div>
+                  <ul className="text-lg mt-2 pr-2 pb-4 text-nowrap">
+                    {ingredients.map((ingredient, index) => (
+                      <li key={index}>{ingredient}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <div className="text-white bg-recipeDetailsBg m-4 p-5 rounded-lg shadow-lg flex flex-col justify-center items-start">
+              <div className="text-white bg-recipeDetailsBg m-4 p-5 rounded-lg shadow-lg flex flex-col justify-center items-center w-full">
                 <div className="text-xl font-bold text-recipeDetailColor">Recipe Instruction Video</div>
                 {recipe.strYoutube && (
                   <a href={recipe.strYoutube} className="inline-block py-2 relative cursor-pointer">

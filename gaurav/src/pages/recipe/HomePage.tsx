@@ -10,7 +10,11 @@ interface IData {
   strTags: string;
   strYoutube: string;
   strInstructions: string;
+  idMeal: string;
+  savedRecipe: string[];
 }
+const savedRecipe: IData[] = [];
+
 export const HomePage = () => {
   const [recipes, setRecipes] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,12 +43,24 @@ export const HomePage = () => {
     navigate(`/searchresults?query=${searchQuery}`);
     setRecipes(result);
   };
+  const handleClick = (id: string) => {
+    navigate(`/recipedetail/${id}`);
+  };
+
+  const handleSavedRecipe = (id: string): void => {
+    const recipe = recipes.find((recipe) => recipe.idMeal === id);
+    if (recipe) {
+      savedRecipe.push(recipe);
+      alert("Recipe Saved");
+    }
+  };
 
   const filteredRecipes = recipes.filter((recipe) =>
     recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
+  console.log(savedRecipe, "Saved Recipe");
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
@@ -54,7 +70,7 @@ export const HomePage = () => {
             <br /> Taste It!
           </h1>
         </div>
-        <div className="px-4 md:px-20 lg:px-96 mt-5 shadow-inner">
+        <div className="px-4 md:px-20 lg:px-64 mt-5 shadow-inner">
           <Input
             type="text"
             id="recipe-input"
@@ -62,25 +78,29 @@ export const HomePage = () => {
             className="border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
           >
             <div className="px-2 cursor-pointer">
               <Search onClick={handleSearch} />
             </div>
           </Input>
         </div>
-        <div className="flex  justify-center items-center mx-2 pb-16">
-          <div className="flex flex-col md:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
+        <div className="flex justify-center items-center mx-2 pb-16">
+          <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
             {recipes.length > 0 &&
               recipes.slice(0, 3).map((recipe, index) => (
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
                   <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
-                    <div className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500">
+                    <div
+                      className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
+                      onClick={() => handleSavedRecipe(recipe.idMeal)}
+                    >
                       save
                     </div>
                     <div className="w-full">
                       <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
                     </div>
-                    <div className="p-4">
+                    <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
                       <p className="text-white mt-1">
                         <span className="font-semibold">tags:</span> {recipe.strTags}

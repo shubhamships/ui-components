@@ -66,7 +66,7 @@ export const SearchResults = () => {
   return (
     <>
       <div className="bg-[#083344] min-h-screen">
-        <div className="px-4 md:px-20 lg:px-96">
+        <div className="px-4 md:px-20 lg:px-64">
           <Input
             type="text"
             id="recipe-input"
@@ -94,12 +94,13 @@ export const SearchResults = () => {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-40">
+        <div className="grid grid-cols-1 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-40">
           {searchresults.length > 0 &&
             searchresults.map((recipe, index) => (
               <div
                 key={index}
-                className="flex justify-center items-center pt-10 pb-20 m-2 hover:scale-105 duration-200"
+                className="flex justify-center items-center cursor-pointer pt-10 pb-20 m-2 hover:scale-105 duration-200"
+                onClick={() => handleClick(recipe.idMeal)}
               >
                 <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                   <div className="w-full">
@@ -114,8 +115,8 @@ export const SearchResults = () => {
                       <span className="font-semibold text-white">Instruction:</span>
                       {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + ". . . "}
                     </p>
-                    <div onClick={() => handleClick(recipe.idMeal)}>
-                      <span className="cursor-pointer text-sm font-semibold text-white">Read More . . .</span>
+                    <div>
+                      <span className="text-sm font-semibold text-white">Read More . . .</span>
                     </div>
                     <a href={recipe.strYoutube} className="text-sm text-white">
                       <span className="w-2 h-2">
