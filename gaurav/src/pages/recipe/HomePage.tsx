@@ -1,6 +1,6 @@
 import Input from "@/components/ui/Input";
 import axios from "axios";
-import { Search } from "lucide-react";
+import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,14 +9,16 @@ interface IData {
   strMealThumb: string;
   strTags: string;
   strYoutube: string;
+  strInstructions: string;
 }
 export const HomePage = () => {
   const [recipes, setRecipes] = useState<IData[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  const fetchRecipes = async () => {
+  const fetchRecipes = async (query = "") => {
     try {
-      const res = await axios.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772");
+      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
       const data = res.data;
       return data.meals;
     } catch (error) {
@@ -30,10 +32,22 @@ export const HomePage = () => {
     };
     loadData();
   }, []);
+
+  const handleSearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await fetchRecipes(searchQuery);
+    setRecipes(result);
+    navigate(`/searchresults?query=${searchQuery}`);
+  };
+
+  const filteredRecipes = recipes.filter((recipe) =>
+    recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
+  console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   return (
     <>
-      <div className="bg-[#083344] w-full">
+      <div className="bg-recipebg w-full">
         <div className="text-white text-4xl font-semibold mt-10 p-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
@@ -46,47 +60,21 @@ export const HomePage = () => {
             id="recipe-input"
             placeholder="Search Your Favorite Recipe. . ."
             className="border-none focus:disabled outline-border-none"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
           >
             <div className="px-2 cursor-pointer">
-              <Search onClick={() => navigate("login")} />
+              <Search onClick={handleSearch} />
             </div>
           </Input>
         </div>
-        <div className="flex flex-col md:flex-row justify-center items-center mx-2 pb-16">
-          <div className="flex justify-center items-center mt-10 pt-10 pb-20 m-2 hover:scale-105 duration-200">
-            <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
-              <div className="w-full">
-                <img src="/recipe/pasta.jpg" alt="pasta" className="w-full h-40 object-cover" />
-              </div>
-              <div className="p-4">
-                <div className="text-white font-semibold text-xl">Description</div>
-                <p className="text-white mt-1">
-                  Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook
-                  according to the package instructions, about 9 minutes.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center items-center mt-10 pt-10 pb-20 m-2 hover:scale-105 duration-200">
-            <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
-              <div className="w-full">
-                <img src="/recipe/pasta.jpg" alt="pasta" className="w-full h-40 object-cover" />
-              </div>
-              <div className="p-4">
-                <div className="text-white font-semibold text-xl">Description</div>
-                <p className="text-white mt-1">
-                  Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook
-                  according to the package instructions, about 9 minutes.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center items-center mt-10 pt-10 pb-20 m-2 hover:scale-105 duration-200">
+        <div className="flex  justify-center items-center mx-2 pb-16">
+          <div className="flex flex-col md:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
             {recipes.length > 0 &&
-              recipes.map((recipe, index) => (
+              recipes.slice(0, 3).map((recipe, index) => (
                 <div
                   key={index}
-                  className="flex justify-center items-center mt-10 pt-10 pb-20 m-2 hover:scale-105 duration-200"
+                  className="flex justify-center items-center hover:scale-105 duration-200"
                 >
                   <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                     <div className="w-full">
@@ -97,7 +85,16 @@ export const HomePage = () => {
                       <p className="text-white mt-1">
                         <span className="font-semibold">tags:</span> {recipe.strTags}
                       </p>
-                      <a href={recipe.strYoutube}></a>
+                      <p className="text-white text-balance">
+                        <span className="font-semibold text-white">Instruction:</span>
+                        {recipe.strInstructions.split(". ").slice(0, 2).join(". ") + ' '}
+                        <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                      </p>
+                      <a href={recipe.strYoutube} className="text-sm text-white">
+                        <span className="w-2 h-2">
+                          <Play />
+                        </span>
+                      </a>
                     </div>
                   </div>
                 </div>

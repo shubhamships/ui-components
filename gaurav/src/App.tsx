@@ -19,7 +19,7 @@ function App() {
         <div>
           <Routes>
             <Route path="/" element={<Root />} />
-            <Route path="login" element={<SearchResults />} />
+            <Route path="searchresults" element={<SearchResults />} />
           </Routes>
         </div>
       </BrowserRouter>
