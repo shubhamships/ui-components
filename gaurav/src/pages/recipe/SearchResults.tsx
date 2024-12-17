@@ -1,4 +1,5 @@
 import Input from "@/components/ui/Input";
+import Select from "@/components/ui/Select";
 import axios from "axios";
 import { ChevronDown, Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -10,7 +11,19 @@ interface IData {
   strTags: string;
   strYoutube: string;
   strInstructions: string;
+  idMeal: string;
 }
+
+const filterOptions = [
+  { value: "all", label: "All" },
+  { value: "vegan", label: "Vegan" },
+  { value: "vegetarian", label: "Vegetarian" },
+  { value: "chicken", label: "Chicken" },
+  { value: "dessert", label: "Dessert" },
+  { value: "seafood", label: "Seafood" },
+  { value: "starter", label: "Starter" },
+];
+
 export const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -18,7 +31,6 @@ export const SearchResults = () => {
   const [searchresults, setSearchResults] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filter, setfilter] = useState<string>("");
-
   const query = new URLSearchParams(location.search).get("query");
   const fetchRecipes = async (query = ""): Promise<IData[]> => {
     try {
@@ -42,6 +54,10 @@ export const SearchResults = () => {
     const result = await fetchRecipes(searchQuery);
     setSearchResults(result);
     navigate(`/searchresults?query=${searchQuery}`);
+  };
+
+  const handleClick = (id: string) => {
+    navigate(`/recipedetail/${id}`);
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,12 +84,17 @@ export const SearchResults = () => {
             <div>sort by</div>
             <ChevronDown className="" />
           </div>
-          <div className="bg-white text-gray-500 flex rounded-sm px-4">
-            <div>filter</div>
-          </div>
+          <Select
+            title="sort by"
+            id="sort-select"
+            options={Object.values(filterOptions)}
+            value={filter}
+            onChange={handleFilterChange}
+            className="focus:outline-none focus:visible:ring-0 focus:visible:border-0 text-sm text-gray-500 appearance-none px-1"
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-40 lg:px-64">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-40">
           {searchresults.length > 0 &&
             searchresults.map((recipe, index) => (
               <div
@@ -91,9 +112,11 @@ export const SearchResults = () => {
                     </p>
                     <p className="text-white text-balance text-ellipsis">
                       <span className="font-semibold text-white">Instruction:</span>
-                      {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
-                      <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                      {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + ". . . "}
                     </p>
+                    <div onClick={() => handleClick(recipe.idMeal)}>
+                      <span className="cursor-pointer text-sm font-semibold text-white">Read More . . .</span>
+                    </div>
                     <a href={recipe.strYoutube} className="text-sm text-white">
                       <span className="w-2 h-2">
                         <Play />

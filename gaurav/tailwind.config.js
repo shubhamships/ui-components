@@ -8,6 +8,8 @@ export default {
       colors: {
         recipebg: '#083344',
         recipeCardBg: '#10B981',
+        recipeDetailsBg: '#009990',
+        recipeDetailColor: '#E3F0AF',
         primary: '#1f499e',
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
