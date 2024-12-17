@@ -66,18 +66,17 @@ export const Rounded: Story = {
     className: "text-orange-500 rounded-full border border-orange-500 px-3.5 text-sm",
   },
 };
+export const ExtraSmall: Story = {
+  args: {
+    children: "XS",
+    className: "text-white bg-yellow-500 rounded-3xl px-2 text-xs",
+  },
+};
 
 export const Small: Story = {
   args: {
     children: "Small",
-    className: "text-white bg-blue-500 rounded-3xl px-5 text-xs",
-  },
-};
-
-export const Large: Story = {
-  args: {
-    children: "Delete",
-    className: "text-white bg-black rounded-md px-8 text-lg",
+    className: "text-white bg-blue-500 rounded-3xl px-3 text-sm",
   },
 };
 
@@ -85,6 +84,13 @@ export const Medium: Story = {
   args: {
     children: "Medium",
     className: "bg-red-50 border border-red-500 text-red-500 rounded-md px-5 text-md",
+  },
+};
+
+export const Large: Story = {
+  args: {
+    children: "Delete",
+    className: "text-white bg-black rounded-md px-10 text-lg",
   },
 };
 

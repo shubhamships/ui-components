@@ -44,3 +44,16 @@ export const File: Story = {
     className: "cursor-pointer",
   },
 };
+
+export const Search: Story = {
+  args: {
+    type: "Search",
+    className: "w-full",
+  },
+};
+
+export const Range: Story = {
+  args: {
+    type: "Range",
+  },
+};
