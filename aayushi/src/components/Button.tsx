@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 interface ButtonProps{
   loading?:boolean;
   type:string;

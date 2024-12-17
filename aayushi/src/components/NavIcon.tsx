@@ -6,7 +6,7 @@ interface NavIconProps{
 
 export const NavIcon = ({ icon,className}:NavIconProps) => {
   return (
-    <Link to="#" className={`${className}`}>
+    <Link to="#" className={`transform transition-all duration-500 ease  group-hover:scale-105 ${className}`}>
       {icon}
     </Link>
   );
