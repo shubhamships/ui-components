@@ -8,7 +8,7 @@ export interface ButtonProps {
 
 const Button = ({ onClick, className, children }: ButtonProps) => {
   return (
-    <button className={`h-10 rounded-md text-sm p-2.5 ${className} hover:scale-105 duration-500`} onClick={onClick}>
+    <button className={`h-10 text-sm p-2.5 ${className}`} onClick={onClick}>
       {children}
     </button>
   );
