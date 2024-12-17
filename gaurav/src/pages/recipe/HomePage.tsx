@@ -54,12 +54,12 @@ export const HomePage = () => {
             <br /> Taste It!
           </h1>
         </div>
-        <div className="px-4 md:px-20 lg:px-96 mt-5">
+        <div className="px-4 md:px-20 lg:px-96 mt-5 shadow-inner">
           <Input
             type="text"
             id="recipe-input"
             placeholder="Search Your Favorite Recipe. . ."
-            className="border-none focus:disabled outline-border-none"
+            className="border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           >
@@ -73,7 +73,10 @@ export const HomePage = () => {
             {recipes.length > 0 &&
               recipes.slice(0, 3).map((recipe, index) => (
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
-                  <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
+                  <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
+                    <div className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500">
+                      save
+                    </div>
                     <div className="w-full">
                       <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
                     </div>

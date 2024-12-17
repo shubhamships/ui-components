@@ -12,10 +12,13 @@ interface IData {
   strInstructions: string;
 }
 export const SearchResults = () => {
+  const location = useLocation();
   const navigate = useNavigate();
+
   const [searchresults, setSearchResults] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const location = useLocation();
+  const [filter, setfilter] = useState<string>("");
+
   const query = new URLSearchParams(location.search).get("query");
   const fetchRecipes = async (query = ""): Promise<IData[]> => {
     try {
@@ -40,6 +43,10 @@ export const SearchResults = () => {
     setSearchResults(result);
     navigate(`/searchresults?query=${searchQuery}`);
   };
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setfilter(e.target.value);
+  };
   return (
     <>
       <div className="bg-[#083344] min-h-screen">
@@ -58,11 +65,11 @@ export const SearchResults = () => {
 
         <div className="gap-2 mt-2 mx-4 flex justify-start items-center md:mx-96">
           <div className="bg-white text-gray-500 flex rounded-sm px-2">
-            <div>filter</div>
+            <div>sort by</div>
             <ChevronDown className="" />
           </div>
           <div className="bg-white text-gray-500 flex rounded-sm px-4">
-            <div>sort</div>
+            <div>filter</div>
           </div>
         </div>
 

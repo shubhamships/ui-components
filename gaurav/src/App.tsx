@@ -2,6 +2,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { Root } from "./routes/Root";
 import Button from "./components/ui/personal/Button";
 import { SearchResults } from "./pages/recipe/SearchResults";
+import { RecipeDetail } from "./pages/recipe/RecipeDetail";
 function App() {
   const styleClass = "w-40 h-30 text-gray-500";
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Root />} />
             <Route path="searchresults" element={<SearchResults />} />
+            <Route path="recipe/:id" element={<RecipeDetail />} />
           </Routes>
         </div>
       </BrowserRouter>
