@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Button from "../components/Button";
 import { userEvent, within } from "@storybook/testing-library";
+import { action } from "@storybook/addon-actions";
 
 const meta: Meta<typeof Button> = {
   title: "Components/Button",
@@ -15,6 +16,8 @@ export const Primary: Story = {
   args: {
     children: "Primary Button",
     className: "text-white bg-blue-500 rounded-md",
+    onClick: action("button-clicked"),
+
     // disabled: true,
   },
   // It gives you access to the canvasElement, which is the DOM element containing the rendered component.
