@@ -1,7 +1,8 @@
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
+import Select from "@/components/ui/Select";
 import axios from "axios";
-import { Play, Search } from "lucide-react";
+import { ChevronDown, Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -19,24 +20,77 @@ export const HomePage = () => {
   const [recipes, setRecipes] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
+
+  const [categories, setCategories] = useState<string[]>([]);
+  const [areas, setAreas] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedArea, setSelectedArea] = useState<string>("all");
+
   const navigate = useNavigate();
 
-  const fetchRecipes = async (query = "") => {
+  const fetchRecipes = async (query = "", category = "all", area = "all") => {
     try {
-      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+      if (category !== "all") {
+        url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+      }
+      if (area !== "all") {
+        url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+      }
+      const res = await axios.get(url);
       const data = res.data;
-      return data.meals;
+      return data.meals || [];
     } catch (error) {
       console.log("Error fetching Recipes", error);
+      return [];
     }
   };
+
   useEffect(() => {
     const loadData = async () => {
       const result = await fetchRecipes();
       setRecipes(result);
+
+      const [categoriesData, areasData] = await Promise.all([fetchCategories(), fetchAreas()]);
+      setCategories(["all", categoriesData]);
+      setAreas(["all", areasData]);
     };
     loadData();
   }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
+      return res.data.meals.map((meal: any) => meal.strCategory);
+    } catch (error) {
+      console.log("Error fetching categories", error);
+      return [];
+    }
+  };
+
+  const fetchAreas = async () => {
+    try {
+      const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
+      return res.data.meals.map((meal: any) => meal.strArea);
+    } catch (error) {
+      console.log("Error fetching areas", error);
+      return [];
+    }
+  };
+
+  const handleCategoryChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const category = e.target.value;
+    setSelectedCategory(category);
+    const result = await fetchRecipes(searchQuery, category, selectedArea);
+    setRecipes(result);
+  };
+
+  const handleAreaChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const area = e.target.value;
+    setSelectedArea(area);
+    const result = await fetchRecipes(searchQuery, selectedCategory, area);
+    setRecipes(result);
+  };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +106,7 @@ export const HomePage = () => {
     const recipe = recipes.find((recipe) => recipe.idMeal === id);
     if (recipe) {
       const duplicate = savedRecipe.find((item) => item.strMeal === recipe.strMeal);
-      if(!duplicate) {
+      if (!duplicate) {
         const updatedRecipe = [...savedRecipe, recipe];
         setSavedRecipe(updatedRecipe);
         localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
@@ -60,7 +114,6 @@ export const HomePage = () => {
       } else {
         alert("Recipe Already Saved");
       }
-      
     }
   };
 
@@ -83,7 +136,7 @@ export const HomePage = () => {
             <br /> Taste It!
           </h1>
         </div>
-        <div className="px-4 md:px-20 lg:px-64 mt-5 shadow-inner">
+        <div className="px-4 md:px-20 lg:px-96 mt-5 shadow-inner">
           <Input
             type="text"
             id="recipe-input"
@@ -103,6 +156,22 @@ export const HomePage = () => {
             onClick={navigatetoSaved}
           />
         </div>
+        <div className="gap-2 mt-2 mx-4 flex justify-start items-center md:mx-96">
+          <Select
+            title="Select Category"
+            id="category-select"
+            options={categories.map((category) => ({ value: category, label: category }))}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+          />
+          <Select
+            title="Select Area"
+            id="Area-select"
+            options={areas.map((category) => ({ value: category, label: category }))}
+            value={selectedArea}
+            onChange={handleAreaChange}
+          />
+        </div>
         <div className="flex justify-center items-center mx-2 pb-16">
           <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
             {recipes.length > 0 &&
@@ -120,9 +189,11 @@ export const HomePage = () => {
                     </div>
                     <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                      <p className="text-white mt-1">
+                      {recipe.strTags !== "" ? (
+                        <p className="text-white mt-1">
                         <span className="font-semibold">tags:</span> {recipe.strTags}
                       </p>
+                      ): null}
                       <p className="text-white text-balance text-ellipsis">
                         <span className="font-semibold text-white">Instruction:</span>
                         {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}

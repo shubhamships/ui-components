@@ -17,19 +17,24 @@ export const SavedRecipe = () => {
   const [searchresults, setSearchResults] = useState<IRecipeData[]>([]);
 
   useEffect(() => {
-    const state = location.state as { savedRecipe: IRecipeData[] };
-    if (state && state.savedRecipe) {
-      setSearchResults(state.savedRecipe);
+    // const state = location.state as { savedRecipe: IRecipeData[] };
+    // if (state && state.savedRecipe) {
+    //   setSearchResults(state.savedRecipe);
+    // }
+    const savedRecipe = localStorage.getItem("savedRecipe");
+    if (savedRecipe) {
+      setSearchResults(JSON.parse(savedRecipe));
     }
   }, []);
-  console.log(searchresults)
+  console.log(searchresults);
+
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
         <div className="container mx-auto p-4 px-4">
           <div>
             <h1 className="text-white text-4xl font-semibold mt-10 p-10 text-center">Saved Recipes</h1>
-            <div className="grid grid-cols-1 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-40">
+            <div className="grid grid-cols-1 lg:grid-cols-3 justify-around items-center mx-2 pb-16 lg:mx-20">
               {searchresults.length > 0 &&
                 searchresults.map((recipe, index) => (
                   <div

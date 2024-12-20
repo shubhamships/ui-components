@@ -49,7 +49,7 @@ export const RecipeDetail = () => {
       ingredients.push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
     }
   }
-  const steps = recipe.strInstructions.split(/STEP \d+\r?\n/).filter((step) => step.trim() !== "");
+  const steps = recipe.strInstructions.split(/(?:STEP\s*\d*[:.]?\s*)/i).filter((step) => step.trim() !== "");
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
