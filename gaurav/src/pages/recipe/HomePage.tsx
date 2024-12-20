@@ -1,4 +1,5 @@
 import Input from "@/components/ui/Input";
+import Button from "@/components/ui/personal/Button";
 import axios from "axios";
 import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -13,11 +14,11 @@ interface IData {
   idMeal: string;
   savedRecipe: string[];
 }
-const savedRecipe: IData[] = [];
 
 export const HomePage = () => {
   const [recipes, setRecipes] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
   const navigate = useNavigate();
 
   const fetchRecipes = async (query = "") => {
@@ -50,9 +51,21 @@ export const HomePage = () => {
   const handleSavedRecipe = (id: string): void => {
     const recipe = recipes.find((recipe) => recipe.idMeal === id);
     if (recipe) {
-      savedRecipe.push(recipe);
-      alert("Recipe Saved");
+      const duplicate = savedRecipe.find((item) => item.strMeal === recipe.strMeal);
+      if(!duplicate) {
+        const updatedRecipe = [...savedRecipe, recipe];
+        setSavedRecipe(updatedRecipe);
+        localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
+        alert("Recipe Saved");
+      } else {
+        alert("Recipe Already Saved");
+      }
+      
     }
+  };
+
+  const navigatetoSaved = () => {
+    navigate("saved", { state: { savedRecipe } });
   };
 
   const filteredRecipes = recipes.filter((recipe) =>
@@ -84,6 +97,11 @@ export const HomePage = () => {
               <Search onClick={handleSearch} />
             </div>
           </Input>
+          <Button
+            title="Saved Recipes"
+            className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
+            onClick={navigatetoSaved}
+          />
         </div>
         <div className="flex justify-center items-center mx-2 pb-16">
           <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
@@ -110,12 +128,10 @@ export const HomePage = () => {
                         {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
                         <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
                       </p>
-                      <a
-                        href={recipe.strYoutube}
-                        className="text-sm text-red-500 flex items-center justify-center w-20 bg-red-100 border border-red-500 shadow-md p-1 mt-2 rounded-md"
-                      >
-                        <span className="text-sm font-semibold">watch</span>
-                        <Play className="h-4 w-4" />
+                      <a href={recipe.strYoutube} className="text-sm text-white">
+                        <span className="w-2 h-2">
+                          <Play />
+                        </span>
                       </a>
                     </div>
                   </div>

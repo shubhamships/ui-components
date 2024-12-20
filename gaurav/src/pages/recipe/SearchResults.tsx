@@ -60,6 +60,13 @@ export const SearchResults = () => {
     navigate(`/recipedetail/${id}`);
   };
 
+  const handleSavedRecipe = (id: string): void => {
+    const recipe = searchresults.find((recipe) => recipe.idMeal === id);
+    if (recipe) {
+      alert("Recipe Saved");
+    }
+  };
+
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setfilter(e.target.value);
   };
@@ -72,6 +79,7 @@ export const SearchResults = () => {
             id="recipe-input"
             placeholder="Search Your Favorite Recipe. . ."
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
           >
             <div className="px-2 cursor-pointer">
               <Search onClick={handleSearch} />

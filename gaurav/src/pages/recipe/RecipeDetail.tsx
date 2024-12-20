@@ -70,10 +70,10 @@ export const RecipeDetail = () => {
               <div className="text-xl font-bold text-recipeDetailColor">Cooking Instruction</div>
               {recipe.strInstructions}
             </div>
-            <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-10 mt-5">
+            <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-5 mt-5">
               <div className="text-white m-4 p-5 w-full">
-                <div className="bg-recipeDetailsBg px-2 mt-4 rounded-lg shadow-lg">
-                  <div className="text-xl font-bold text-recipeDetailColor">Ingredients List</div>
+                <div className="bg-recipeDetailsBg px-4 rounded-lg shadow-lg">
+                  <div className="text-xl font-bold text-recipeDetailColor pt-2">Ingredients List</div>
                   <ul className="text-lg mt-2 pr-2 pb-4 text-nowrap">
                     {ingredients.map((ingredient, index) => (
                       <li key={index}>{ingredient}</li>
@@ -81,7 +81,7 @@ export const RecipeDetail = () => {
                   </ul>
                 </div>
               </div>
-              <div className="text-white bg-recipeDetailsBg m-4 p-5 rounded-lg shadow-lg flex flex-col justify-center items-center w-full">
+              <div className="text-white bg-recipeDetailsBg m-4 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center w-full">
                 <div className="text-xl font-bold text-recipeDetailColor">Recipe Instruction Video</div>
                 {recipe.strYoutube && (
                   <a href={recipe.strYoutube} className="inline-block py-2 relative cursor-pointer">

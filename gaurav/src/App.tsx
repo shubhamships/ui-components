@@ -3,17 +3,31 @@ import { Root } from "./routes/Root";
 import Button from "./components/ui/personal/Button";
 import { SearchResults } from "./pages/recipe/SearchResults";
 import { RecipeDetail } from "./pages/recipe/RecipeDetail";
+import { SavedRecipe } from "./pages/recipe/SavedRecipe";
 function App() {
   const styleClass = "w-40 h-30 text-gray-500";
   return (
     <>
       <BrowserRouter>
         <div className="flex justify-center items-center w-full z-20 ">
-          <ul className="flex justify-between items-center bg-[#083344] gap-6 p-2 px-8 w-full">
+          <ul className="flex justify-between items-center bg-recipebg gap-6 p-2 px-8 w-full">
             <MenuLink name="Recipe" route="/" className="text-white text-xl" />
             <div className="flex justify-center items-center gap-2">
-              <MenuLink route="login" iconName={<Button title="login" variant="soft" className="text-white bg-transparent border-none shadow-none"  />} />
-              <MenuLink route="signup" iconName={<Button title="Sign Up" className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75" />} />
+              <MenuLink
+                route="login"
+                iconName={
+                  <Button title="login" variant="soft" className="text-white bg-transparent border-none shadow-none" />
+                }
+              />
+              <MenuLink
+                route="signup"
+                iconName={
+                  <Button
+                    title="Sign Up"
+                    className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+                  />
+                }
+              />
             </div>
           </ul>
         </div>
@@ -22,6 +36,7 @@ function App() {
             <Route path="/" element={<Root />} />
             <Route path="searchresults" element={<SearchResults />} />
             <Route path="recipedetail/:id" element={<RecipeDetail />} />
+            <Route path="saved" element={<SavedRecipe />} />
           </Routes>
         </div>
       </BrowserRouter>
