@@ -49,6 +49,7 @@ export const RecipeDetail = () => {
       ingredients.push(`${recipe[`strIngredient${i}`]} - ${recipe[`strMeasure${i}`]}`);
     }
   }
+  const steps = recipe.strInstructions.split(/STEP \d+\r?\n/).filter((step) => step.trim() !== "");
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
@@ -68,7 +69,11 @@ export const RecipeDetail = () => {
             </div>
             <div className="text-white bg-recipeDetailsBg mt-20 m-4 p-5 rounded-lg shadow-lg">
               <div className="text-xl font-bold text-recipeDetailColor">Cooking Instruction</div>
-              {recipe.strInstructions}
+              {steps.map((step, index) => (
+                <div key={index} className="mb-4">
+                  <span className="font-semibold">STEP {index + 1} :</span> {step.trim()}
+                </div>
+              ))}
             </div>
             <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-5 mt-5">
               <div className="text-white m-4 p-5 w-full">
