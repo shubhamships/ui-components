@@ -75,7 +75,7 @@ export const RecipeDetail = () => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col lg:flex-row w-full items-center justify-between gap-5 mt-5">
+            <div className="flex flex-col lg:flex-row w-full items-baseline justify-between gap-5 mt-5">
               <div className="text-white m-4 p-5 w-full">
                 <div className="bg-recipeDetailsBg px-4 rounded-lg shadow-lg">
                   <div className="text-xl font-bold text-recipeDetailColor pt-2">Ingredients List</div>
@@ -86,21 +86,18 @@ export const RecipeDetail = () => {
                   </ul>
                 </div>
               </div>
-              <div className="text-white bg-recipeDetailsBg m-4 p-4 rounded-lg shadow-lg flex flex-col justify-center items-center w-full">
+              <div className="text-white bg-recipeDetailsBg m-4 p-4 rounded-lg shadow-lg flex flex-col items-center w-full">
                 <div className="text-xl font-bold text-recipeDetailColor">Recipe Instruction Video</div>
                 {recipe.strYoutube && (
-                  <a href={recipe.strYoutube} className="inline-block py-2 relative cursor-pointer">
-                    <img
-                      src={recipe.strMealThumb}
-                      alt={recipe.strMeal}
-                      className="h-64 w-96 object-cover brightness-50 rounded-md"
+                  <div className="w-full h-full">
+                    <iframe
+                      src={recipe.strYoutube.replace("watch?v=", "embed/")}
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      title="video"
+                      className="w-full min-h-52 mt-2 rounded-md"
                     />
-                    <div className="absolute flex justify-center items-center inset-0 ">
-                      <span className="border-2 rounded-full p-2 ">
-                        <Play className="w-8 h-8 text-white" />
-                      </span>
-                    </div>
-                  </a>
+                  </div>
                 )}
               </div>
             </div>

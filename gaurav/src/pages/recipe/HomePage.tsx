@@ -2,7 +2,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
 import Select from "@/components/ui/Select";
 import axios from "axios";
-import { ChevronDown, Play, Search } from "lucide-react";
+import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +50,6 @@ export const HomePage = () => {
     const loadData = async () => {
       const result = await fetchRecipes();
       setRecipes(result);
-
       const [categoriesData, areasData] = await Promise.all([fetchCategories(), fetchAreas()]);
       setCategories(["all", categoriesData]);
       setAreas(["all", areasData]);
@@ -191,9 +190,9 @@ export const HomePage = () => {
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
                       {recipe.strTags !== "" ? (
                         <p className="text-white mt-1">
-                        <span className="font-semibold">tags:</span> {recipe.strTags}
-                      </p>
-                      ): null}
+                          <span className="font-semibold">tags:</span> {recipe.strTags}
+                        </p>
+                      ) : null}
                       <p className="text-white text-balance text-ellipsis">
                         <span className="font-semibold text-white">Instruction:</span>
                         {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
