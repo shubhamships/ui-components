@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Loader } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 interface IRecipeData {
@@ -16,6 +16,8 @@ export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
   const [timeout, setTime] = useState<boolean>(false);
+
+  const ingredientsRef = useRef<HTMLDivElement>(null);
 
   const fetchRecipeDetail = async (id?: string) => {
     try {
@@ -35,6 +37,14 @@ export const RecipeDetail = () => {
     }
     setTime(false);
   }, [id]);
+
+  useEffect(() => {
+    if (recipe && ingredientsRef.current) {
+      ingredientsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [recipe]);
+
+
   console.log(recipe);
   if (!recipe) {
     return (
@@ -76,7 +86,7 @@ export const RecipeDetail = () => {
               ))}
             </div>
             <div className="flex flex-col lg:flex-row w-full items-baseline justify-between gap-5 mt-5">
-              <div className="text-white m-4 p-5 w-full">
+              <div className="text-white m-4 p-5 w-full" ref={ingredientsRef}>
                 <div className="bg-recipeDetailsBg px-4 rounded-lg shadow-lg">
                   <div className="text-xl font-bold text-recipeDetailColor pt-2">Ingredients List</div>
                   <ul className="text-lg mt-2 pr-2 pb-4 text-nowrap">

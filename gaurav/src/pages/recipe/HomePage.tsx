@@ -5,7 +5,7 @@ import axios from "axios";
 import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "./Pagination";
+import { Pagination } from "./components/Pagination";
 
 interface IData {
   strMeal: string;
@@ -55,8 +55,8 @@ export const HomePage = () => {
       const result = await fetchRecipes();
       setRecipes(result);
       const [categoriesData, areasData] = await Promise.all([fetchCategories(), fetchAreas()]);
-      setCategories(["all", categoriesData]);
-      setAreas(["all", areasData]);
+      setCategories(["all", ...categoriesData]);
+      setAreas(["all", ...areasData]);
     };
     loadData();
   }, []);
@@ -64,23 +64,23 @@ export const HomePage = () => {
   const fetchCategories = async () => {
     try {
       const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
-      return res.data.meals.flatMap((meal: any) => meal.strCategory.split(","));
+      return res.data.meals.map((meal: { strCategory: string }) => meal.strCategory);
     } catch (error) {
       console.log("Error fetching categories", error);
       return [];
     }
   };
-
+  console.log();
   const fetchAreas = async () => {
     try {
       const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
-      return res.data.meals.flatMap((meal: any) => meal.strArea.split(","));
+      return res.data.meals.map((meal: { strArea: string }) => meal.strArea);
     } catch (error) {
       console.log("Error fetching areas", error);
       return [];
     }
   };
-
+  console.log(fetchAreas, "fetchAreas");
   const handleCategoryChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const category = e.target.value;
     setSelectedCategory(category);
@@ -180,7 +180,6 @@ export const HomePage = () => {
             value={selectedArea}
             onChange={handleAreaChange}
           />
-          
         </div>
         <div className="flex justify-center items-center mx-2 pb-16">
           <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-10 m-2 gap-8">
@@ -199,15 +198,21 @@ export const HomePage = () => {
                     </div>
                     <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                      {recipe.strTags !== "" ? (
+                      {recipe.strTags ? (
                         <p className="text-white mt-1">
                           <span className="font-semibold">tags:</span> {recipe.strTags}
                         </p>
                       ) : null}
                       <p className="text-white text-balance text-ellipsis">
                         <span className="font-semibold text-white">Instruction:</span>
-                        {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
-                        <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                        {recipe.strInstructions ? (
+                          <>
+                            {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
+                            <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                          </>
+                        ) : (
+                          "No Instructions"
+                        )}
                       </p>
                       <a href={recipe.strYoutube} className="text-sm text-white">
                         <span className="w-2 h-2">
