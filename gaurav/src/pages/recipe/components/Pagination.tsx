@@ -21,7 +21,7 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
 
   return (
     <div>
-      <div className="mt-10 pb-10">
+      <div className="mt-4 pb-10">
         <div className="flex justify-center items-center bg-white rounded-md p-1 mx-8 md:mx-16 lg:mx-96 ">
           {currentPage > 1 && (
             <Button

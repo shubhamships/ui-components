@@ -2,7 +2,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
 import Select from "@/components/ui/Select";
 import axios from "axios";
-import { Play, Search } from "lucide-react";
+import { MapPin, Play, Search, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
@@ -136,12 +136,23 @@ export const HomePage = () => {
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
   const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
+  // auto result
+  useEffect(() => {
+    const fetchData = async () => {
+      if (searchQuery.length >= 3) {
+        const result = await fetchRecipes(searchQuery);
+        setRecipes(result);
+      }
+    };
+    fetchData();
+  }, [searchQuery]);
+
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   console.log(savedRecipe, "Saved Recipe");
   return (
     <>
-      <div className="bg-recipebg w-full min-h-screen">
+      <div className="bg-recipebg w-full min-h-screen relative">
         <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
@@ -204,15 +215,22 @@ export const HomePage = () => {
                     </div>
                     <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                      <CardSmallDetail label="Tags" detail={recipe.strTags} />
-                      <CardSmallDetail label="Area" detail={recipe.strArea} />
-                      <CardSmallDetail label="Category" detail={recipe.strCategory} />
-                      <p className="text-white text-balance text-ellipsis">
+                      <div className="pt-1">
+                        <div className="flex flex-wrap gap-2">
+                          <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
+                          <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />
+                          <CardSmallDetail
+                            iconName={<Utensils className="w-3 h-3 mr-1" />}
+                            detail={recipe.strCategory}
+                          />
+                        </div>
+                      </div>
+                      <p className="text-white text-balance text-ellipsis pt-1">
                         <span className="font-semibold text-white">Instruction: </span>
                         {recipe.strInstructions ? (
                           <>
-                            {recipe.strInstructions.split(" ").slice(0, 20).join(" ") + " "}
-                            <span className="cursor-pointer text-sm">Read More . . .</span>
+                            <span className="text-sm">{recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}</span>
+                            <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
                           </>
                         ) : (
                           "No Instructions"
@@ -224,7 +242,13 @@ export const HomePage = () => {
               ))}
           </div>
         </div>
-        <Pagination totalRecipe={recipes.length} totalRecipePerPage={recipesPerPage} setCurrentPages={setCurrentPage} />
+        <div className="absolute bottom-0 w-full flex justify-center items-center">
+          <Pagination
+            totalRecipe={recipes.length}
+            totalRecipePerPage={recipesPerPage}
+            setCurrentPages={setCurrentPage}
+          />
+        </div>
       </div>
     </>
   );
