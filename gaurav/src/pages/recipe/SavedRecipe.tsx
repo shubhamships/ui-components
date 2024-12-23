@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CardSmallDetail } from "./components/CardSmallDetail";
 
 interface IRecipeData {
   strMeal: string;
@@ -9,6 +10,7 @@ interface IRecipeData {
   strYoutube: string;
   strInstructions: string;
   strArea: string;
+  strCategory: string;
   [key: string]: any;
 }
 
@@ -45,29 +47,25 @@ export const SavedRecipe = () => {
                   <div
                     key={index}
                     className="flex justify-center items-center cursor-pointer pt-10 pb-20 m-2 hover:scale-105 duration-200"
-                    onClick={() => {handleClick(recipe.idMeal)}}
+                    onClick={() => {
+                      handleClick(recipe.idMeal);
+                    }}
                   >
                     <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                       <div className="w-full">
                         <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
                       </div>
                       <div className="p-4">
-                        <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                        <p className="text-white mt-1">
-                          <span className="font-semibold">tags:</span> {recipe.strTags}
-                        </p>
+                        <CardSmallDetail label="Tags" detail={recipe.strTags} />
+                        <CardSmallDetail label="Area" detail={recipe.strArea} />
+                        <CardSmallDetail label="Category" detail={recipe.strCategory} />
                         <p className="text-white text-balance text-ellipsis">
-                          <span className="font-semibold text-white">Instruction:</span>
-                          {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + ". . . "}
+                          <span className="font-semibold text-white">Instruction: </span>
+                          {recipe.strInstructions.split(" ").slice(0, 20).join(" ") + ". . . "}
                         </p>
                         <div>
                           <span className="text-sm font-semibold text-white">Read More . . .</span>
                         </div>
-                        <a href={recipe.strYoutube} className="text-sm text-white">
-                          <span className="w-2 h-2">
-                            <Play />
-                          </span>
-                        </a>
                       </div>
                     </div>
                   </div>

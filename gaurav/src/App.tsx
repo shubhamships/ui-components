@@ -6,6 +6,15 @@ import { RecipeDetail } from "./pages/recipe/RecipeDetail";
 import { SavedRecipe } from "./pages/recipe/SavedRecipe";
 function App() {
   const styleClass = "w-40 h-30 text-gray-500";
+  // Reset Logic
+  const handleReset = () => {
+    try {
+      localStorage.clear();
+      alert("Reset Successful");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <BrowserRouter>
@@ -17,20 +26,10 @@ function App() {
               iconName={<img src="/recipe/logo.png" alt="Recipe Logo" className="object-center h-14" />}
             />
             <div className="flex justify-center items-center gap-2">
-              <MenuLink
-                route="login"
-                iconName={
-                  <Button title="login" variant="soft" className="text-white bg-transparent border-none shadow-none" />
-                }
-              />
-              <MenuLink
-                route="signup"
-                iconName={
-                  <Button
-                    title="Sign Up"
-                    className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
-                  />
-                }
+              <Button
+                title="Reset"
+                className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+                onClick={handleReset}
               />
             </div>
           </ul>

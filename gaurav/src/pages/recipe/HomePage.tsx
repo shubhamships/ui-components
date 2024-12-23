@@ -6,6 +6,7 @@ import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
+import { CardSmallDetail } from "./components/CardSmallDetail";
 
 interface IData {
   strMeal: string;
@@ -14,6 +15,8 @@ interface IData {
   strYoutube: string;
   strInstructions: string;
   idMeal: string;
+  strCategory: string;
+  strArea: string;
   savedRecipe: string[];
 }
 
@@ -159,34 +162,37 @@ export const HomePage = () => {
               <Search onClick={handleSearch} />
             </div>
           </Input>
-          <Button
-            title="Saved Recipes"
-            className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
-            onClick={navigatetoSaved}
-          />
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <Button
+              title="Saved Recipes"
+              className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
+              onClick={navigatetoSaved}
+            />
+            <div className="gap-2 flex justify-end items-center mt-2">
+              <Select
+                title="Select Category"
+                id="category-select"
+                options={categories.map((category) => ({ value: category, label: category }))}
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              />
+              <Select
+                title="Select Area"
+                id="Area-select"
+                options={areas.map((category) => ({ value: category, label: category }))}
+                value={selectedArea}
+                onChange={handleAreaChange}
+              />
+            </div>
+          </div>
         </div>
-        <div className="gap-2 mt-2 mx-4 flex justify-start items-center md:mx-96">
-          <Select
-            title="Select Category"
-            id="category-select"
-            options={categories.map((category) => ({ value: category, label: category }))}
-            value={selectedCategory}
-            onChange={handleCategoryChange}
-          />
-          <Select
-            title="Select Area"
-            id="Area-select"
-            options={areas.map((category) => ({ value: category, label: category }))}
-            value={selectedArea}
-            onChange={handleAreaChange}
-          />
-        </div>
+
         <div className="flex justify-center items-center mx-2 pb-16">
-          <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-10 m-2 gap-8">
+          <div className="flex flex-col lg:flex-row justify-center items-start pt-5 pb-2 m-2 gap-8">
             {currentRecipes.length > 0 &&
               currentRecipes.map((recipe, index) => (
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
-                  <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
+                  <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
                     <div
                       className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
                       onClick={() => handleSavedRecipe(recipe.idMeal)}
@@ -198,27 +204,20 @@ export const HomePage = () => {
                     </div>
                     <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                      {recipe.strTags ? (
-                        <p className="text-white mt-1">
-                          <span className="font-semibold">tags:</span> {recipe.strTags}
-                        </p>
-                      ) : null}
+                      <CardSmallDetail label="Tags" detail={recipe.strTags} />
+                      <CardSmallDetail label="Area" detail={recipe.strArea} />
+                      <CardSmallDetail label="Category" detail={recipe.strCategory} />
                       <p className="text-white text-balance text-ellipsis">
-                        <span className="font-semibold text-white">Instruction:</span>
+                        <span className="font-semibold text-white">Instruction: </span>
                         {recipe.strInstructions ? (
                           <>
-                            {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
-                            <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                            {recipe.strInstructions.split(" ").slice(0, 20).join(" ") + " "}
+                            <span className="cursor-pointer text-sm">Read More . . .</span>
                           </>
                         ) : (
                           "No Instructions"
                         )}
                       </p>
-                      <a href={recipe.strYoutube} className="text-sm text-white">
-                        <span className="w-2 h-2">
-                          <Play />
-                        </span>
-                      </a>
                     </div>
                   </div>
                 </div>

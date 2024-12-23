@@ -10,6 +10,7 @@ interface IRecipeData {
   strYoutube: string;
   strInstructions: string;
   strArea: string;
+  strCategory: string;
   [key: string]: any;
 }
 export const RecipeDetail = () => {

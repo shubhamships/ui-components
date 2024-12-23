@@ -1,9 +1,9 @@
 import Input from "@/components/ui/Input";
-import Select from "@/components/ui/Select";
 import axios from "axios";
-import { ChevronDown, Play, Search } from "lucide-react";
+import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CardSmallDetail } from "./components/CardSmallDetail";
 
 interface IData {
   strMeal: string;
@@ -12,6 +12,8 @@ interface IData {
   strYoutube: string;
   strInstructions: string;
   idMeal: string;
+  strCategory: string;
+  strArea: string;
 }
 
 export const SearchResults = () => {
@@ -98,7 +100,7 @@ export const SearchResults = () => {
                 key={index}
                 className="flex justify-center items-center cursor-pointer pt-10 pb-20 m-2 hover:scale-105 duration-200"
               >
-                <div className="max-w-96 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
+                <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
                   <div
                     className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
                     onClick={() => handleSavedRecipe(recipe.idMeal)}
@@ -110,19 +112,14 @@ export const SearchResults = () => {
                   </div>
                   <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                     <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                    <p className="text-white mt-1">
-                      <span className="font-semibold">tags:</span> {recipe.strTags}
-                    </p>
+                    <CardSmallDetail label="Tags" detail={recipe.strTags} />
+                    <CardSmallDetail label="Area" detail={recipe.strArea} />
+                    <CardSmallDetail label="Category" detail={recipe.strCategory} />
                     <p className="text-white text-balance text-ellipsis">
                       <span className="font-semibold text-white">Instruction:</span>
-                      {recipe.strInstructions.split(" ").slice(0, 40).join(" ") + " "}
+                      {recipe.strInstructions.split(" ").slice(0, 20).join(" ") + " "}
                       <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
                     </p>
-                    <a href={recipe.strYoutube} className="text-sm text-white">
-                      <span className="w-2 h-2">
-                        <Play />
-                      </span>
-                    </a>
                   </div>
                 </div>
               </div>
