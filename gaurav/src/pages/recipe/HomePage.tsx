@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
 import { CardSmallDetail } from "./components/CardSmallDetail";
+import { CardDetail } from "./components/CardDetail";
 
 interface IData {
   strMeal: string;
@@ -198,7 +199,7 @@ export const HomePage = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center mx-2 pb-16">
+        {/* <div className="flex justify-center items-center mx-2 pb-16">
           <div className="flex flex-col lg:flex-row justify-center items-start pt-5 pb-2 m-2 gap-8">
             {currentRecipes.length > 0 &&
               currentRecipes.map((recipe, index) => (
@@ -241,7 +242,13 @@ export const HomePage = () => {
                 </div>
               ))}
           </div>
-        </div>
+        </div> */}
+        <CardDetail 
+          currentRecipes={currentRecipes} 
+          onClick={handleClick} 
+          recipeId={(recipe:any) => recipe.idMeal} 
+          handleClick={handleClick} 
+        />
         <div className="absolute bottom-0 w-full flex justify-center items-center">
           <Pagination
             totalRecipe={recipes.length}
