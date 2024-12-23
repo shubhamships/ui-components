@@ -1,6 +1,6 @@
 import { Play } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IRecipeData {
   strMeal: string;
@@ -13,6 +13,7 @@ interface IRecipeData {
 }
 
 export const SavedRecipe = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const [searchresults, setSearchResults] = useState<IRecipeData[]>([]);
 
@@ -28,6 +29,10 @@ export const SavedRecipe = () => {
   }, []);
   console.log(searchresults);
 
+  const handleClick = (id: string) => {
+    navigate(`/recipedetail/${id}`);
+  };
+
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
@@ -40,6 +45,7 @@ export const SavedRecipe = () => {
                   <div
                     key={index}
                     className="flex justify-center items-center cursor-pointer pt-10 pb-20 m-2 hover:scale-105 duration-200"
+                    onClick={() => {handleClick(recipe.idMeal)}}
                   >
                     <div className="max-w-80 rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                       <div className="w-full">

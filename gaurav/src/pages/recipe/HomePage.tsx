@@ -5,6 +5,7 @@ import axios from "axios";
 import { Play, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Pagination } from "./Pagination";
 
 interface IData {
   strMeal: string;
@@ -25,6 +26,9 @@ export const HomePage = () => {
   const [areas, setAreas] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedArea, setSelectedArea] = useState<string>("all");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage, setRecipesPerPage] = useState(3);
 
   const navigate = useNavigate();
 
@@ -60,7 +64,7 @@ export const HomePage = () => {
   const fetchCategories = async () => {
     try {
       const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
-      return res.data.meals.map((meal: any) => meal.strCategory);
+      return res.data.meals.flatMap((meal: any) => meal.strCategory.split(","));
     } catch (error) {
       console.log("Error fetching categories", error);
       return [];
@@ -70,7 +74,7 @@ export const HomePage = () => {
   const fetchAreas = async () => {
     try {
       const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
-      return res.data.meals.map((meal: any) => meal.strArea);
+      return res.data.meals.flatMap((meal: any) => meal.strArea.split(","));
     } catch (error) {
       console.log("Error fetching areas", error);
       return [];
@@ -123,13 +127,19 @@ export const HomePage = () => {
   const filteredRecipes = recipes.filter((recipe) =>
     recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
+
+  // pagination logic
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   console.log(savedRecipe, "Saved Recipe");
   return (
     <>
       <div className="bg-recipebg w-full min-h-screen">
-        <div className="text-white text-4xl font-semibold mt-10 p-10">
+        <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
             <br /> Taste It!
@@ -170,11 +180,12 @@ export const HomePage = () => {
             value={selectedArea}
             onChange={handleAreaChange}
           />
+          
         </div>
         <div className="flex justify-center items-center mx-2 pb-16">
-          <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-20 m-2 gap-8">
-            {recipes.length > 0 &&
-              recipes.slice(0, 3).map((recipe, index) => (
+          <div className="flex flex-col lg:flex-row justify-center items-start mt-10 pt-10 pb-10 m-2 gap-8">
+            {currentRecipes.length > 0 &&
+              currentRecipes.map((recipe, index) => (
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
                   <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden">
                     <div
@@ -209,6 +220,7 @@ export const HomePage = () => {
               ))}
           </div>
         </div>
+        <Pagination totalRecipe={recipes.length} totalRecipePerPage={recipesPerPage} setCurrentPages={setCurrentPage} />
       </div>
     </>
   );
