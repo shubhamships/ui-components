@@ -2,7 +2,7 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
 import Select from "@/components/ui/Select";
 import axios from "axios";
-import { ChevronDown, MapPin, Search, Tags, Utensils } from "lucide-react";
+import { Check, ChevronDown, MapPin, Plus, Search, Tags, Trash2, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
@@ -176,7 +176,6 @@ export const HomePage = () => {
   };
 
 
-
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   console.log(savedRecipe, "Saved Recipe");
@@ -246,13 +245,13 @@ export const HomePage = () => {
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
                   <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
                     <div
-                      className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
+                      className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
                       onClick={() => handleSavedRecipe(recipe.idMeal)}
                     >
-                      {savedStatus[recipe.idMeal] ? "saved" : "save"}
+                      {savedStatus[recipe.idMeal] ? <Check className="h-4 w-4 text-green-500 border-green-500" /> : <Plus className="h-4 w-4 text-green-500 border-green-500"/>}
                     </div>
                     <div className="w-full">
-                      <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
+                      <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover"/>
                     </div>
                     <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>

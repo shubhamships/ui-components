@@ -64,7 +64,7 @@ export const SavedRecipe = () => {
                         <div className="w-full">
                           <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-96 h-40 object-cover" />
                         </div>
-                        <div className="p-4">
+                        <div className="p-1 lg:p-4">
                           <div className="flex flex-wrap gap-2">
                             <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
                             <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />

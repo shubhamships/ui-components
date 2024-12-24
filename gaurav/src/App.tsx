@@ -20,7 +20,7 @@ function App() {
     <>
       <BrowserRouter>
         <div className="flex justify-center items-center w-full z-20 ">
-          <ul className="flex justify-between items-center bg-recipebg gap-6 p-2 px-8 w-full">
+          <ul className="flex justify-between items-center bg-recipebg gap-6 p-2 px-2 lg:px-8 w-full">
             <MenuLink
               route="/"
               className="text-white text-3xl font-bold"

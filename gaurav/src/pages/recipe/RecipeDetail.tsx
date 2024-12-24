@@ -79,8 +79,8 @@ export const RecipeDetail = () => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col lg:flex-row w-full items-baseline justify-between gap-5 mt-5">
-              <div className="text-white m-4 p-5 w-full" >
+            <div className="flex flex-col lg:flex-row w-full items-center lg:items-baseline justify-between gap-5 mt-5">
+              <div className="text-white m-4 px-4 md:p-5 w-full" >
                 <div className="bg-recipeDetailsBg px-4 rounded-lg shadow-lg">
                   <div className="text-xl font-bold text-recipeDetailColor pt-2">Ingredients List</div>
                   <ul className="text-lg mt-2 pr-2 pb-4 text-nowrap">
