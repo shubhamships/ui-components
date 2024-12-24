@@ -35,6 +35,7 @@ export const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(3);
+  const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
 
   const navigate = useNavigate();
 
@@ -121,9 +122,11 @@ export const HomePage = () => {
         const updatedRecipe = [...savedRecipe, recipe];
         setSavedRecipe(updatedRecipe);
         localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
-        handleShowToast("Recipe Already Saved");
-      } else {
         handleShowToast("Recipe Saved Successfully");
+        setSavedStatus((prevStatus) => ({ ...prevStatus, [id]: true }));
+        localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: true }));
+      } else {
+        handleShowToast("Recipe Already Saved");
       }
     }
   };
@@ -156,15 +159,23 @@ export const HomePage = () => {
     return <div className="h-screen bg-recipebg text-white cursor-wait flex items-center justify-center">Loading</div>;
   }
 
-  // Toast
+  useEffect(() => {
+    const savedRecipeStatus = localStorage.getItem("savedStatus");
+    if (savedRecipeStatus) {
+      setSavedStatus(JSON.parse(savedRecipeStatus));
+    }
+  }, [])
+
+  Toast
   const handleShowToast = (message: string) => {
     setToastMessage(message);
     setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
   };
 
-  const handleCloseToast = () => {
-    setShowToast(false);
-  };
+
 
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
@@ -173,7 +184,7 @@ export const HomePage = () => {
     <>
       <div className="min-h-screen bg-recipebg w-full relative">
         <div className="absolute top-0 right-0">
-          {showToast && <Toast message={toastMessage} onClose={handleCloseToast} />}
+          {showToast && <Toast message={toastMessage} />}
         </div>
         <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
@@ -222,7 +233,7 @@ export const HomePage = () => {
                   onChange={handleAreaChange}
                   className="appearance-none px-2 text-xs h-8"
                 />
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none"/>
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
               </div>
             </div>
           </div>
@@ -238,7 +249,7 @@ export const HomePage = () => {
                       className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
                       onClick={() => handleSavedRecipe(recipe.idMeal)}
                     >
-                      save
+                      {savedStatus[recipe.idMeal] ? "saved" : "save"}
                     </div>
                     <div className="w-full">
                       <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />

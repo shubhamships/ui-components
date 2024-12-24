@@ -10,11 +10,12 @@ function App() {
   const handleReset = () => {
     try {
       localStorage.clear();
-      alert("Reset Successful");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
+  
   return (
     <>
       <BrowserRouter>
