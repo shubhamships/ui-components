@@ -1,6 +1,6 @@
 import Input from "@/components/ui/Input";
 import axios from "axios";
-import { Play, Search } from "lucide-react";
+import { MapPin, Play, Search, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
@@ -112,13 +112,25 @@ export const SearchResults = () => {
                   </div>
                   <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                     <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                    <CardSmallDetail label="Tags" detail={recipe.strTags} />
-                    <CardSmallDetail label="Area" detail={recipe.strArea} />
-                    <CardSmallDetail label="Category" detail={recipe.strCategory} />
-                    <p className="text-white text-balance text-ellipsis">
-                      <span className="font-semibold text-white">Instruction:</span>
-                      {recipe.strInstructions.split(" ").slice(0, 20).join(" ") + " "}
-                      <span className="cursor-pointer text-sm font-semibold">Read More . . .</span>
+                    <div className="pt-1">
+                      <div className="flex flex-wrap gap-2">
+                        <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
+                        <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />
+                        <CardSmallDetail iconName={<Utensils className="w-3 h-3 mr-1" />} detail={recipe.strCategory} />
+                      </div>
+                    </div>
+                    <p className="text-white text-balance text-ellipsis pt-1">
+                      <span className="font-semibold text-white">Instruction: </span>
+                      {recipe.strInstructions ? (
+                        <>
+                          <span className="text-sm">
+                            {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}
+                          </span>
+                          <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
+                        </>
+                      ) : (
+                        "No Instructions"
+                      )}
                     </p>
                   </div>
                 </div>

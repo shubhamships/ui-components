@@ -18,6 +18,7 @@ export const SavedRecipe = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchresults, setSearchResults] = useState<IRecipeData[]>([]);
+  const [found, setFound] = useState<boolean>(false);
 
   useEffect(() => {
     // const state = location.state as { savedRecipe: IRecipeData[] };
@@ -34,6 +35,13 @@ export const SavedRecipe = () => {
   const handleClick = (id: string) => {
     navigate(`/recipedetail/${id}`);
   };
+  if (searchresults.length === 0) {
+    return (
+      <div className="h-screen text-2xl font-bold bg-recipebg text-white flex items-center justify-center">
+        Your List is Empty
+      </div>
+    );
+  }
 
   return (
     <>
@@ -65,7 +73,6 @@ export const SavedRecipe = () => {
                               detail={recipe.strCategory}
                             />
                           </div>
-
                           <p className="text-white text-balance text-ellipsis">
                             <span className="font-semibold text-white">Instruction: </span>
                             {recipe.strInstructions.split(" ").slice(0, 10).join(" ") + ". . . "}

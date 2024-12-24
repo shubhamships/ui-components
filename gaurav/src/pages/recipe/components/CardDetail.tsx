@@ -12,19 +12,11 @@ interface IRecipeData {
 }
 interface ICardDetailProps {
   currentRecipes: IRecipeData[];
-  onClick: any;
-  recipeId: any;
+  savedRecipe: () => void;
+  recipeId: () => void;
   handleClick: (id: string) => void;
 }
-export const CardDetail = ({ currentRecipes }: ICardDetailProps) => {
-  function handleSavedRecipe(idMeal: string): void {
-      console.log(`Recipe with ID ${idMeal} saved.`);
-      // Implement the logic to save the recipe, e.g., update state or make an API call
-  }
-  function handleClick(idMeal: string): void {
-      throw new Error("Function not implemented.");
-  }
-
+export const CardDetail = ({ currentRecipes, savedRecipe, recipeId }: ICardDetailProps) => {
   return (
     <>
       <div className="flex justify-center items-center mx-2 pb-16">
@@ -35,7 +27,7 @@ export const CardDetail = ({ currentRecipes }: ICardDetailProps) => {
                 <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
                   <div
                     className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
-                    onClick={() => handleSavedRecipe(recipe.idMeal)}
+                    onClick={savedRecipe}
                   >
                     save
                   </div>
@@ -44,7 +36,7 @@ export const CardDetail = ({ currentRecipes }: ICardDetailProps) => {
                   </div>
                   <div
                     className="p-4 cursor-pointer"
-                      onClick={() => handleClick(recipe.idMeal)}
+                    onClick={recipeId}
                     // onClick={recipeId}
                   >
                     <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>

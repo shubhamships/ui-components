@@ -21,40 +21,36 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
 
   return (
     <div>
-      <div className="mt-4 pb-10">
-        <div className="flex justify-center items-center bg-white rounded-md p-1 mx-8 md:mx-16 lg:mx-96 ">
+      <div className="flex justify-center items-center mt-4 pt-10 pb-10">
+        <div className="flex justify-center items-center bg-white rounded-md py-1 md:mx-8 lg:mx-16">
           {currentPage > 1 && (
-            <Button
-              title=""
-              className="rounded-sm -px-2 text-center hover:bg-black hover:text-white"
-              variant="ghost"
+            <button
+              className="rounded-sm px-2 text-center hover:bg-black hover:text-white"
               onClick={() => handlePages(currentPage - 1)}
-              iconName={<ChevronLeft />}
-            />
+            >
+              <ChevronLeft />
+            </button>
           )}
           {pages.map((page, index) => (
             <span key={index} className="mx-1">
-              <Button
-                onClick={() => handlePages(index)}
-                title={`${page}`}
-                variant="ghost"
-                size="xs"
-                className="hover:bg-black hover:text-white text-xs"
-              />
+              <button
+                onClick={() => handlePages(page)}
+                className={`hover:bg-black hover:text-white text-xs px-2 py-1 rounded-sm ${
+                  currentPage === page ? "bg-black text-white" : ""
+                }`}
+              >
+                {page}
+              </button>
             </span>
           ))}
-          <Button
-            title=""
-            className="rounded-sm -px-2 text-center hover:bg-black hover:text-white"
-            variant="ghost"
-            size="xs"
-            onClick={() => handlePages(currentPage + 1)}
-            iconName={
-              <span className="-px-2">
-                <ChevronRight />
-              </span>
-            }
-          />
+          {currentPage < pages.length && (
+            <button
+              className="rounded-sm px-2 text-center hover:bg-black hover:text-white"
+              onClick={() => handlePages(currentPage + 1)}
+            >
+              <ChevronRight />
+            </button>
+          )}
         </div>
       </div>
     </div>

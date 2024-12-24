@@ -36,7 +36,7 @@ function Select({ title, id, variant, size, className, options, value, required,
         value={value}
         required={required}
       >
-        <option value="" className="text-sm">
+        <option value="" disabled className="text-sm">
           {title}
         </option>
         {options.map((option) => (

@@ -2,12 +2,13 @@ import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
 import Select from "@/components/ui/Select";
 import axios from "axios";
-import { MapPin, Play, Search, Tags, Utensils } from "lucide-react";
+import { ChevronDown, MapPin, Search, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
 import { CardSmallDetail } from "./components/CardSmallDetail";
-import { CardDetail } from "./components/CardDetail";
+import { Toast } from "./components/Toast";
+import { set } from "date-fns";
 
 interface IData {
   strMeal: string;
@@ -26,11 +27,14 @@ export const HomePage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
 
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
   const [categories, setCategories] = useState<string[]>([]);
   const [areas, setAreas] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedArea, setSelectedArea] = useState<string>("all");
-
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(3);
 
@@ -55,6 +59,7 @@ export const HomePage = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const loadData = async () => {
       const result = await fetchRecipes();
       setRecipes(result);
@@ -63,6 +68,7 @@ export const HomePage = () => {
       setAreas(["all", ...areasData]);
     };
     loadData();
+    setLoading(false);
   }, []);
 
   const fetchCategories = async () => {
@@ -117,9 +123,9 @@ export const HomePage = () => {
         const updatedRecipe = [...savedRecipe, recipe];
         setSavedRecipe(updatedRecipe);
         localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
-        alert("Recipe Saved");
+        handleShowToast("Recipe Already Saved");
       } else {
-        alert("Recipe Already Saved");
+        handleShowToast("Recipe Saved Successfully");
       }
     }
   };
@@ -148,16 +154,31 @@ export const HomePage = () => {
     fetchData();
   }, [searchQuery]);
 
+  if (!filteredRecipes) {
+    return <div className="h-screen bg-recipebg text-white cursor-wait flex items-center justify-center">Loading</div>;
+  }
+
+  // Toast
+  const handleShowToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+  };
+
+  const handleCloseToast = () => {
+    setShowToast(false);
+  };
+
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   console.log(savedRecipe, "Saved Recipe");
   return (
     <>
-      <div className="bg-recipebg w-full min-h-screen relative">
+      <div className="min-h-screen bg-recipebg w-full relative">
+        <div className="absolute top-0 right-0">{showToast && <Toast message={toastMessage} onClose={handleCloseToast} />}</div>
         <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
-            <br /> Taste It!
+            <div> Taste It!</div>
           </h1>
         </div>
         <div className="px-4 md:px-20 lg:px-96 mt-5 shadow-inner">
@@ -174,32 +195,40 @@ export const HomePage = () => {
               <Search onClick={handleSearch} />
             </div>
           </Input>
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex md:flex-row justify-between items-center gap-2">
             <Button
               title="Saved Recipes"
               className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
               onClick={navigatetoSaved}
             />
             <div className="gap-2 flex justify-end items-center mt-2">
-              <Select
-                title="Select Category"
-                id="category-select"
-                options={categories.map((category) => ({ value: category, label: category }))}
-                value={selectedCategory}
-                onChange={handleCategoryChange}
-              />
-              <Select
-                title="Select Area"
-                id="Area-select"
-                options={areas.map((category) => ({ value: category, label: category }))}
-                value={selectedArea}
-                onChange={handleAreaChange}
-              />
+              <div className="relative w-full">
+                <Select
+                  title="Select Category"
+                  id="category-select"
+                  options={categories.map((category) => ({ value: category, label: category }))}
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                  className="appearance-none px-1 text-xs h-8"
+                />
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
+              </div>
+              <div className="relative w-full">
+                <Select
+                  title="Select Area"
+                  id="Area-select"
+                  options={areas.map((category) => ({ value: category, label: category }))}
+                  value={selectedArea}
+                  onChange={handleAreaChange}
+                  className="appearance-none px-2 text-xs h-8"
+                />
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* <div className="flex justify-center items-center mx-2 pb-16">
+        <div className="flex justify-center items-center mx-2 pb-28">
           <div className="flex flex-col lg:flex-row justify-center items-start pt-5 pb-2 m-2 gap-8">
             {currentRecipes.length > 0 &&
               currentRecipes.map((recipe, index) => (
@@ -230,7 +259,9 @@ export const HomePage = () => {
                         <span className="font-semibold text-white">Instruction: </span>
                         {recipe.strInstructions ? (
                           <>
-                            <span className="text-sm">{recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}</span>
+                            <span className="text-sm">
+                              {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}
+                            </span>
                             <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
                           </>
                         ) : (
@@ -242,14 +273,10 @@ export const HomePage = () => {
                 </div>
               ))}
           </div>
-        </div> */}
-        <CardDetail 
-          currentRecipes={currentRecipes} 
-          onClick={handleClick} 
-          recipeId={(recipe:any) => recipe.idMeal} 
-          handleClick={handleClick} 
-        />
-        <div className="absolute bottom-0 w-full flex justify-center items-center">
+        </div>
+
+        {/* <CardDetail currentRecipes={currentRecipes} savedRecipe={handleSavedRecipe} recipeId={(recipe) => recipe.idMeal} /> */}
+        <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
           <Pagination
             totalRecipe={recipes.length}
             totalRecipePerPage={recipesPerPage}
