@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
 import { CardSmallDetail } from "./components/CardSmallDetail";
 import { Toast } from "./components/Toast";
-import { set } from "date-fns";
-
 interface IData {
   strMeal: string;
   strMealThumb: string;
@@ -174,7 +172,9 @@ export const HomePage = () => {
   return (
     <>
       <div className="min-h-screen bg-recipebg w-full relative">
-        <div className="absolute top-0 right-0">{showToast && <Toast message={toastMessage} onClose={handleCloseToast} />}</div>
+        <div className="absolute top-0 right-0">
+          {showToast && <Toast message={toastMessage} onClose={handleCloseToast} />}
+        </div>
         <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
@@ -222,7 +222,7 @@ export const HomePage = () => {
                   onChange={handleAreaChange}
                   className="appearance-none px-2 text-xs h-8"
                 />
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
+                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none"/>
               </div>
             </div>
           </div>

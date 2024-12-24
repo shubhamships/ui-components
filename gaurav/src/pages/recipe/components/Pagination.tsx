@@ -1,5 +1,4 @@
-import Button from "@/components/ui/personal/Button";
-import { ChevronLeft, ChevronRight, Divide } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 interface IPagination {
@@ -12,6 +11,7 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
   const handlePages = (page: number) => {
     setCurrentPage(page);
     setCurrentPages(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   let pages = [];
