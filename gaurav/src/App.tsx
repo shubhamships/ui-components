@@ -15,18 +15,31 @@ function App() {
       console.log(error);
     }
   };
-  
+
+  // const handleNavigate = () => {
+  //   try {
+  //     navigate("saved");
+  //   } catch(error) {
+  //     console.log(error);
+  //   }
+  // }
+
   return (
     <>
       <BrowserRouter>
         <div className="flex justify-center items-center w-full z-20 ">
-          <ul className="flex justify-between items-center bg-recipebg gap-6 p-2 px-2 lg:px-8 w-full">
+          <ul className="flex justify-between items-center bg-recipebg md:gap-6 p-2 px-2 lg:px-8 w-full">
             <MenuLink
               route="/"
               className="text-white text-3xl font-bold"
               iconName={<img src="/recipe/logo.png" alt="Recipe Logo" className="object-center h-14" />}
             />
             <div className="flex justify-center items-center gap-2">
+              <Button
+                title="Saved Recipes"
+                className="bg-transparent text-sm shadow-none hover:bg-transparent border-none hover:bg-opacity-75"
+                // onClick={handleNavigate}
+              />
               <Button
                 title="Reset"
                 className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"

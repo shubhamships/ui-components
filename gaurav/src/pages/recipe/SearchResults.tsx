@@ -1,6 +1,6 @@
 import Input from "@/components/ui/Input";
 import axios from "axios";
-import { MapPin, Play, Search, Tags, Utensils } from "lucide-react";
+import { Check, MapPin, Play, Plus, Search, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
@@ -23,6 +23,11 @@ export const SearchResults = () => {
   const [searchresults, setSearchResults] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
+
 
   const query = new URLSearchParams(location.search).get("query");
 
@@ -61,6 +66,7 @@ export const SearchResults = () => {
     navigate(`/recipedetail/${id}`);
   };
 
+
   const handleSavedRecipe = (id: string): void => {
     const recipe = searchresults.find((recipe) => recipe.idMeal === id);
     if (recipe) {
@@ -69,11 +75,28 @@ export const SearchResults = () => {
         const updatedSavedRecipes = [...savedRecipe, recipe];
         setSavedRecipe(updatedSavedRecipes);
         localStorage.setItem("savedRecipe", JSON.stringify(updatedSavedRecipes));
-        alert("Recipe Saved");
+        handleShowToast("Recipe Saved Successfully");
+        setSavedStatus((prevStatus) => ({ ...prevStatus, [id]: true }));
+        localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: true }));
       } else {
-        alert("Recipe already saved");
+        handleShowToast("Recipe Already Saved");
       }
     }
+  };
+
+  useEffect(() => {
+    const savedRecipeStatus = localStorage.getItem("savedStatus");
+    if (savedRecipeStatus) {
+      setSavedStatus(JSON.parse(savedRecipeStatus));
+    }
+  }, []);
+
+  const handleShowToast = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
   };
 
   return (
@@ -93,7 +116,7 @@ export const SearchResults = () => {
           </Input>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 justify-around items-center lg:pb-16 lg:mx-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
           {searchresults.length > 0 &&
             searchresults.map((recipe, index) => (
               <div
@@ -102,10 +125,14 @@ export const SearchResults = () => {
               >
                 <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
                   <div
-                    className="absolute right-2 top-2 p-1 text-xs font-semibold px-2 text-red-500 rounded-full bg-white cursor-pointer border border-red-500"
+                    className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
                     onClick={() => handleSavedRecipe(recipe.idMeal)}
                   >
-                    save
+                    {savedStatus[recipe.idMeal] ? (
+                        <Check className="h-4 w-4 text-green-500 border-green-500" />
+                      ) : (
+                        <Plus className="h-4 w-4 text-green-500 border-green-500" />
+                      )}
                   </div>
                   <div className="w-full">
                     <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />

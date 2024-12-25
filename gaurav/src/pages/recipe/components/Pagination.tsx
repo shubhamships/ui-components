@@ -22,7 +22,7 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
   return (
     <div>
       <div className="flex justify-center items-center mt-4 pt-10 pb-10">
-        <div className="flex justify-center items-center bg-white rounded-md py-1 md:mx-8 lg:mx-16">
+        <div className="flex justify-center items-center bg-white rounded-md py-1 md:px-2 md:py-2 md:mx-8 lg:mx-16 md:gap-2">
           {currentPage > 1 && (
             <button
               className="rounded-sm px-2 text-center hover:bg-black hover:text-white"
@@ -35,7 +35,7 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
             <span key={index} className="mx-1">
               <button
                 onClick={() => handlePages(page)}
-                className={`hover:bg-black hover:text-white text-xs px-2 py-1 rounded-sm ${
+                className={`hover:bg-black hover:text-white text-xs px-2 py-1 md:p-2 md:px-3 rounded-sm ${
                   currentPage === page ? "bg-black text-white" : ""
                 }`}
               >
@@ -45,7 +45,7 @@ export const Pagination = ({ totalRecipe, totalRecipePerPage, setCurrentPages }:
           ))}
           {currentPage < pages.length && (
             <button
-              className="rounded-sm px-2 text-center hover:bg-black hover:text-white"
+              className="rounded-sm md:px-1 py-1 text-center hover:bg-black hover:text-white"
               onClick={() => handlePages(currentPage + 1)}
             >
               <ChevronRight />

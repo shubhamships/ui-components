@@ -164,9 +164,8 @@ export const HomePage = () => {
     if (savedRecipeStatus) {
       setSavedStatus(JSON.parse(savedRecipeStatus));
     }
-  }, [])
+  }, []);
 
-  Toast
   const handleShowToast = (message: string) => {
     setToastMessage(message);
     setShowToast(true);
@@ -175,23 +174,20 @@ export const HomePage = () => {
     }, 3000);
   };
 
-
   console.log(filteredRecipes, "Filtered Recipes");
   console.log(recipes, "Recipes");
   console.log(savedRecipe, "Saved Recipe");
   return (
     <>
       <div className="min-h-screen bg-recipebg w-full relative">
-        <div className="absolute top-0 right-0">
-          {showToast && <Toast message={toastMessage} />}
-        </div>
+        <div className="absolute top-0 right-0">{showToast && <Toast message={toastMessage} />}</div>
         <div className="text-white text-4xl font-semibold mt-10">
           <h1 className="text-center">
             Find Recipies. Learn Ingredients.
             <div> Taste It!</div>
           </h1>
         </div>
-        <div className="px-4 md:px-20 lg:px-96 mt-5 shadow-inner">
+        <div className="px-4 md:px-20 lg:px-40 xl:px-80 2xl:px-96 mt-5 shadow-inner">
           <Input
             type="text"
             id="recipe-input"
@@ -237,9 +233,8 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
-
         <div className="flex justify-center items-center mx-2 pb-28">
-          <div className="flex flex-col lg:flex-row justify-center items-start pt-5 pb-2 m-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
             {currentRecipes.length > 0 &&
               currentRecipes.map((recipe, index) => (
                 <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
@@ -248,12 +243,16 @@ export const HomePage = () => {
                       className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
                       onClick={() => handleSavedRecipe(recipe.idMeal)}
                     >
-                      {savedStatus[recipe.idMeal] ? <Check className="h-4 w-4 text-green-500 border-green-500" /> : <Plus className="h-4 w-4 text-green-500 border-green-500"/>}
+                      {savedStatus[recipe.idMeal] ? (
+                        <Check className="h-4 w-4 text-green-500 border-green-500" />
+                      ) : (
+                        <Plus className="h-4 w-4 text-green-500 border-green-500" />
+                      )}
                     </div>
                     <div className="w-full">
-                      <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover"/>
+                      <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
                     </div>
-                    <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
+                    <div className="px-4 pb-2 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
                       <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
                       <div className="pt-1">
                         <div className="flex flex-wrap gap-2">
