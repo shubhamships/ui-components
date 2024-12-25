@@ -4,6 +4,7 @@ import { Check, MapPin, Play, Plus, Search, Tags, Utensils } from "lucide-react"
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
+import RecipeCard from "./components/RecipeCard";
 
 interface IData {
   strMeal: string;
@@ -14,6 +15,7 @@ interface IData {
   idMeal: string;
   strCategory: string;
   strArea: string;
+  savedRecipe: string[];
 }
 
 export const SearchResults = () => {
@@ -27,7 +29,6 @@ export const SearchResults = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
-
 
   const query = new URLSearchParams(location.search).get("query");
 
@@ -65,7 +66,6 @@ export const SearchResults = () => {
   const handleClick = (id: string) => {
     navigate(`/recipedetail/${id}`);
   };
-
 
   const handleSavedRecipe = (id: string): void => {
     const recipe = searchresults.find((recipe) => recipe.idMeal === id);
@@ -119,49 +119,13 @@ export const SearchResults = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
           {searchresults.length > 0 &&
             searchresults.map((recipe, index) => (
-              <div
+              <RecipeCard
                 key={index}
-                className="flex justify-center items-center cursor-pointer pt-10 pb-20 m-2 hover:scale-105 duration-200"
-              >
-                <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
-                  <div
-                    className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
-                    onClick={() => handleSavedRecipe(recipe.idMeal)}
-                  >
-                    {savedStatus[recipe.idMeal] ? (
-                        <Check className="h-4 w-4 text-green-500 border-green-500" />
-                      ) : (
-                        <Plus className="h-4 w-4 text-green-500 border-green-500" />
-                      )}
-                  </div>
-                  <div className="w-full">
-                    <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
-                  </div>
-                  <div className="p-4 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
-                    <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                    <div className="pt-1">
-                      <div className="flex flex-wrap gap-2">
-                        <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
-                        <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />
-                        <CardSmallDetail iconName={<Utensils className="w-3 h-3 mr-1" />} detail={recipe.strCategory} />
-                      </div>
-                    </div>
-                    <p className="text-white text-balance text-ellipsis pt-1">
-                      <span className="font-semibold text-white">Instruction: </span>
-                      {recipe.strInstructions ? (
-                        <>
-                          <span className="text-sm">
-                            {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}
-                          </span>
-                          <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
-                        </>
-                      ) : (
-                        "No Instructions"
-                      )}
-                    </p>
-                  </div>
-                </div>
-              </div>
+                recipe={recipe}
+                handleSavedRecipe={handleSavedRecipe}
+                handleClick={handleClick}
+                savedStatus={savedStatus[recipe.idMeal] || false}
+              />
             ))}
         </div>
       </div>

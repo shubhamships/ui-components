@@ -1,13 +1,14 @@
 import Input from "@/components/ui/Input";
 import Button from "@/components/ui/personal/Button";
-import Select from "@/components/ui/Select";
 import axios from "axios";
-import { Check, ChevronDown, MapPin, Plus, Search, Tags, Trash2, Utensils } from "lucide-react";
+import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
-import { CardSmallDetail } from "./components/CardSmallDetail";
 import { Toast } from "./components/Toast";
+import { Header } from "./components/Header";
+import RecipeCard from "./components/RecipeCard";
+import { Filters } from "./components/Filters";
 interface IData {
   strMeal: string;
   strMealThumb: string;
@@ -181,12 +182,7 @@ export const HomePage = () => {
     <>
       <div className="min-h-screen bg-recipebg w-full relative">
         <div className="absolute top-0 right-0">{showToast && <Toast message={toastMessage} />}</div>
-        <div className="text-white text-4xl font-semibold mt-10">
-          <h1 className="text-center">
-            Find Recipies. Learn Ingredients.
-            <div> Taste It!</div>
-          </h1>
-        </div>
+        <Header />
         <div className="px-4 md:px-20 lg:px-40 xl:px-80 2xl:px-96 mt-5 shadow-inner">
           <Input
             type="text"
@@ -207,84 +203,31 @@ export const HomePage = () => {
               className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
               onClick={navigatetoSaved}
             />
-            <div className="gap-2 flex justify-end items-center mt-2">
-              <div className="relative w-full">
-                <Select
-                  title="Select Category"
-                  id="category-select"
-                  options={categories.map((category) => ({ value: category, label: category }))}
-                  value={selectedCategory}
-                  onChange={handleCategoryChange}
-                  className="appearance-none px-1 text-xs h-8"
-                />
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
-              </div>
-              <div className="relative w-full">
-                <Select
-                  title="Select Area"
-                  id="Area-select"
-                  options={areas.map((category) => ({ value: category, label: category }))}
-                  value={selectedArea}
-                  onChange={handleAreaChange}
-                  className="appearance-none px-2 text-xs h-8"
-                />
-                <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 pr-1 pointer-events-none" />
-              </div>
-            </div>
+            <Filters
+              categories={categories}
+              selectedCategory={selectedCategory}
+              handleCategoryChange={handleCategoryChange}
+              areas={areas}
+              selectedArea={selectedArea}
+              handleAreaChange={handleAreaChange}
+            />
           </div>
         </div>
         <div className="flex justify-center items-center mx-2 pb-28">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
             {currentRecipes.length > 0 &&
               currentRecipes.map((recipe, index) => (
-                <div key={index} className="flex justify-center items-center hover:scale-105 duration-200">
-                  <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden h-96 overflow-y-hidden">
-                    <div
-                      className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
-                      onClick={() => handleSavedRecipe(recipe.idMeal)}
-                    >
-                      {savedStatus[recipe.idMeal] ? (
-                        <Check className="h-4 w-4 text-green-500 border-green-500" />
-                      ) : (
-                        <Plus className="h-4 w-4 text-green-500 border-green-500" />
-                      )}
-                    </div>
-                    <div className="w-full">
-                      <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-full h-40 object-cover" />
-                    </div>
-                    <div className="px-4 pb-2 cursor-pointer" onClick={() => handleClick(recipe.idMeal)}>
-                      <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
-                      <div className="pt-1">
-                        <div className="flex flex-wrap gap-2">
-                          <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
-                          <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />
-                          <CardSmallDetail
-                            iconName={<Utensils className="w-3 h-3 mr-1" />}
-                            detail={recipe.strCategory}
-                          />
-                        </div>
-                      </div>
-                      <p className="text-white text-balance text-ellipsis pt-1">
-                        <span className="font-semibold text-white">Instruction: </span>
-                        {recipe.strInstructions ? (
-                          <>
-                            <span className="text-sm">
-                              {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}
-                            </span>
-                            <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
-                          </>
-                        ) : (
-                          "No Instructions"
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <RecipeCard
+                  key={index}
+                  recipe={recipe}
+                  handleSavedRecipe={handleSavedRecipe}
+                  handleClick={handleClick}
+                  savedStatus={savedStatus[recipe.idMeal] || false}
+                />
               ))}
           </div>
         </div>
 
-        {/* <CardDetail currentRecipes={currentRecipes} savedRecipe={handleSavedRecipe} recipeId={(recipe) => recipe.idMeal} /> */}
         <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
           <Pagination
             totalRecipe={recipes.length}
