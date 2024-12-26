@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
 import RecipeCard from "./components/RecipeCard";
+import { Pagination } from "./components/Pagination";
 
 interface IData {
   strMeal: string;
@@ -29,6 +30,9 @@ export const SearchResults = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [recipesPerPage, setRecipesPerPage] = useState(6);
 
   const query = new URLSearchParams(location.search).get("query");
 
@@ -99,16 +103,25 @@ export const SearchResults = () => {
     }, 3000);
   };
 
+  // Pagination Logic
+  const indexOfLastRecipe = currentPage * recipesPerPage;
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+  const currentRecipes = searchresults.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
   return (
     <>
-      <div className="bg-[#083344] min-h-screen">
-        <div className="px-4 md:px-20 lg:px-64">
+      <div className="bg-[#083344] min-h-screen relative">
+        <div className="text-white bg-transparent text-4xl font-semibold pt-10 pb-5">
+          <h1 className="text-center">Search Results</h1>
+        </div>
+        <div className="px-4 md:px-20 lg:px-32 xl:px-64 2xl:px-96">
           <Input
             type="text"
             id="recipe-input"
             placeholder="Search Your Favorite Recipe. . ."
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
+            className="appearence-none border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
           >
             <div className="px-2 cursor-pointer">
               <Search onClick={handleSearch} />
@@ -116,17 +129,26 @@ export const SearchResults = () => {
           </Input>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-start pt-5 pb-2 m-2 gap-4 lg:gap-8 lg:mx-8">
-          {searchresults.length > 0 &&
-            searchresults.map((recipe, index) => (
-              <RecipeCard
-                key={index}
-                recipe={recipe}
-                handleSavedRecipe={handleSavedRecipe}
-                handleClick={handleClick}
-                savedStatus={savedStatus[recipe.idMeal] || false}
-              />
-            ))}
+        <div className="flex justify-center items-center mx-2 pb-28">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-4 lg:gap-8 lg:mx-8">
+            {currentRecipes.length > 0 &&
+              currentRecipes.map((recipe, index) => (
+                <RecipeCard
+                  key={index}
+                  recipe={recipe}
+                  handleSavedRecipe={handleSavedRecipe}
+                  handleClick={handleClick}
+                  savedStatus={savedStatus[recipe.idMeal] || false}
+                />
+              ))}
+          </div>
+        </div>
+        <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
+          <Pagination
+            totalRecipe={searchresults.length}
+            totalRecipePerPage={recipesPerPage}
+            setCurrentPages={setCurrentPage}
+          />
         </div>
       </div>
     </>
