@@ -116,7 +116,7 @@ export const SearchResults = () => {
           </Input>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center items-start pt-5 pb-2 m-2 gap-4 lg:gap-8 lg:mx-8">
           {searchresults.length > 0 &&
             searchresults.map((recipe, index) => (
               <RecipeCard

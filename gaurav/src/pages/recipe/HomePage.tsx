@@ -132,9 +132,9 @@ export const HomePage = () => {
     }
   };
 
-  const navigatetoSaved = () => {
-    navigate("saved", { state: { savedRecipe } });
-  };
+  // const navigatetoSaved = () => {
+  //   navigate("saved", { state: { savedRecipe } });
+  // };
 
   const filteredRecipes = recipes.filter((recipe) =>
     recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -164,6 +164,13 @@ export const HomePage = () => {
     const savedRecipeStatus = localStorage.getItem("savedStatus");
     if (savedRecipeStatus) {
       setSavedStatus(JSON.parse(savedRecipeStatus));
+    }
+  }, []);
+  useEffect(() => {
+    // Load saved recipes from localStorage
+    const savedRecipesFromStorage = localStorage.getItem("savedRecipe");
+    if (savedRecipesFromStorage) {
+      setSavedRecipe(JSON.parse(savedRecipesFromStorage));
     }
   }, []);
 
@@ -198,11 +205,11 @@ export const HomePage = () => {
             </div>
           </Input>
           <div className="flex md:flex-row justify-between items-center gap-2">
-            <Button
+            {/* <Button
               title="Saved Recipes"
               className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75 mt-2"
               onClick={navigatetoSaved}
-            />
+            /> */}
             <Filters
               categories={categories}
               selectedCategory={selectedCategory}
