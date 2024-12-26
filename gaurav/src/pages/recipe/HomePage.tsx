@@ -1,5 +1,4 @@
 import Input from "@/components/ui/Input";
-import Button from "@/components/ui/personal/Button";
 import axios from "axios";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -80,7 +79,7 @@ export const HomePage = () => {
       return [];
     }
   };
-  console.log();
+
   const fetchAreas = async () => {
     try {
       const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
@@ -90,7 +89,7 @@ export const HomePage = () => {
       return [];
     }
   };
-  console.log(fetchAreas, "fetchAreas");
+
   const handleCategoryChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const category = e.target.value;
     setSelectedCategory(category);
@@ -135,6 +134,14 @@ export const HomePage = () => {
       }
     }
   };
+  const handleRemoveRecipe = (id: string): void => {
+    const updatedRecipe = savedRecipe.filter((recipe) => recipe.idMeal !== id);
+    setSavedRecipe(updatedRecipe);
+    localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
+    handleShowToast("Recipe Removed Successfully");
+    setSavedStatus((prevStatus) => ({...prevStatus, [id]: false}));
+    localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: false}));
+  }
 
   const filteredRecipes = recipes.filter((recipe) =>
     recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -182,9 +189,6 @@ export const HomePage = () => {
     }, 3000);
   };
 
-  console.log(filteredRecipes, "Filtered Recipes");
-  console.log(recipes, "Recipes");
-  console.log(savedRecipe, "Saved Recipe");
   return (
     <>
       <div className="min-h-screen bg-recipebg w-full relative">
@@ -230,6 +234,7 @@ export const HomePage = () => {
                   recipe={recipe}
                   handleSavedRecipe={handleSavedRecipe}
                   handleClick={handleClick}
+                  handleRemoveRecipe={handleRemoveRecipe}
                   savedStatus={savedStatus[recipe.idMeal] || false}
                 />
               ))}

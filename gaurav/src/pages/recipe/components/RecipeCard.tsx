@@ -1,6 +1,5 @@
-import React from 'react';
-import { Check, MapPin, Plus, Tags, Utensils } from 'lucide-react';
-import { CardSmallDetail } from './CardSmallDetail';
+import { MapPin, Plus, Tags, Trash2, Utensils } from "lucide-react";
+import { CardSmallDetail } from "./CardSmallDetail";
 
 interface IData {
   strMeal: string;
@@ -17,22 +16,24 @@ interface IData {
 interface RecipeCardProps {
   recipe: IData;
   handleSavedRecipe: (id: string) => void;
+  handleRemoveRecipe: (id: string) => void;
   handleClick: (id: string) => void;
   savedStatus: boolean;
 }
 
-const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, handleSavedRecipe, handleClick, savedStatus }) => {
+const RecipeCard = ({ recipe, handleSavedRecipe, handleRemoveRecipe, handleClick, savedStatus }: RecipeCardProps) => {
   return (
     <div className="flex justify-center items-center hover:scale-105 duration-200">
       <div className="max-w-80 relative rounded-lg shadow-lg bg-recipeCardBg overflow-hidden min-h-96 pb-2 overflow-y-hidden">
-        <div
-          className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border"
-          onClick={() => handleSavedRecipe(recipe.idMeal)}
-        >
+        <div className="absolute right-2 top-2 p-1 text-xs font-semibold px-1 rounded-full bg-white cursor-pointer border">
           {savedStatus ? (
-            <Check className="h-4 w-4 text-green-500 border-green-500" />
+            <span onClick={() => handleRemoveRecipe(recipe.idMeal)}>
+              <Trash2 className="h-4 w-4 text-red-500 border-red-500" />
+            </span>
           ) : (
-            <Plus className="h-4 w-4 text-green-500 border-green-500" />
+            <span onClick={() => handleSavedRecipe(recipe.idMeal)}>
+              <Plus className="h-4 w-4 text-green-500 border-green-500" />
+            </span>
           )}
         </div>
         <div className="w-full">
@@ -51,10 +52,8 @@ const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, handleSavedRecipe, hand
             <span className="font-semibold text-white">Instruction: </span>
             {recipe.strInstructions ? (
               <>
-                <span className="text-sm">
-                  {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}
-                </span>
-                <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
+                <span className="text-sm">{recipe.strInstructions.split(" ").slice(0, 25).join(" ") + " "}</span>
+                <span className="text-recipebg text-opacity-75 hover:underline cursor-pointer text-xs font-semibold">Read More . . .</span>
               </>
             ) : (
               "No Instructions"

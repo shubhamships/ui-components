@@ -1,11 +1,11 @@
 import Input from "@/components/ui/Input";
 import axios from "axios";
-import { Check, MapPin, Play, Plus, Search, Tags, Utensils } from "lucide-react";
+import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CardSmallDetail } from "./components/CardSmallDetail";
 import RecipeCard from "./components/RecipeCard";
 import { Pagination } from "./components/Pagination";
+import { Toast } from "./components/Toast";
 
 interface IData {
   strMeal: string;
@@ -26,11 +26,9 @@ export const SearchResults = () => {
   const [searchresults, setSearchResults] = useState<IData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
-
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
-
+  const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({}); // {idMeal: true}
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
 
@@ -39,12 +37,11 @@ export const SearchResults = () => {
   const fetchRecipes = async (query = ""): Promise<IData[]> => {
     try {
       const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
-      // www.themealdb.com/api/json/v1/1/search.php?f=a
       const data = res.data;
       setSearchResults(data.meals || []);
       return data.meals || [];
     } catch (error) {
-      console.log("Error fetching Recipes", error);
+      handleShowToast("No Recipe Found");
       return [];
     }
   };
@@ -53,22 +50,11 @@ export const SearchResults = () => {
     fetchRecipes(query || "");
   }, [query]);
 
-  useEffect(() => {
-    const savedRecipe = localStorage.getItem("savedRecipe");
-    if (savedRecipe) {
-      setSavedRecipe(JSON.parse(savedRecipe));
-    }
-  }, []);
-
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await fetchRecipes(searchQuery);
     setSearchResults(result);
     navigate(`/searchresults?query=${searchQuery}`);
-  };
-
-  const handleClick = (id: string) => {
-    navigate(`/recipedetail/${id}`);
   };
 
   const handleSavedRecipe = (id: string): void => {
@@ -87,6 +73,26 @@ export const SearchResults = () => {
       }
     }
   };
+
+  const handleRemoveRecipe = (id: string): void => {
+    const updatedRecipe = savedRecipe.filter((recipe) => recipe.idMeal !== id);
+    setSavedRecipe(updatedRecipe);
+    localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
+    handleShowToast("Recipe Removed Successfully");
+    setSavedStatus((prevStatus) => ({ ...prevStatus, [id]: false }));
+    localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: false }));
+  };
+
+  const handleClick = (id: string) => {
+    navigate(`/recipedetail/${id}`);
+  };
+
+  useEffect(() => {
+    const savedRecipe = localStorage.getItem("savedRecipe");
+    if (savedRecipe) {
+      setSavedRecipe(JSON.parse(savedRecipe));
+    }
+  }, []);
 
   useEffect(() => {
     const savedRecipeStatus = localStorage.getItem("savedStatus");
@@ -111,6 +117,11 @@ export const SearchResults = () => {
   return (
     <>
       <div className="bg-[#083344] min-h-screen relative">
+        {showToast && (
+          <div className="absolute top-2 right-2">
+            <Toast message={toastMessage} />
+          </div>
+        )}
         <div className="text-white bg-transparent text-4xl font-semibold pt-10 pb-5">
           <h1 className="text-center">Search Results</h1>
         </div>
@@ -137,6 +148,7 @@ export const SearchResults = () => {
                   key={index}
                   recipe={recipe}
                   handleSavedRecipe={handleSavedRecipe}
+                  handleRemoveRecipe={handleRemoveRecipe}
                   handleClick={handleClick}
                   savedStatus={savedStatus[recipe.idMeal] || false}
                 />
