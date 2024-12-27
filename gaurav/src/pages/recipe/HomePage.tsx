@@ -118,6 +118,7 @@ export const HomePage = () => {
     navigate(`/recipedetail/${id}`);
   };
 
+  // save recipe
   const handleSavedRecipe = (id: string): void => {
     const recipe = recipes.find((recipe) => recipe.idMeal === id);
     if (recipe) {
@@ -134,14 +135,16 @@ export const HomePage = () => {
       }
     }
   };
+
+  // Remove saved recipe
   const handleRemoveRecipe = (id: string): void => {
     const updatedRecipe = savedRecipe.filter((recipe) => recipe.idMeal !== id);
     setSavedRecipe(updatedRecipe);
     localStorage.setItem("savedRecipe", JSON.stringify(updatedRecipe));
     handleShowToast("Recipe Removed Successfully");
-    setSavedStatus((prevStatus) => ({...prevStatus, [id]: false}));
-    localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: false}));
-  }
+    setSavedStatus((prevStatus) => ({ ...prevStatus, [id]: false }));
+    localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: false }));
+  };
 
   const filteredRecipes = recipes.filter((recipe) =>
     recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
@@ -198,31 +201,36 @@ export const HomePage = () => {
           </div>
         )}
         <Header />
-        <div className="flex flex-col md:flex-row justify-between gap-1 px-4 md:px-20 lg:px-32 xl:px-64 2xl:px-96 mt-5 shadow-inner">
-          <div className="flex-grow">
-            <Input
-              type="text"
-              id="recipe-input"
-              placeholder="Search Your Favorite Recipe. . ."
-              className="border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
-            >
-              <div className="px-2 cursor-pointer">
-                <Search onClick={handleSearch} />
-              </div>
-            </Input>
-          </div>
-          <div className="w-1/10">
-            <Filters
-              categories={categories}
-              selectedCategory={selectedCategory}
-              handleCategoryChange={handleCategoryChange}
-              areas={areas}
-              selectedArea={selectedArea}
-              handleAreaChange={handleAreaChange}
-            />
+        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
+            <div className="w-full md:w-3/4">
+              <Input
+                type="text"
+                id="recipe-input"
+                placeholder="Search Your Favorite Recipe. . ."
+                className="w-full border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
+              >
+                <div className="px-2 cursor-pointer">
+                  <Search onClick={handleSearch} />
+                </div>
+              </Input>
+            </div>
+
+            <div className="w-full md:w-1/4 pl-2">
+              <Filters
+                categoryTitle={selectedCategory === "all" ? "All Categories" : selectedCategory}
+                areaTitle={selectedArea === "all" ? "All Areas" : selectedArea}
+                categories={categories}
+                selectedCategory={selectedCategory}
+                handleCategoryChange={handleCategoryChange}
+                areas={areas}
+                selectedArea={selectedArea}
+                handleAreaChange={handleAreaChange}
+              />
+            </div>
           </div>
         </div>
         <div className="flex justify-center items-center mx-2 pb-28">

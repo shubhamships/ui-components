@@ -125,19 +125,24 @@ export const SearchResults = () => {
         <div className="text-white bg-transparent text-4xl font-semibold pt-10 pb-5">
           <h1 className="text-center">Search Results</h1>
         </div>
-        <div className="px-4 md:px-20 lg:px-32 xl:px-64 2xl:px-96">
-          <Input
-            type="text"
-            id="recipe-input"
-            placeholder="Search Your Favorite Recipe. . ."
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
-            className="appearence-none border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
-          >
-            <div className="px-2 cursor-pointer">
-              <Search onClick={handleSearch} />
+        <div className="flex-grow justify-center items-center">
+          <div className="px-4 md:mx-16">
+            {/* Add a max-width wrapper */}
+            <div className="max-w-4xl mx-auto">
+              <Input
+                type="text"
+                id="recipe-input"
+                placeholder="Search Your Favorite Recipe. . ."
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
+                className="appearance-none border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
+              >
+                <div className="px-2 cursor-pointer">
+                  <Search onClick={handleSearch} />
+                </div>
+              </Input>
             </div>
-          </Input>
+          </div>
         </div>
 
         <div className="flex justify-center items-center mx-2 pb-28">

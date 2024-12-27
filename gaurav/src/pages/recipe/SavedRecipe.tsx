@@ -73,9 +73,9 @@ export const SavedRecipe = () => {
                               detail={recipe.strCategory}
                             />
                           </div>
-                          <p className="text-white text-balance text-ellipsis">
+                          <p className="text-white text-balance text-ellipsis pt-2">
                             <span className="font-semibold text-white">Instruction: </span>
-                            {recipe.strInstructions.split(" ").slice(0, 10).join(" ") + ". . . "}
+                            {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + ". . ."}
                           </p>
                           <div>
                             <span className="text-sm font-semibold text-white">Read More . . .</span>
