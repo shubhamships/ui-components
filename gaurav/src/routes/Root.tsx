@@ -24,6 +24,7 @@ export const Root = () => {
     }
   };
 
+
   return (
     <>
       <div className="flex justify-center items-center w-full z-20 ">
@@ -34,6 +35,11 @@ export const Root = () => {
             iconName={<img src="/recipe/logo.png" alt="Recipe Logo" className="object-center h-14" />}
           />
           <div className="flex justify-center items-center gap-2">
+            <Button
+              title="Add Recipe"
+              className="bg-transparent text-sm shadow-none hover:bg-transparent border-none hover:bg-opacity-75"
+              onClick={() => navigate("add")}
+            />
             <Button
               title="Saved Recipes"
               className="bg-transparent text-sm shadow-none hover:bg-transparent border-none hover:bg-opacity-75"
