@@ -11,6 +11,11 @@ export default {
         "popup-image4": "url('./src/assets/popup42.png')",
       },
       fontFamily: { sans: ["Poppins", "sans-serif"], poppins: ["Poppins", "sans-serif"] },
+      colors: {
+        customPurple: "#906d7f",
+        customBlue: "#74838c",
+        footer: "#771444",
+      },
     },
   },
   plugins: [],
