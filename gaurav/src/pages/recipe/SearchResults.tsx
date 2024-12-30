@@ -1,5 +1,4 @@
 import Input from "@/components/ui/Input";
-import axios from "axios";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import RecipeCard from "./components/RecipeCard";
 import { Pagination } from "./components/Pagination";
 import { Toast } from "./components/Toast";
 import { IRecipeData } from "@/lib/interfaces";
+import { apiClient } from "@/api/apiClient";
 
 export const SearchResults = () => {
   const location = useLocation();
@@ -23,11 +23,9 @@ export const SearchResults = () => {
 
   const query = new URLSearchParams(location.search).get("query");
 
-  const API_URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-
   const fetchRecipes = async (query = ""): Promise<IRecipeData[]> => {
     try {
-      const res = await axios.get(`${API_URL}`);
+      const res = await apiClient.get(`search.php?s=${query}`);
       const data = res.data;
       setSearchResults(data.meals || []);
       return data.meals || [];
@@ -45,7 +43,7 @@ export const SearchResults = () => {
     e.preventDefault();
     const result = await fetchRecipes(searchQuery);
     setSearchResults(result);
-    navigate(`/searchresults?query=${searchQuery}`);
+    navigate(`/search-results?query=${searchQuery}`);
   };
 
   const handleSavedRecipe = (id: string): void => {
@@ -75,7 +73,7 @@ export const SearchResults = () => {
   };
 
   const handleClick = (id: string) => {
-    navigate(`/recipedetail/${id}`);
+    navigate(`/recipe-detail/${id}`);
   };
 
   useEffect(() => {

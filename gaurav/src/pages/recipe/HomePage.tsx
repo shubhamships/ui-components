@@ -1,5 +1,4 @@
 import Input from "@/components/ui/Input";
-import axios from "axios";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import { Header } from "./components/Header";
 import RecipeCard from "./components/RecipeCard";
 import { Filters } from "./components/Filters";
 import { IRecipeData } from "@/lib/interfaces";
+import { apiClient } from "@/api/apiClient";
 
 export const HomePage = () => {
   const [recipes, setRecipes] = useState<IRecipeData[]>([]);
@@ -29,18 +29,16 @@ export const HomePage = () => {
 
   const navigate = useNavigate();
 
-  const API_URL = "https://www.themealdb.com/api/json/v1/1/";
-
   const fetchRecipes = async (query = "", category = "all", area = "all") => {
     try {
-      let url = `${API_URL}search.php?s=${query}`;
+      let url = `search.php?s=${query}`;
       if (category !== "all") {
-        url = `${API_URL}filter.php?c=${category}`;
+        url = `filter.php?c=${category}`;
       }
       if (area !== "all") {
-        url = `${API_URL}filter.php?a=${area}`;
+        url = `filter.php?a=${area}`;
       }
-      const res = await axios.get(url);
+      const res = await apiClient.get(url);
       const data = res.data;
       return data.meals || [];
     } catch (error) {
@@ -64,7 +62,7 @@ export const HomePage = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`${API_URL}list.php?c=list`);
+      const res = await apiClient.get("list.php?c=list");
       return res.data.meals.map((meal: { strCategory: string }) => meal.strCategory);
     } catch (error) {
       console.log("Error fetching categories", error);
@@ -74,7 +72,7 @@ export const HomePage = () => {
 
   const fetchAreas = async () => {
     try {
-      const res = await axios.get(`${API_URL}list.php?a=list`);
+      const res = await apiClient.get("list.php?a=list");
       return res.data.meals.map((meal: { strArea: string }) => meal.strArea);
     } catch (error) {
       console.log("Error fetching areas", error);
@@ -103,11 +101,11 @@ export const HomePage = () => {
       return;
     }
     const result = await fetchRecipes(searchQuery);
-    navigate(`/searchresults?query=${searchQuery}`);
+    navigate(`/search-results?query=${searchQuery}`);
     setRecipes(result);
   };
   const handleClick = (id: string) => {
-    navigate(`/recipedetail/${id}`);
+    navigate(`/recipe-detail/${id}`);
   };
 
   // save recipe

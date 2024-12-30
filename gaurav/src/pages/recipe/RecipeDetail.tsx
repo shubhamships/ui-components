@@ -1,19 +1,17 @@
-import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IRecipeData } from "@/lib/interfaces";
+import { apiClient } from "@/api/apiClient";
 
 export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
   const [timeout, setTimeOut] = useState<boolean>(false);
 
-  const apiUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-
   const fetchRecipeDetail = async (id?: string) => {
     try {
-      const res = await axios.get(`${apiUrl}`);
+      const res = await apiClient.get(`lookup.php?i=${id}`);
       const data = res.data.meals[0];
       setRecipe(data);
     } catch (error) {

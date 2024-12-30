@@ -17,7 +17,7 @@ export const SavedRecipe = () => {
   console.log(searchresults);
 
   const handleClick = (id: string) => {
-    navigate(`/recipedetail/${id}`);
+    navigate(`/recipe-detail/${id}`);
   };
   if (searchresults.length === 0) {
     return (
