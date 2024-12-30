@@ -39,7 +39,11 @@ export const HomePage = () => {
         url = `filter.php?a=${area}`;
       }
       const res = await apiClient.get(url);
-      return res.data.meals;
+      if (res.data.meals) {
+        return res.data.meals;
+      } else {
+        return [];
+      }
     } catch (error) {
       console.log("Error fetching Recipes", error);
       return [];
@@ -175,7 +179,7 @@ export const HomePage = () => {
 
   return (
     <>
-      {currentRecipes.length === 0 ? (
+      {!currentRecipes ? (
         <div className="h-screen bg-recipebg w-full text-white cursor-wait flex items-center justify-center">
           Loading <Loader className="animate-spin w-5 h-5 mx-2" />
         </div>
@@ -219,10 +223,10 @@ export const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center mx-2 pb-28">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
-              {currentRecipes.length > 0 &&
-                currentRecipes.map((recipe, index) => (
+          {currentRecipes.length > 0 ? (
+            <div className="flex justify-center items-center mx-2 pb-28">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
+                {currentRecipes.map((recipe, index) => (
                   <RecipeCard
                     key={index}
                     recipe={recipe}
@@ -232,8 +236,13 @@ export const HomePage = () => {
                     savedStatus={savedStatus[recipe.idMeal] || false}
                   />
                 ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-center mt-64">
+              <h2 className="text-2xl text-white font-bold">No Recipe Found...</h2>
+            </div>
+          )}
 
           <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
             <Pagination
