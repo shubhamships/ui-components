@@ -8,6 +8,7 @@ import { Toast } from "./components/Toast";
 import { Header } from "./components/Header";
 import RecipeCard from "./components/RecipeCard";
 import { Filters } from "./components/Filters";
+import { useRecipes } from "./hooks/useRecipes";
 interface IData {
   strMeal: string;
   strMealThumb: string;
@@ -21,7 +22,7 @@ interface IData {
 }
 
 export const HomePage = () => {
-  const [recipes, setRecipes] = useState<IData[]>([]);
+  const { recipes, setRecipes, loading, setLoading, fetchRecipes } = useRecipes();
   const [searchQuery, setSearchQuery] = useState("");
   const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
 
@@ -32,30 +33,11 @@ export const HomePage = () => {
   const [areas, setAreas] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [selectedArea, setSelectedArea] = useState<string>("all");
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recipesPerPage, setRecipesPerPage] = useState(6);
   const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({});
 
   const navigate = useNavigate();
-
-  const fetchRecipes = async (query = "", category = "all", area = "all") => {
-    try {
-      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
-      if (category !== "all") {
-        url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
-      }
-      if (area !== "all") {
-        url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
-      }
-      const res = await axios.get(url);
-      const data = res.data;
-      return data.meals || [];
-    } catch (error) {
-      console.log("Error fetching Recipes", error);
-      return [];
-    }
-  };
 
   useEffect(() => {
     setLoading(true);
