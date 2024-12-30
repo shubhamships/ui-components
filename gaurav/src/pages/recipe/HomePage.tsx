@@ -8,22 +8,12 @@ import { Toast } from "./components/Toast";
 import { Header } from "./components/Header";
 import RecipeCard from "./components/RecipeCard";
 import { Filters } from "./components/Filters";
-interface IData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strYoutube: string;
-  strInstructions: string;
-  idMeal: string;
-  strCategory: string;
-  strArea: string;
-  savedRecipe: string[];
-}
+import { IRecipeData } from "@/lib/interfaces";
 
 export const HomePage = () => {
-  const [recipes, setRecipes] = useState<IData[]>([]);
+  const [recipes, setRecipes] = useState<IRecipeData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
+  const [savedRecipe, setSavedRecipe] = useState<IRecipeData[]>([]);
 
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -39,14 +29,16 @@ export const HomePage = () => {
 
   const navigate = useNavigate();
 
+  const API_URL = "https://www.themealdb.com/api/json/v1/1/";
+
   const fetchRecipes = async (query = "", category = "all", area = "all") => {
     try {
-      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+      let url = `${API_URL}search.php?s=${query}`;
       if (category !== "all") {
-        url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+        url = `${API_URL}filter.php?c=${category}`;
       }
       if (area !== "all") {
-        url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+        url = `${API_URL}filter.php?a=${area}`;
       }
       const res = await axios.get(url);
       const data = res.data;
@@ -72,7 +64,7 @@ export const HomePage = () => {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?c=list");
+      const res = await axios.get(`${API_URL}list.php?c=list`);
       return res.data.meals.map((meal: { strCategory: string }) => meal.strCategory);
     } catch (error) {
       console.log("Error fetching categories", error);
@@ -82,7 +74,7 @@ export const HomePage = () => {
 
   const fetchAreas = async () => {
     try {
-      const res = await axios.get("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
+      const res = await axios.get(`${API_URL}list.php?a=list`);
       return res.data.meals.map((meal: { strArea: string }) => meal.strArea);
     } catch (error) {
       console.log("Error fetching areas", error);

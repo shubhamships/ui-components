@@ -1,30 +1,14 @@
-import { MapPin, Play, Tags, Utensils } from "lucide-react";
+import { MapPin, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
-
-interface IRecipeData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strYoutube: string;
-  strInstructions: string;
-  strArea: string;
-  strCategory: string;
-  [key: string]: any;
-}
+import { IRecipeData } from "@/lib/interfaces";
 
 export const SavedRecipe = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const [searchresults, setSearchResults] = useState<IRecipeData[]>([]);
-  const [found, setFound] = useState<boolean>(false);
 
   useEffect(() => {
-    // const state = location.state as { savedRecipe: IRecipeData[] };
-    // if (state && state.savedRecipe) {
-    //   setSearchResults(state.savedRecipe);
-    // }
     const savedRecipe = localStorage.getItem("savedRecipe");
     if (savedRecipe) {
       setSearchResults(JSON.parse(savedRecipe));

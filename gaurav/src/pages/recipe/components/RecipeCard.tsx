@@ -1,20 +1,9 @@
 import { Bookmark, BookmarkCheck, MapPin, Plus, Tags, Trash2, Utensils } from "lucide-react";
 import { CardSmallDetail } from "./CardSmallDetail";
-
-interface IData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strYoutube: string;
-  strInstructions: string;
-  idMeal: string;
-  strCategory: string;
-  strArea: string;
-  savedRecipe: string[];
-}
+import { IRecipeData } from "@/lib/interfaces";
 
 interface RecipeCardProps {
-  recipe: IData;
+  recipe: IRecipeData;
   handleSavedRecipe: (id: string) => void;
   handleRemoveRecipe: (id: string) => void;
   handleClick: (id: string) => void;

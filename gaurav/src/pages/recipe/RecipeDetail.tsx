@@ -2,25 +2,18 @@ import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { IRecipeData } from "@/lib/interfaces";
 
-interface IRecipeData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strYoutube: string;
-  strInstructions: string;
-  strArea: string;
-  strCategory: string;
-  [key: string]: any;
-}
 export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
   const [timeout, setTimeOut] = useState<boolean>(false);
 
+  const apiUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+
   const fetchRecipeDetail = async (id?: string) => {
     try {
-      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const res = await axios.get(`${apiUrl}`);
       const data = res.data.meals[0];
       setRecipe(data);
     } catch (error) {
@@ -36,8 +29,6 @@ export const RecipeDetail = () => {
     }
     setTimeOut(false);
   }, [id]);
-
-
 
   console.log(recipe);
   if (!recipe) {
@@ -80,7 +71,7 @@ export const RecipeDetail = () => {
               ))}
             </div>
             <div className="flex flex-col lg:flex-row w-full items-center lg:items-baseline justify-between gap-5 mt-5">
-              <div className="text-white m-4 px-4 md:p-5 w-full" >
+              <div className="text-white m-4 px-4 md:p-5 w-full">
                 <div className="bg-recipeDetailsBg px-4 rounded-lg shadow-lg">
                   <div className="text-xl font-bold text-recipeDetailColor pt-2">Ingredients List</div>
                   <ul className="text-lg mt-2 pr-2 pb-4 text-nowrap">

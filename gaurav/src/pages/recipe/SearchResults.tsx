@@ -6,26 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "./components/RecipeCard";
 import { Pagination } from "./components/Pagination";
 import { Toast } from "./components/Toast";
-
-interface IData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strYoutube: string;
-  strInstructions: string;
-  idMeal: string;
-  strCategory: string;
-  strArea: string;
-  savedRecipe: string[];
-}
+import { IRecipeData } from "@/lib/interfaces";
 
 export const SearchResults = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [searchresults, setSearchResults] = useState<IData[]>([]);
+  const [searchresults, setSearchResults] = useState<IRecipeData[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [savedRecipe, setSavedRecipe] = useState<IData[]>([]);
+  const [savedRecipe, setSavedRecipe] = useState<IRecipeData[]>([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [savedStatus, setSavedStatus] = useState<{ [key: string]: boolean }>({}); // {idMeal: true}
@@ -34,9 +23,11 @@ export const SearchResults = () => {
 
   const query = new URLSearchParams(location.search).get("query");
 
-  const fetchRecipes = async (query = ""): Promise<IData[]> => {
+  const API_URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`;
+
+  const fetchRecipes = async (query = ""): Promise<IRecipeData[]> => {
     try {
-      const res = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+      const res = await axios.get(`${API_URL}`);
       const data = res.data;
       setSearchResults(data.meals || []);
       return data.meals || [];
@@ -116,7 +107,7 @@ export const SearchResults = () => {
 
   return (
     <>
-      <div className="bg-[#083344] min-h-screen relative">
+      <div className="bg-recipebg min-h-screen relative">
         {showToast && (
           <div className="absolute top-2 right-2">
             <Toast message={toastMessage} />

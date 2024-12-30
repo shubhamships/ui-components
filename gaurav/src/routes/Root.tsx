@@ -5,11 +5,12 @@ export const Root = () => {
   const navigate = useNavigate();
 
   const styleClass = "w-40 h-30 text-gray-500";
+  
   // Reset Logic
   const handleReset = () => {
     try {
       localStorage.clear();
-      window.location.reload();
+      location.reload();
     } catch (error) {
       console.log(error);
     }

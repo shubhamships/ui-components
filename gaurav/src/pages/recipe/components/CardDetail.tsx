@@ -1,15 +1,6 @@
 import { MapPin, Tags, Utensils } from "lucide-react";
 import { CardSmallDetail } from "./CardSmallDetail";
-interface IRecipeData {
-  strMeal: string;
-  strMealThumb: string;
-  strTags: string;
-  strArea: string;
-  strCategory: string;
-  strInstructions: string;
-  idMeal: string;
-  [key: string]: any;
-}
+import { IRecipeData } from "@/lib/interfaces";
 interface ICardDetailProps {
   currentRecipes: IRecipeData[];
   savedRecipe: () => void;
@@ -37,7 +28,6 @@ export const CardDetail = ({ currentRecipes, savedRecipe, recipeId }: ICardDetai
                   <div
                     className="p-4 cursor-pointer"
                     onClick={recipeId}
-                    // onClick={recipeId}
                   >
                     <div className="text-white font-semibold text-xl">{recipe.strMeal}</div>
                     <div className="pt-1">
