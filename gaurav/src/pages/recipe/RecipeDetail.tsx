@@ -7,7 +7,7 @@ import { apiClient } from "@/api/apiClient";
 export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
-  const [timeout, setTimeOut] = useState<boolean>(false);
+  const [istimeout, setIsTimeOut] = useState<boolean>(false);
 
   const fetchRecipeDetail = async (id?: string) => {
     try {
@@ -20,12 +20,12 @@ export const RecipeDetail = () => {
   };
   useEffect(() => {
     setTimeout(() => {
-      setTimeOut(false);
+      setIsTimeOut(false);
     }, 1000);
     if (id) {
       fetchRecipeDetail(id);
     }
-    setTimeOut(false);
+    setIsTimeOut(false);
   }, [id]);
 
   console.log(recipe);

@@ -50,7 +50,7 @@ const RecipeCard = ({ recipe, handleSavedRecipe, handleRemoveRecipe, handleClick
                 </span>
               </>
             ) : (
-              "No Instructions"
+              "Click to see Instruction"
             )}
           </p>
         </div>

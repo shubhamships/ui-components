@@ -47,7 +47,7 @@ export const CardDetail = ({ currentRecipes, savedRecipe, recipeId }: ICardDetai
                           <span className="cursor-pointer text-xs font-semibold">Read More . . .</span>
                         </>
                       ) : (
-                        "No Instructions"
+                        "Click here to see Instruction"
                       )}
                     </p>
                   </div>

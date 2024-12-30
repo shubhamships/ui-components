@@ -1,5 +1,5 @@
 import Input from "@/components/ui/Input";
-import { Search } from "lucide-react";
+import { Loader, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "./components/Pagination";
@@ -39,8 +39,7 @@ export const HomePage = () => {
         url = `filter.php?a=${area}`;
       }
       const res = await apiClient.get(url);
-      const data = res.data;
-      return data.meals || [];
+      return res.data.meals;
     } catch (error) {
       console.log("Error fetching Recipes", error);
       return [];
@@ -136,10 +135,6 @@ export const HomePage = () => {
     localStorage.setItem("savedStatus", JSON.stringify({ ...savedStatus, [id]: false }));
   };
 
-  const filteredRecipes = recipes.filter((recipe) =>
-    recipe?.strMeal?.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
-
   // pagination logic
   const indexOfLastRecipe = currentPage * recipesPerPage;
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
@@ -155,10 +150,6 @@ export const HomePage = () => {
     };
     fetchData();
   }, [searchQuery]);
-
-  if (!filteredRecipes) {
-    return <div className="h-screen bg-recipebg text-white cursor-wait flex items-center justify-center">Loading</div>;
-  }
 
   useEffect(() => {
     const savedRecipeStatus = localStorage.getItem("savedStatus");
@@ -184,69 +175,75 @@ export const HomePage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-recipebg w-full relative">
-        {showToast && (
-          <div className="absolute top-0 right-0">
-            <Toast message={toastMessage} />
-          </div>
-        )}
-        <Header />
-        <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
-            <div className="w-full md:w-3/4">
-              <Input
-                type="text"
-                id="recipe-input"
-                placeholder="Search Your Favorite Recipe. . ."
-                className="w-full border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
-              >
-                <div className="px-2 cursor-pointer">
-                  <Search onClick={handleSearch} />
-                </div>
-              </Input>
-            </div>
-
-            <div className="w-full md:w-1/4 pl-2">
-              <Filters
-                categoryTitle={selectedCategory === "all" ? "All Categories" : selectedCategory}
-                areaTitle={selectedArea === "all" ? "All Areas" : selectedArea}
-                categories={categories}
-                selectedCategory={selectedCategory}
-                handleCategoryChange={handleCategoryChange}
-                areas={areas}
-                selectedArea={selectedArea}
-                handleAreaChange={handleAreaChange}
-              />
-            </div>
-          </div>
+      {currentRecipes.length === 0 ? (
+        <div className="h-screen bg-recipebg w-full text-white cursor-wait flex items-center justify-center">
+          Loading <Loader className="animate-spin w-5 h-5 mx-2" />
         </div>
-        <div className="flex justify-center items-center mx-2 pb-28">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
-            {currentRecipes.length > 0 &&
-              currentRecipes.map((recipe, index) => (
-                <RecipeCard
-                  key={index}
-                  recipe={recipe}
-                  handleSavedRecipe={handleSavedRecipe}
-                  handleClick={handleClick}
-                  handleRemoveRecipe={handleRemoveRecipe}
-                  savedStatus={savedStatus[recipe.idMeal] || false}
+      ) : (
+        <div className="min-h-screen bg-recipebg w-full relative">
+          {showToast && (
+            <div className="absolute top-0 right-0">
+              <Toast message={toastMessage} />
+            </div>
+          )}
+          <Header />
+          <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
+              <div className="w-full md:w-3/4">
+                <Input
+                  type="text"
+                  id="recipe-input"
+                  placeholder="Search Your Favorite Recipe. . ."
+                  className="w-full border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
+                >
+                  <div className="px-2 cursor-pointer">
+                    <Search onClick={handleSearch} />
+                  </div>
+                </Input>
+              </div>
+
+              <div className="w-full md:w-1/4 pl-2">
+                <Filters
+                  categoryTitle={selectedCategory === "all" ? "All Categories" : selectedCategory}
+                  areaTitle={selectedArea === "all" ? "All Areas" : selectedArea}
+                  categories={categories}
+                  selectedCategory={selectedCategory}
+                  handleCategoryChange={handleCategoryChange}
+                  areas={areas}
+                  selectedArea={selectedArea}
+                  handleAreaChange={handleAreaChange}
                 />
-              ))}
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-center items-center mx-2 pb-28">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center items-start pt-5 pb-2 m-2 gap-8">
+              {currentRecipes.length > 0 &&
+                currentRecipes.map((recipe, index) => (
+                  <RecipeCard
+                    key={index}
+                    recipe={recipe}
+                    handleSavedRecipe={handleSavedRecipe}
+                    handleClick={handleClick}
+                    handleRemoveRecipe={handleRemoveRecipe}
+                    savedStatus={savedStatus[recipe.idMeal] || false}
+                  />
+                ))}
+            </div>
+          </div>
+
+          <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
+            <Pagination
+              totalRecipe={recipes.length}
+              totalRecipePerPage={recipesPerPage}
+              setCurrentPages={setCurrentPage}
+            />
           </div>
         </div>
-
-        <div className="absolute bottom-0 w-full mt-10 flex justify-center items-center">
-          <Pagination
-            totalRecipe={recipes.length}
-            totalRecipePerPage={recipesPerPage}
-            setCurrentPages={setCurrentPage}
-          />
-        </div>
-      </div>
+      )}
     </>
   );
 };

@@ -3,14 +3,11 @@ import { HomePage } from "@/pages/recipe/HomePage";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 export const Root = () => {
   const navigate = useNavigate();
-
-  const styleClass = "w-40 h-30 text-gray-500";
-  
   // Reset Logic
   const handleReset = () => {
     try {
       localStorage.clear();
-      location.reload();
+      navigate(0);
     } catch (error) {
       console.log(error);
     }
