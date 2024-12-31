@@ -28,7 +28,6 @@ export const RecipeDetail = () => {
     setIsTimeOut(false);
   }, [id]);
 
-  console.log(recipe);
   if (!recipe) {
     return (
       <div className="h-screen bg-recipebg text-white cursor-wait flex items-center justify-center">
