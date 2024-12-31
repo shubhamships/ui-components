@@ -1,8 +1,9 @@
-import { MapPin, Tags, Utensils } from "lucide-react";
+import { ChevronLeft, MapPin, Tags, Utensils } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CardSmallDetail } from "./components/CardSmallDetail";
 import { IRecipeData } from "@/lib/interfaces";
+import Button from "@/components/ui/personal/Button";
 
 export const SavedRecipe = () => {
   const navigate = useNavigate();
@@ -29,9 +30,16 @@ export const SavedRecipe = () => {
       ) : (
         <div className="bg-recipebg w-full min-h-screen">
           <div className="container mx-auto p-4 px-4">
+            <Button
+              title=""
+              size="icon"
+              iconName={<ChevronLeft />}
+              className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+              onClick={() => navigate(-1)}
+            />
             <div>
-              <h1 className="text-white text-4xl font-semibold mt-10 p-10 text-center">Saved Recipes</h1>
-              <div className="grid grid-cols-1 lg:grid-cols-2 justify-around items-center mx-2 pb-16 lg:mx-20">
+              <h1 className="text-white text-4xl font-semibold p-10 text-center">Saved Recipes</h1>
+              <div className="grid grid-cols-1 lg:grid-cols-2 justify-around items-center mx-4 pb-16 lg:mx-20">
                 {searchresults.length > 0 &&
                   searchresults.map((recipe, index) => (
                     <div
@@ -46,7 +54,7 @@ export const SavedRecipe = () => {
                           <div className="w-full">
                             <img src={recipe.strMealThumb} alt={recipe.strMeal} className="w-96 h-40 object-cover" />
                           </div>
-                          <div className="p-1 lg:p-4">
+                          <div className="p-1 m-1 lg:p-4">
                             <div className="flex flex-wrap gap-2">
                               <CardSmallDetail iconName={<Tags className="w-3 h-3 mr-1" />} detail={recipe.strTags} />
                               <CardSmallDetail iconName={<MapPin className="w-3 h-3 mr-1" />} detail={recipe.strArea} />
@@ -57,7 +65,7 @@ export const SavedRecipe = () => {
                             </div>
                             <p className="text-white text-balance text-ellipsis pt-2">
                               <span className="font-semibold text-white">Instruction: </span>
-                              {recipe.strInstructions.split(" ").slice(0, 25).join(" ") + ". . ."}
+                              {recipe.strInstructions.split(" ").slice(0, 10).join(" ") + ". . ."}
                             </p>
                             <div>
                               <span className="text-sm font-semibold text-white">Read More . . .</span>

@@ -1,11 +1,13 @@
-import { Loader } from "lucide-react";
+import { ChevronLeft, Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IRecipeData } from "@/lib/interfaces";
 import { apiClient } from "@/api/apiClient";
+import Button from "@/components/ui/personal/Button";
 
 export const RecipeDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [recipe, setRecipe] = useState<IRecipeData | null>(null);
   const [istimeout, setIsTimeOut] = useState<boolean>(false);
 
@@ -46,6 +48,16 @@ export const RecipeDetail = () => {
     <>
       <div className="bg-recipebg w-full min-h-screen">
         <div className="container mx-auto p-4 px-4">
+          <Button
+            title=""
+            size="icon"
+            iconName={<ChevronLeft />}
+            className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+            onClick={() => navigate(-1)}
+          />
+          <div className="text-white bg-transparent text-4xl font-semibold pt-10 pb-5">
+            <h1 className="text-center">Recipe Detail</h1>
+          </div>
           <div className="flex flex-col mt-5 md:mx-24 xl:mx-64 bg-recipeDetailsBg bg-opacity-50 rounded-lg">
             <div className="relative flex flex-col w-full">
               <img
@@ -63,7 +75,7 @@ export const RecipeDetail = () => {
               <div className="text-xl font-bold text-recipeDetailColor">Cooking Instruction</div>
               {steps.map((step, index) => (
                 <div key={index} className="mb-4">
-                  <span className="font-semibold">STEP {index + 1} :</span> {step.trim()}
+                  {steps.length > 1 && <span className="font-semibold">STEP {index + 1} :</span>} {step.trim()}
                 </div>
               ))}
             </div>

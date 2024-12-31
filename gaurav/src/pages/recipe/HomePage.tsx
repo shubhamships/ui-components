@@ -186,7 +186,7 @@ export const HomePage = () => {
       ) : (
         <div className="min-h-screen bg-recipebg w-full relative">
           {showToast && (
-            <div className="absolute top-0 right-0">
+            <div className="absolute top-2 right-2">
               <Toast message={toastMessage} />
             </div>
           )}

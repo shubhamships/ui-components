@@ -29,7 +29,7 @@ export const Root = () => {
           <MenuLink
             route="/"
             className="text-white text-3xl font-bold"
-            iconName={<img src="/recipe/logo.png" alt="Recipe Logo" className="object-center h-14" />}
+            iconName={<img src="/recipe/logo.svg" alt="Recipe Logo" className="object-center h-14" />}
           />
           <div className="flex justify-center items-center gap-2">
             <Button

@@ -1,5 +1,5 @@
 import Input from "@/components/ui/Input";
-import { Search } from "lucide-react";
+import { ChevronLeft, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import RecipeCard from "./components/RecipeCard";
@@ -7,6 +7,7 @@ import { Pagination } from "./components/Pagination";
 import { Toast } from "./components/Toast";
 import { IRecipeData } from "@/lib/interfaces";
 import { apiClient } from "@/api/apiClient";
+import Button from "@/components/ui/personal/Button";
 
 export const SearchResults = () => {
   const location = useLocation();
@@ -114,22 +115,30 @@ export const SearchResults = () => {
         <div className="text-white bg-transparent text-4xl font-semibold pt-10 pb-5">
           <h1 className="text-center">Search Results</h1>
         </div>
-        <div className="flex-grow justify-center items-center">
-          <div className="px-4 md:mx-16">
-            {/* Add a max-width wrapper */}
-            <div className="max-w-4xl mx-auto">
-              <Input
-                type="text"
-                id="recipe-input"
-                placeholder="Search Your Favorite Recipe. . ."
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
-                className="appearance-none border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
-              >
-                <div className="px-2 cursor-pointer">
-                  <Search onClick={handleSearch} />
-                </div>
-              </Input>
+        <div className="flex items-center gap-2 mx-2 ">
+          <Button
+            title=""
+            iconName={<ChevronLeft className="h-4 w-4 rounded-full" />}
+            size="icon"
+            className="lg:hidden bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+            onClick={() => navigate(-1)}
+          />
+          <div className="flex-grow justify-center items-center">
+            <div className="pr-4 md:mx-16">
+              <div className="max-w-4xl mx-auto">
+                <Input
+                  type="text"
+                  id="recipe-input"
+                  placeholder="Search Your Favorite Recipe. . ."
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e: any) => e.key === "Enter" && handleSearch(e)}
+                  className="appearance-none border-none focus:disabled focus:outline-none focus:border-none focus-visible:ring-0 accent-transparent bg-white bg-opacity-75"
+                >
+                  <div className="px-2 cursor-pointer">
+                    <Search onClick={handleSearch} />
+                  </div>
+                </Input>
+              </div>
             </div>
           </div>
         </div>
