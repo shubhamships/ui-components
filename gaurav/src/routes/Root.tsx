@@ -1,29 +1,77 @@
 import Button from "@/components/ui/personal/Button";
-import { IdCard } from "lucide-react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { HomePage } from "@/pages/recipe/HomePage";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 export const Root = () => {
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("timelog");
+  // Reset Logic
+  const handleReset = () => {
+    try {
+      localStorage.clear();
+      navigate(0);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const handleNavigate = () => {
+    try {
+      navigate("saved");
+      console.log("Navigating to Saved Recipes");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
-      <div className="flex justify-center items-center">
-      <div className="bg-gradient-to-b from-purple-200 to-blue-100 pb-20 px-4 pt-10 overflow-hidden max-w-md">
-        <h1 className="text-center text-5xl font-bold p-4 pt-8 text-gray-800">Welcome to the TimeLog</h1>
-        <div className="flex justify-center items-center h-96 mb-32">
-          <Button
-            title="Mark your Attandence"
-            className="bg-purple-700 text-white w-full px-4 rounded-lg shadow-lg hover:bg-purple-700 transition duration-300"
-            iconName={<IdCard className="mx-2" />}
-            onClick={handleClick}
+      <div className="flex justify-center items-center w-full z-20 ">
+        <ul className="flex justify-between items-center bg-recipebg md:gap-6 p-2 px-2 lg:px-8 w-full">
+          <MenuLink
+            route="/"
+            className="text-white text-3xl font-bold"
+            iconName={<img src="/recipe/logo.svg" alt="Recipe Logo" className="object-center h-14" />}
           />
-        </div>
+          <div className="flex justify-center items-center gap-2">
+            <Button
+              title="Saved Recipes"
+              className="bg-transparent text-sm shadow-none hover:bg-transparent border-none hover:bg-opacity-75"
+              onClick={handleNavigate}
+            />
+            <Button
+              title="Reset"
+              className="bg-recipeCardBg hover:bg-recipeCardBg border-none hover:bg-opacity-75"
+              onClick={handleReset}
+            />
+          </div>
+        </ul>
       </div>
+      <div className="flex justify-center items-center">
+        <HomePage />
       </div>
-      <div>
-        <Outlet />
-      </div>
+      <Outlet />
     </>
+  );
+};
+
+const MenuLink = ({
+  name,
+  iconName,
+  route,
+  className,
+}: {
+  name?: string;
+  iconName?: React.ReactNode;
+  route: string;
+  className?: string;
+}) => {
+  return (
+    <li className={`text-gray-200 font-medium ${className}`}>
+      <Link to={route}>
+        <div className={`flex flex-col justify-center items-center text-gray-500 ${className}`}>
+          <span>{iconName}</span>
+          <div className={`text-xs ${className}`}>{name}</div>
+        </div>
+      </Link>
+    </li>
   );
 };

@@ -1,4 +1,3 @@
-import tailwindcssAnimate from 'tailwindcss-animate';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -7,6 +6,10 @@ export default {
   theme: {
     extend: {
       colors: {
+        recipebg: '#083344',
+        recipeCardBg: '#10B981',
+        recipeDetailsBg: '#009990',
+        recipeDetailColor: '#E3F0AF',
         primary: '#1f499e',
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -57,7 +60,5 @@ export default {
         sm: 'calc(var(--radius) - 4px)'
       },
     },
-    plugins: [tailwindcssAnimate],
-
   }
 }
