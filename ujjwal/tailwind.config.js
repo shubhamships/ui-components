@@ -2,7 +2,15 @@
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+      },
+      backgroundImage: {
+        backgroundImage: "url('./images/background.jpg')",
+      },
+    },
   },
   plugins: [],
 };
