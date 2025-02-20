@@ -15,6 +15,7 @@ function Dashboard() {
       localStorage.removeItem("jwtToken");
       setTimeout(() => {
         navigate("/");
+        console.log("commment");
         setIsLoading(false);
       }, 1000);
     } catch (error) {
@@ -24,8 +25,8 @@ function Dashboard() {
   };
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <p className="text-3xl mt-10">Dashboard</p>
+    <div className="flex flex-col items-center justify-center">
+      <p className="mt-10 text-3xl">Dashboard</p>
       <LoaderButton onClick={handleLogout} isLoading={isLoading} className={`${isLoading ? "opacity-60" : ""}`}>
         Logout
       </LoaderButton>
