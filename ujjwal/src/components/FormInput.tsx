@@ -1,4 +1,4 @@
-import { Mail, CircleUserRound, MapPin, Plus, Search } from "lucide-react";
+import { Mail, CircleUserRound, MapPin, Plus, Search, LockKeyhole, Dog, Castle, Wallet, Circle } from "lucide-react";
 import { useState } from "react";
 
 /**
@@ -37,21 +37,25 @@ interface FormInputProps {
   size?: keyof typeof InputSize;
   icon?: keyof typeof Icon;
   isFloatingLabel?: boolean;
+  disabled?: boolean;
 }
 
 const colorCombination = {
-  default: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
-  focusBlue: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
+  null: "apearence-none",
+  defaultDark: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-teal-400 appearance-none",
+  checkbox: "w-4 h-3.5 rounded-3xl",
+  defaultWhite: "text-black bg-white p-2 focus:ring-1 focus:ring-teal-400 appearance-none",
+  focusBlue: "text-white bg-blue-900 p-2 focus:ring-2 focus:ring-sky-400 appearance-none",
   focusGreen: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-lime-400 appearance-none",
   focusYellow: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-yellow-300 appearance-none",
   focusRed: "text-white bg-gray-600 p-2 focus:ring-2 focus:ring-pink-500 appearance-none",
 };
 
 const InputSize = {
-  sm: "text-xs px-2 py-1 border border-gray-200 rounded-md w-48 h-10",
-  md: "text-sm px-3 py-2 border border-gray-200 rounded-lg w-1/4 h-12",
-  lg: "text-md px-4 py-3 border border-gray-200 rounded-2xl w-2/4 h-14",
-  xl: "text-lg px-5 py-4 border border-gray-200 rounded-3xl w-3/4 h-16",
+  sm: "text-xs w-full px-2 border border-gray-200 rounded-md w-48 h-10",
+  md: "text-sm w-full px-3 border border-gray-200 rounded-lg w-1/4 h-12",
+  lg: "text-md w-full px-4 border border-gray-200 rounded-2xl w-2/4 h-14",
+  xl: "text-lg w-full px-5 border border-gray-200 rounded-3xl w-3/4 h-16",
 };
 
 const Icon = {
@@ -61,6 +65,11 @@ const Icon = {
   location: <MapPin />,
   number: <Plus />,
   person: <CircleUserRound />,
+  password: <LockKeyhole />,
+  dog: <Dog />,
+  castle: <Castle />,
+  wallet: <Wallet />,
+  circle: <Circle />,
 };
 
 function FormInput({
@@ -69,14 +78,15 @@ function FormInput({
   label,
   placeholder,
   isRequired = false,
-  variant = "default",
+  variant = "null",
   size = "md",
   className,
   icon = "default",
+  disabled,
 }: FormInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [data, setData] = useState("");
-  const variantClass = colorCombination[variant] || colorCombination.default;
+  const variantClass = colorCombination[variant] || colorCombination.defaultDark;
   const sizeClass = InputSize[size] || InputSize.md;
   const iconClass = Icon[icon] || null;
   const isFloating = isFocused;
@@ -96,7 +106,9 @@ function FormInput({
     <div className="relative flex flex-col">
       <div className="relative">
         {iconClass && (
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white">{iconClass}</span>
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 hover:cursor-pointer">
+            {iconClass}
+          </span>
         )}
         {label && (
           <label
@@ -118,6 +130,7 @@ function FormInput({
           onChange={handleInputEvent}
           onFocus={handleInputEvent}
           onBlur={handleInputEvent}
+          disabled={disabled}
           className={`${iconClass ? "pl-12" : ""} ${variantClass} ${sizeClass} ${className || ""}`}
         />
       </div>
